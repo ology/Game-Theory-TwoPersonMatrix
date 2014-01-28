@@ -1,4 +1,6 @@
-Game-Theory-TwoPersonMatrix
-===========================
+Game::Theory::TwoPersonMatrix
+=============================
 
-Matrix game reduction &amp; Equilibria identification
+Perl API for two person matrix game reduction by elimination of strictly dominated strategies.
+
+Nash equilibria are also identified.

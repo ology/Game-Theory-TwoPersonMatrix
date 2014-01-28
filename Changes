@@ -1,0 +1,5 @@
+Revision history for Game-Theory-TwoPersonMatrix
+
+{{$NEXT}}
+    - Moved functionality from script subs to module methods.
+    - Minted by Dist::Zilla
