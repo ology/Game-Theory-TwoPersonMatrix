@@ -20,11 +20,13 @@ Game::Theory::TwoPersonMatrix - Reduce & analyze a 2 person matrix game
 
   use Game::Theory::TwoPersonMatrix;
   my $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => \@u1, 2 => \@u2 },
-    2 => { 1 => \@v1, 2 => \@v2 }
+    1 => { 1 => \@s1, 2 => \@s2, utility => \&u1 },
+    2 => { 1 => \@t1, 2 => \@t2, utility => \&u2 }
   );
   $g->reduce(2, 1);
   $g->reduce(1, 2);
+  my $u = $g->utility;
+  print Dumper $u;
   my $e = $g->nash;
   print Dumper $e;
 
@@ -230,6 +232,19 @@ sub nash {
     }
 
     return $nash;
+}
+
+=head2 utility()
+
+  my $u = $g->utility;
+  print Dumper $u;
+
+=cut
+
+sub utility {
+    my $self = shift;
+    my $utility;
+    return $utility;
 }
 
 1;
