@@ -149,8 +149,8 @@ sub reduce {
 
 =head2 nash()
 
-  my $equilibria = $self->nash;
-  print Dumper $nash;
+  my $equilibria = $g->nash;
+  print Dumper $equilibria;
 
 Find the Nash equilibria.
 
@@ -208,7 +208,6 @@ sub nash {
     }
 
     return $nash;
-
 }
 
 1;
