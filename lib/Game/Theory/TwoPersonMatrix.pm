@@ -20,13 +20,13 @@ Game::Theory::TwoPersonMatrix - Reduce & analyze a 2 person matrix game
 
   use Game::Theory::TwoPersonMatrix;
   my $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => \@s1, 2 => \@s2, utility => \&u1 },
-    2 => { 1 => \@t1, 2 => \@t2, utility => \&u2 }
+    1 => { 1 => \@s1, 2 => \@s2, payoff => \&p1 },
+    2 => { 1 => \@t1, 2 => \@t2, payoff => \&p2 }
   );
   $g->reduce(2, 1);
   $g->reduce(1, 2);
-  my $u = $g->utility;
-  print Dumper $u;
+  my $p = $g->payoff;
+  print Dumper $p;
   my $e = $g->nash;
   print Dumper $e;
 
@@ -42,7 +42,7 @@ Player strategies are given by a 2D matrix of utilities (or payoffs) such that,
 
   [ [ u1, u2 .. un] .. [ v1, v2 .. vn ] ]
 
-Where each "B<u>i" is a utility or payoff for the strategy "B<U>."
+Where each "B<u>i" is a utility measure for the strategy "B<U>."
 
 Player 1 and 2 are the "row" and "column" players, respectively.  This is due to
 the tabular format of a matrix game:
@@ -234,17 +234,17 @@ sub nash {
     return $nash;
 }
 
-=head2 utility()
+=head2 payoff()
 
-  my $u = $g->utility;
-  print Dumper $u;
+  my $p = $g->payoff;
+  print Dumper $p;
 
 =cut
 
-sub utility {
+sub payoff {
     my $self = shift;
-    my $utility;
-    return $utility;
+    my $payoff;
+    return $payoff;
 }
 
 1;
