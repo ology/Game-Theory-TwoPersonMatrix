@@ -60,15 +60,21 @@ sub new {
 
 =head2 reduce()
 
-Reduce the game by elimination of strictly dominated strategies.
+  $self->reduce_game(2,1); # Player 1 given opponent 2
+  $self->reduce_game(1,2); # Player 2 given opponent 1
+
+Reduce the game by elimination of a single strictly dominated strategy of the given player.
+
+Use repeated application of this to solve a game, or verify that it is insoluble.
 
 =cut
 
 sub reduce {
     my $self = shift;
 
-    # Convenience:
-    my ($player, $opponent) = ($self->{p1}, $self->{p2});
+    # Set the players.
+    my ($player, $opponent) = @_;
+    ($player, $opponent) = ($self->{$player}, $self->{$opponent});
 
     # Declare the bucket of "X given Y" strategy pair utilities.
     my $utility = {};
@@ -134,6 +140,8 @@ sub reduce {
 }
 
 =head2 nash()
+
+  my $equilibria = $self->nash;
 
 Find the Nash equilibria.
 
