@@ -57,8 +57,8 @@ sub new {
     my $class = shift;
     my %args = @_;
     my $self = {
-        1 => $args{p1} || [[1,0],[0,1]],
-        2 => $args{p2} || [[1,0],[0,1]],
+        1 => $args{1} || [[1,0],[0,1]],
+        2 => $args{2} || [[1,0],[0,1]],
     };
     bless $self, $class;
     return $self;
@@ -160,7 +160,7 @@ sub nash {
     my $self = shift;
 
     # Convenience:
-    my ($player, $opponent) = ($self->{p1}, $self->{p2});
+    my ($player, $opponent) = ($self->{1}, $self->{2});
 
     # Inspect each player item for best strategy.
     my %x; # Max utility indexes.
