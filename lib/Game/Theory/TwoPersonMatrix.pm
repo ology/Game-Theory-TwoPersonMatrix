@@ -212,5 +212,3 @@ sub nash {
 
 1;
 __END__
-
-=cut
