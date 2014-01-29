@@ -19,16 +19,22 @@ Game::Theory::TwoPersonMatrix - Reduce & analyze a 2 person matrix game
 =head1 SYNOPSIS
 
   use Game::Theory::TwoPersonMatrix;
-  my $g = Game::Theory::TwoPersonMatrix->new(1 => \@player1, 2 => \@player2);
-  $g->reduce(2,1);
-  $g->reduce(1,2);
+  my $g = Game::Theory::TwoPersonMatrix->new(
+    1 => { 1 => \@u1, 2 => \@u2 },
+    2 => { 1 => \@v1, 2 => \@v2 }
+  );
+  $g->reduce(2, 1);
+  $g->reduce(1, 2);
   my $e = $g->nash;
   print Dumper $e;
 
 =head1 DESCRIPTION
 
 A C<Game::Theory::TwoPersonMatrix> reduces and analyzes a two person matrix game
-of numerical player names, strategies and utilities.
+of player names, strategies and numerical utilities.
+
+The players must have the same number of strategies, and each strategy must have
+the same size utility vectors as all the others.
 
 =cut
 
@@ -36,14 +42,14 @@ of numerical player names, strategies and utilities.
 
 =head2 new()
 
-  my $g = Game::Theory::TwoPersonMatrix->new(1 => \@player1, 2 => \@player2);
+  my $g = Game::Theory::TwoPersonMatrix->new(%args);
 
 Create a new C<Game::Theory::TwoPersonMatrix> object.
 
 Player defaults:
 
-  1 = [[1,0],[0,1]]
-  2 = [[1,0],[0,1]]
+  1 => { 1 => [1,0], 2 => [0,1] },
+  2 => { 1 => [1,0], 2 => [0,1] }
 
 Player strategies are given by a 2D matrix of utilities (or payoffs) such that,
 
@@ -57,8 +63,8 @@ sub new {
     my $class = shift;
     my %args = @_;
     my $self = {
-        1 => $args{1} || [[1,0],[0,1]],
-        2 => $args{2} || [[1,0],[0,1]],
+        1 => $args{1} || { 1 => [1,0], 2 => [0,1] },
+        2 => $args{2} || { 1 => [1,0], 2 => [0,1] }
     };
     bless $self, $class;
     return $self;
@@ -66,14 +72,16 @@ sub new {
 
 =head2 reduce()
 
-  $g->reduce_game(2,1); # Player 1 given opponent 2
+  $g->reduce_game(1, 2); # Player 1 given opponent 2
   print Dumper $g->{1}, $g->{2};
-  $g->reduce_game(1,2); # Player 2 given opponent 1
+  $g->reduce_game(2, 1); # Player 2 given opponent 1
   print Dumper $g->{1}, $g->{2};
 
-Reduce the game by elimination of a single strictly dominated strategy of the player.
+Reduce the game by elimination of a single strictly dominated strategy of the
+player.
 
-Use repeated application of this to solve a game, or verify that it is insoluble.
+Use repeated application of this method to solve a game, or verify that it is
+insoluble.
 
 =cut
 
