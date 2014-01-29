@@ -19,11 +19,12 @@ Game::Theory::TwoPersonMatrix - Reduce and analyze two person matrix games
 =head1 SYNOPSIS
 
   use Game::Theory::TwoPersonMatrix;
-  my $g = Game::Theory::TwoPersonMatrix->new(%arguments);
+  my $g = Game::Theory::TwoPersonMatrix->new(1 => \@player1, 2 => \@player2);
 
 =head1 DESCRIPTION
 
-A C<Game::Theory::TwoPersonMatrix> reduces and analyzes a two person matrix game.
+A C<Game::Theory::TwoPersonMatrix> reduces and analyzes a two person matrix game
+of numerical player names, strategies and utilities.
 
 =cut
 
@@ -31,13 +32,13 @@ A C<Game::Theory::TwoPersonMatrix> reduces and analyzes a two person matrix game
 
 =head2 new()
 
-  my $g = Game::Theory::TwoPersonMatrix->new(%arguments);
+  my $g = Game::Theory::TwoPersonMatrix->new(1 => \@player1, 2 => \@player2);
 
 Create a new C<Game::Theory::TwoPersonMatrix> object.
 
 Argument defaults:
-  p1 = [[1,0],[0,1]]
-  p2 = [[1,0],[0,1]]
+  1 = [[1,0],[0,1]]
+  2 = [[1,0],[0,1]]
 
 Players are given by a 2D matrix of utilities (or payoffs) such that,
 
@@ -51,8 +52,8 @@ sub new {
     my $class = shift;
     my %args = @_;
     my $self = {
-        p1 => $args{p1} || [[1,0],[0,1]],
-        p2 => $args{p2} || [[1,0],[0,1]],
+        1 => $args{p1} || [[1,0],[0,1]],
+        2 => $args{p2} || [[1,0],[0,1]],
     };
     bless $self, $class;
     return $self;
