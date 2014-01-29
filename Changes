@@ -1,5 +1,9 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
-    - Moved functionality from script subs to module methods.
+    - Improved documentation
+
+0.01  2014-01-28
+    - Docuented the thing!
+    - Moved functionality from script subs to module methods
     - Minted by Dist::Zilla
