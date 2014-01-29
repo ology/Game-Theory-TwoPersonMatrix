@@ -220,7 +220,7 @@ sub nash {
         my $eutil = each_array(@{$x{$xs}}, @{$y{$ys}});
         while ( my ( $i, $j ) = $eutil->() ) {
             # Are the best strategies for both players on the same coordinate?
-            if ( $i == $j ) {
+            if ( defined $i && defined $j && $i == $j ) {
                 #warn "$xs,$ys: $i == $j\n";
 
                 # Save the strategy coordinate and utilities.
