@@ -5,13 +5,8 @@ my $g = eval { Game::Theory::TwoPersonMatrix->new };
 isa_ok $g, 'Game::Theory::TwoPersonMatrix';
 ok !$@, 'created with no arguments';
 
-my $x = $g->{foo};
-is $x, 'bar', "foo: $x";
-
-$g = Game::Theory::TwoPersonMatrix->new(
-    foo => 'Zap!',
-);
-$x = $g->{foo};
-like $x, qr/zap/i, "foo: $x";
+my $x = $g->{1};
+is_deeply $g->{1}, [[1,0],[0,1]], 'player 1';
+is_deeply $g->{2}, [[1,0],[0,1]], 'player 2';
 
 done_testing();
