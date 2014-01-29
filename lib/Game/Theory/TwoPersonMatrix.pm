@@ -23,7 +23,7 @@ Game::Theory::TwoPersonMatrix - Reduce & analyze a 2 person matrix game
   $g->reduce(2,1);
   $g->reduce(1,2);
   my $e = $g->nash;
-  print Dumper $nash;
+  print Dumper $e;
 
 =head1 DESCRIPTION
 
