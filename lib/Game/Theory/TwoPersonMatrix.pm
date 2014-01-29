@@ -1,6 +1,6 @@
 package Game::Theory::TwoPersonMatrix;
 
-# ABSTRACT: Reduce and analyze two person matrix games
+# ABSTRACT: Reduce & analyze a 2 person matrix game
 
 our $VERSION = '0.01_1';
 
@@ -14,12 +14,16 @@ use List::MoreUtils qw( all indexes each_array );
 
 =head1 NAME
 
-Game::Theory::TwoPersonMatrix - Reduce and analyze two person matrix games
+Game::Theory::TwoPersonMatrix - Reduce & analyze a 2 person matrix game
 
 =head1 SYNOPSIS
 
   use Game::Theory::TwoPersonMatrix;
   my $g = Game::Theory::TwoPersonMatrix->new(1 => \@player1, 2 => \@player2);
+  $g->reduce(2,1);
+  $g->reduce(1,2);
+  my $e = $g->nash;
+  print Dumper $nash;
 
 =head1 DESCRIPTION
 
@@ -36,15 +40,16 @@ of numerical player names, strategies and utilities.
 
 Create a new C<Game::Theory::TwoPersonMatrix> object.
 
-Argument defaults:
+Player defaults:
+
   1 = [[1,0],[0,1]]
   2 = [[1,0],[0,1]]
 
-Players are given by a 2D matrix of utilities (or payoffs) such that,
+Player strategies are given by a 2D matrix of utilities (or payoffs) such that,
 
- [ [ u1, u2 .. un] .. [ v1, v2 .. vn ] ] 
+  [ [ u1, u2 .. un] .. [ v1, v2 .. vn ] ]
 
-Where each B<u>C<i> is a utility or payoff for the strategy B<U>.
+Where each "B<u>i" is a utility or payoff for the strategy "B<U>."
 
 =cut
 
@@ -61,10 +66,12 @@ sub new {
 
 =head2 reduce()
 
-  $self->reduce_game(2,1); # Player 1 given opponent 2
-  $self->reduce_game(1,2); # Player 2 given opponent 1
+  $g->reduce_game(2,1); # Player 1 given opponent 2
+  print Dumper $g->{1}, $g->{2};
+  $g->reduce_game(1,2); # Player 2 given opponent 1
+  print Dumper $g->{1}, $g->{2};
 
-Reduce the game by elimination of a single strictly dominated strategy of the given player.
+Reduce the game by elimination of a single strictly dominated strategy of the player.
 
 Use repeated application of this to solve a game, or verify that it is insoluble.
 
@@ -143,6 +150,7 @@ sub reduce {
 =head2 nash()
 
   my $equilibria = $self->nash;
+  print Dumper $nash;
 
 Find the Nash equilibria.
 
