@@ -8,6 +8,6 @@ Revision history for Game-Theory-TwoPersonMatrix
     - Added tests for negative utilities
 
 0.01  2014-01-28
-    - Docuented the thing!
+    - Documented the thing!
     - Moved functionality from script subs to module methods
     - Minted by Dist::Zilla
