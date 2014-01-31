@@ -122,19 +122,20 @@ sub reduce {
 
     # Set the players.
     my ($player, $opponent) = @_;
-    ($player, $opponent) = ($self->{$player}, $self->{$opponent});
+    ($player, $opponent) = ($self->{$player}{strategy}, $self->{$opponent}{strategy});
 
     # Declare the bucket of "X given Y" strategy pair utilities.
     my $utility = {};
     my $metric  = {};
 
     # Evaluate pairs of strategies.
-    my $iter = variations_with_repetition([keys %$player], 2);
+    # XXX Really only need to inspect combinations and flag relative utility.
+    my $iter = variations_with_repetition([ keys %$player ], 2);
     while (my $v = $iter->next) {
         # Skip "X|X" pairs.
         next if $v->[0] eq $v->[1];
 
-        # Inspect each stategy utility.
+        # Inspect each strategy utility.
         #warn join(', ', @$v), "\n";
         for my $i (0 .. @$v - 1) {
             # Only consider defined utilities.
@@ -200,7 +201,7 @@ sub nash {
     my $self = shift;
 
     # Convenience:
-    my ($player, $opponent) = ($self->{1}, $self->{2});
+    my ($player, $opponent) = ($self->{1}{strategy}, $self->{2}{strategy});
 
     # Inspect each player item for best strategy.
     my %x; # Max utility indexes.
