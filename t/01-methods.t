@@ -3,8 +3,8 @@ use_ok 'Game::Theory::TwoPersonMatrix';
 
 my $g = Game::Theory::TwoPersonMatrix->new;
 isa_ok $g, 'Game::Theory::TwoPersonMatrix';
-is_deeply $g->{1}{strategy}{1}, [1,0], 'player 1 strategy';
-is_deeply $g->{2}{strategy}{2}, [0,1], 'player 2 strategy';
+is_deeply $g->{1}{strategy}{1}, [1,0], 'player 1 strategy 1';
+is_deeply $g->{2}{strategy}{1}, [1,0], 'player 2 strategy 1';
 my $x = $g->nash;
 is_deeply $x->{'1,1'}, [1,1], 'nash @ 1,1';
 is_deeply $x->{'2,2'}, [1,1], 'nash @ 2,2';
@@ -26,8 +26,8 @@ $g = Game::Theory::TwoPersonMatrix->new(
     2 => { strategy=>{1=>[-1,-1], 2=>[-1,-1]} },
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix';
-is_deeply $g->{1}{strategy}{1}, [-1, 0], 'player 1 strategy';
-is_deeply $g->{2}{strategy}{2}, [-1,-1], 'player 2 strategy';
+is_deeply $g->{1}{strategy}{1}, [-1, 0], 'player 1 strategy 1';
+is_deeply $g->{2}{strategy}{1}, [-1,-1], 'player 2 strategy 1';
 my $x = $g->nash;
 is_deeply $x->{'2,2'}, [0,-1], 'nash @ 2,2';
 
