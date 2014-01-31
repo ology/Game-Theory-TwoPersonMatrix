@@ -79,8 +79,16 @@ sub new {
     my $class = shift;
     my %args = @_;
     my $self = {
-        1 => $args{1} || { 1 => [1,0], 2 => [0,1] },
-        2 => $args{2} || { 1 => [1,0], 2 => [0,1] }
+        1 => $args{1} || {
+            1 => [1,0],
+            2 => [0,1],
+            payoff => sub { return @_ },
+        },
+        2 => $args{2} || {
+            1 => [1,0],
+            2 => [0,1],
+            payoff => sub { return @_ },
+        },
     };
     bless $self, $class;
     return $self;
@@ -113,7 +121,7 @@ sub reduce {
     my $metric  = {};
 
     # Evaluate pairs of strategies.
-    my $iter = variations_with_repetition([keys %$player], 2);
+    my $iter = variations_with_repetition([grep { $_ ne 'payoff' } keys %$player], 2);
     while (my $v = $iter->next) {
         # Skip "X|X" pairs.
         next if $v->[0] eq $v->[1];
@@ -215,6 +223,9 @@ sub nash {
     my @ystrat = sort { $a <=> $b } keys %y;
     my $estrat = each_array(@xstrat, @ystrat);
     while ( my ($xs, $ys) = $estrat->() ) {
+        # Skip non-strategies.
+        next if $xs eq 'payoff' || $ys eq 'payoff';
+
         #warn "xs:'@{$x{$xs}}'\n";
         #warn "ys:'@{$y{$ys}}'\n";
 
@@ -243,7 +254,7 @@ sub nash {
 
 sub payoff {
     my $self = shift;
-    my $payoff;
+    my $payoff = {};
     return $payoff;
 }
 
