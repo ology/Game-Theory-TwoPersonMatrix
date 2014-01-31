@@ -46,7 +46,7 @@ of player names, strategies and numerical utilities.
 The players must have the same number of strategies, and each strategy must have
 the same size utility vectors as all the others.
 
-Player strategies are given by a 2D matrix of utilities (or payoffs) such that,
+Player strategies are given by a 2D matrix of utilities such that,
 
   [ [ u1, u2 .. un] .. [ v1, v2 .. vn ] ]
 
@@ -89,17 +89,32 @@ sub new {
     my $self = {
         1 => $args{1} || {
             strategy    => { 1 => [1,0], 2 => [0,1] },
-            probability => { 1 => [1,0], 2 => [0,1], },
-            payoff      => sub { return @_ },
+            probability => {},
+            payoff      => undef,
         },
         2 => $args{2} || {
-            strategy    => { 1 => [1,0], 2 => [0,1], },
-            probability => { 1 => [1,0], 2 => [0,1], },
-            payoff      => sub { return @_ },
+            strategy    => { 1 => [1,0], 2 => [0,1] },
+            probability => {},
+            payoff      => undef,
         },
     };
     bless $self, $class;
+    $self->_init;
     return $self;
+}
+
+sub _init {
+    my $self = shift;
+
+    for my $player (keys %$self) {
+        # Set probability if not given.
+        unless (keys %{ $self->{$player}{probability} }) {
+            for my $strategy (keys %{ $self->{$player}{strategy} }) {
+                my @valid = grep { $_ > 0 } @{ $self->{$player}{strategy}{$strategy} };
+                $self->{$player}{probability}{$strategy} = [ map { 1 / @valid } @valid ];
+            }
+        }
+    }
 }
 
 =head2 reduce()
@@ -129,10 +144,10 @@ sub reduce {
     my $metric  = {};
 
     # Evaluate pairs of strategies.
-    # XXX Really only need to inspect combinations and flag relative utility.
     my $iter = variations_with_repetition([ keys %$player ], 2);
     while (my $v = $iter->next) {
         # Skip "X|X" pairs.
+        # XXX Only need to inspect combinations and flag relative utility.
         next if $v->[0] eq $v->[1];
 
         # Inspect each strategy utility.
