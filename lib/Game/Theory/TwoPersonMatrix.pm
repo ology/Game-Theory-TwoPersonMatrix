@@ -106,11 +106,15 @@ sub new {
 sub _init {
     my $self = shift;
 
+    # Inspect each player...
     for my $player (keys %$self) {
         # Set probability if not given.
         unless (keys %{ $self->{$player}{probability} }) {
+            # Calculate probabilities for each utility.
             for my $strategy (keys %{ $self->{$player}{strategy} }) {
+                # Only consider utilities that are greater than zero.
                 my @valid = grep { $_ > 0 } @{ $self->{$player}{strategy}{$strategy} };
+                # By default, set equal probabilities for the valid utilities.
                 $self->{$player}{probability}{$strategy} = [ map { 1 / @valid } @valid ];
             }
         }
