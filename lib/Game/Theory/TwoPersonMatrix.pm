@@ -120,7 +120,7 @@ sub _init {
             for my $strategy (keys %{ $self->{$player}{strategy} }) {
                 # Only consider utilities that are greater than zero.
                 my @valid = grep { $_ > 0 } @{ $self->{$player}{strategy}{$strategy} };
-                # By default, set equal probabilities for the valid utilities.
+                # TODO Set probabilities for utilities.
                 $self->{$player}{probability}{$strategy} = [ map { 1 / @valid } @valid ];
             }
         }
