@@ -66,6 +66,9 @@ The same game in "linear form" is:
  P1: { 1: [1,1], 3: [0,2] }
  P2: { 1: [0,2], 2: [3,4] }
 
+For a description of player probability profiles, please see the relevant
+literature.
+
 =cut
 
 =head1 METHODS
@@ -80,6 +83,9 @@ Player defaults:
 
   1 => { 1 => [1,0], 2 => [0,1] }, # The "row player"
   2 => { 1 => [1,0], 2 => [0,1] }  # The "column player"
+
+If the probabilities are not given, they are computed to yield the same results
+as the player strategy profile.  W00!
  
 =cut
 
