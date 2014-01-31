@@ -20,8 +20,16 @@ Game::Theory::TwoPersonMatrix - Reduce & analyze a 2 person matrix game
 
   use Game::Theory::TwoPersonMatrix;
   my $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => \@s1, 2 => \@s2, payoff => \&p1 },
-    2 => { 1 => \@t1, 2 => \@t2, payoff => \&p2 }
+    1 => {
+      strategy => { 1 => \@s1, 2 => \@s2, },
+      probability => { 1 => \@p1, 2 => \@p2, },
+      payoff => \&p1,
+    },
+    2 => {
+      strategy => { 1 => \@t1, 2 => \@t2, },
+      probability => { 1 => \@q1, 2 => \@q2, },
+      payoff => \&p2
+    },
   );
   $g->reduce(2, 1);
   $g->reduce(1, 2);
@@ -80,14 +88,14 @@ sub new {
     my %args = @_;
     my $self = {
         1 => $args{1} || {
-            1 => [1,0],
-            2 => [0,1],
-            payoff => sub { return @_ },
+            strategy    => { 1 => [1,0], 2 => [0,1] },
+            probability => { 1 => [1,0], 2 => [0,1], },
+            payoff      => sub { return @_ },
         },
         2 => $args{2} || {
-            1 => [1,0],
-            2 => [0,1],
-            payoff => sub { return @_ },
+            strategy    => { 1 => [1,0], 2 => [0,1], },
+            probability => { 1 => [1,0], 2 => [0,1], },
+            payoff      => sub { return @_ },
         },
     };
     bless $self, $class;
@@ -121,7 +129,7 @@ sub reduce {
     my $metric  = {};
 
     # Evaluate pairs of strategies.
-    my $iter = variations_with_repetition([grep { $_ ne 'payoff' } keys %$player], 2);
+    my $iter = variations_with_repetition([keys %$player], 2);
     while (my $v = $iter->next) {
         # Skip "X|X" pairs.
         next if $v->[0] eq $v->[1];
