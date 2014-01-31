@@ -108,7 +108,7 @@ sub _init {
 
     # Inspect each player...
     for my $player (keys %$self) {
-        # Set probability if not given.
+        # Set the probability profiles if not given.
         unless (keys %{ $self->{$player}{probability} }) {
             # Calculate probabilities for each utility.
             for my $strategy (keys %{ $self->{$player}{strategy} }) {
