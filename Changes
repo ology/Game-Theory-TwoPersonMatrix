@@ -1,8 +1,11 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - 
+
+0.0101 2014-01-29
     - Improved documentation
-    - Tested negative payoffs
+    - Added tests for negative utilities
 
 0.01  2014-01-28
     - Docuented the thing!
