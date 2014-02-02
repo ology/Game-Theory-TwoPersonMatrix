@@ -88,12 +88,10 @@ sub new {
     my $self = {
         1 => $args{1} || {
             strategy    => { 1 => [1,0], 2 => [0,1] },
-            probability => {},
             payoff      => undef,
         },
         2 => $args{2} || {
             strategy    => { 1 => [1,0], 2 => [0,1] },
-            probability => {},
             payoff      => undef,
         },
     };
@@ -336,6 +334,8 @@ sub payoff {
         $exp->simplify or die $exp->getError;
 #warn "D: ",$exp->getExpression, "\n";
 
+        # Set the player payoff strategy equation.
+        $self->{$player}{payoff} = $exp->getExpression;
         push @payoff, $exp->getExpression;
     }
 
