@@ -30,13 +30,13 @@ my $x = $g->nash;
 is_deeply $x->{'2,2'}, [0,-1], 'nash @ 2,2';
 
 $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { strategy=>{1=>[1,1,3], 2=>[0,0,3], 3=>[0,2,5]} },
-    2 => { strategy=>{1=>[0,2,2], 2=>[3,1,4], 3=>[0,0,3]} }
-#    1 => { strategy=>{1=>[1,1], 2=>[0,0]} },
-#    2 => { strategy=>{1=>[0,2], 2=>[3,1]} }
+    1 => { strategy=>{1=>[0,3], 2=>[2,1]} },
+    2 => { strategy=>{1=>[3,0], 2=>[1,2]} }
+#    1 => { strategy=>{1=>[-1, 0], 2=>[0,  0]} },
+#    2 => { strategy=>{1=>[-1,-1], 2=>[-1,-1]} },
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix';
 
-print $g->payoff, "\n";
+use Data::Dumper;warn Data::Dumper->new([$g->payoff])->Indent(1)->Terse(1)->Quotekeys(0)->Sortkeys(1)->Dump;
 
 done_testing();
