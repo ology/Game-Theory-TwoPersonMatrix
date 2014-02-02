@@ -20,16 +20,8 @@ Game::Theory::TwoPersonMatrix - Reduce & analyze a 2 person matrix game
 
   use Game::Theory::TwoPersonMatrix;
   my $g = Game::Theory::TwoPersonMatrix->new(
-    1 => {
-      strategy => { 1 => \@s1, 2 => \@s2, },
-      probability => { 1 => \@p1, 2 => \@p2, },
-      payoff => \&p1,
-    },
-    2 => {
-      strategy => { 1 => \@t1, 2 => \@t2, },
-      probability => { 1 => \@q1, 2 => \@q2, },
-      payoff => \&p2
-    },
+    1 => { strategy => { 1 => \@s1, 2 => \@s2, } },
+    2 => { strategy => { 1 => \@t1, 2 => \@t2, } },
   );
   $g->reduce(2, 1);
   $g->reduce(1, 2);
@@ -287,23 +279,34 @@ sub payoff {
     my ($player, $opponent) = ($self->{1}{strategy}, $self->{2}{strategy});
 
     my @payoff;
-    my @inverse;
+    my @pinverse;
+    my @qinverse;
 
     for my $strat (sort keys %{ $self->{1}{strategy} }) {
-        my $inverse = '(1';
+        my $pinverse = '(1';
+        my $qinverse = '(1';
         my $i = 0;
         for my $util (@{ $self->{1}{strategy}{$strat} }) {
             $i++;
             push @payoff, "$util*p$strat*q$i";
-            $inverse .= ' - q' . $i if $i <= $strat;
+            $pinverse .= ' - p' . $i if $i <= $strat;
+            $qinverse .= ' - q' . $i if $i <= $strat;
         }
-        $inverse .= ')';
-        push @inverse, $inverse;
+        $pinverse .= ')';
+        $qinverse .= ')';
+        push @pinverse, $pinverse;
+        push @qinverse, $qinverse;
     }
 #    warn "Payoff: ", join(' + ', @payoff), "\n";
 
     my $i = 0;
-    for my $inv (@inverse) {
+    for my $inv (@pinverse) {
+        $i++;
+        my $next = $i + 1;
+        @payoff = grep { /p$next/ ? s/p$next/$inv/ : $_ } @payoff;
+    }
+    $i = 0;
+    for my $inv (@qinverse) {
         $i++;
         my $next = $i + 1;
         @payoff = grep { /q$next/ ? s/q$next/$inv/ : $_ } @payoff;
