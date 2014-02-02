@@ -11,6 +11,7 @@ use Data::Dumper;
 use Algorithm::Combinatorics qw( variations_with_repetition );
 use List::Util qw( max );
 use List::MoreUtils qw( all indexes each_array );
+use Math::Calculus::Differentiate;
 
 =head1 NAME
 
@@ -282,6 +283,7 @@ sub payoff {
     my @pinverse;
     my @qinverse;
 
+    # Compute the payoff equation components.
     for my $strat (sort keys %{ $self->{1}{strategy} }) {
         my $pinverse = '(1';
         my $qinverse = '(1';
@@ -297,22 +299,35 @@ sub payoff {
         push @pinverse, $pinverse;
         push @qinverse, $qinverse;
     }
-#    warn "Payoff: ", join(' + ', @payoff), "\n";
+    warn "Payoff: ", join(' + ', @payoff), "\n\n";
 
-    my $i = 0;
-    for my $inv (@pinverse) {
-        $i++;
-        my $next = $i + 1;
-        @payoff = grep { /p$next/ ? s/p$next/$inv/ : $_ } @payoff;
+    pop @pinverse;
+    pop @qinverse;
+
+    # Substitute all the non-initial vars with (1 - ...
+    my $i = @pinverse + 1;
+    for my $inv (reverse @pinverse) {
+#warn "$i:$inv\n";
+        @payoff = grep { /p$i/ ? s/p$i/$inv/ : $_ } @payoff;
+        $i--;
     }
-    $i = 0;
-    for my $inv (@qinverse) {
-        $i++;
-        my $next = $i + 1;
-        @payoff = grep { /q$next/ ? s/q$next/$inv/ : $_ } @payoff;
+    $i = @qinverse + 1;
+    for my $inv (reverse @qinverse) {
+#warn "$i:$inv\n";
+        @payoff = grep { /q$i/ ? s/q$i/$inv/ : $_ } @payoff;
+        $i--;
     }
 
-    return join ' + ', @payoff;
+    my $payoff = join ' + ', @payoff;
+
+#    my $exp = Math::Calculus::Differentiate->new;
+#    $exp->addVariable('p1');
+#    $exp->setExpression($payoff) or die $exp->getError;
+#    $exp->differentiate('p1') or die $exp->getError;
+#    $exp->simplify or die $exp->getError;
+     
+#    return $exp->getExpression;
+    return $payoff;
 }
 
 1;
