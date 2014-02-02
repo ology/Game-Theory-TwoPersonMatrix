@@ -1,7 +1,8 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
-    - 
+    - Implemented optimal stategy equation computation via probabilities over
+      opponent combined strategic utilities.
 
 0.0101 2014-01-29
     - Improved documentation
