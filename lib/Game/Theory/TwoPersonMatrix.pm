@@ -2,7 +2,7 @@ package Game::Theory::TwoPersonMatrix;
 
 # ABSTRACT: Reduce & analyze a 2 person matrix game
 
-our $VERSION = '0.0101';
+our $VERSION = '0.02';
 
 use strict;
 use warnings;
