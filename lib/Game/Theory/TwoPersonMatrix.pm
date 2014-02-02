@@ -111,20 +111,7 @@ sub new {
 
 sub _init {
     my $self = shift;
-
-    # Inspect each player...
-    for my $player (keys %$self) {
-        # Set the probability profiles if not given.
-        unless (keys %{ $self->{$player}{probability} }) {
-            # Calculate probabilities for each utility.
-            for my $strategy (keys %{ $self->{$player}{strategy} }) {
-                # Only consider utilities that are greater than zero.
-                my @valid = grep { $_ > 0 } @{ $self->{$player}{strategy}{$strategy} };
-                # TODO Set probabilities for utilities.
-                $self->{$player}{probability}{$strategy} = [ map { 1 / @valid } @valid ];
-            }
-        }
-    }
+#    my ($player, $opponent) = ($self->{1}{strategy}, $self->{2}{strategy});
 }
 
 =head2 reduce()
@@ -284,12 +271,45 @@ sub nash {
   my $p = $g->payoff;
   print Dumper $p;
 
+      | 0 3 0 |      | 3 0 0 |
+  A = | 2 1 3 |  B = | 1 2 3 |
+
+  PA = 0*p1*q1 + 3*p1*q2 + 0*p1*q3
+     + 2*p2*q1 + 1*p2*q2 + 3*p1*q3
+  PB = 3*p1*q1 + 0*p1*q2 ...
+     + 1*p2*q1 + 2*p2*q2
+
 =cut
 
 sub payoff {
     my $self = shift;
-    my $payoff = {};
-    return $payoff;
+
+    my ($player, $opponent) = ($self->{1}{strategy}, $self->{2}{strategy});
+
+    my @payoff;
+    my @inverse;
+
+    for my $strat (sort keys %{ $self->{1}{strategy} }) {
+        my $inverse = '(1';
+        my $i = 0;
+        for my $util (@{ $self->{1}{strategy}{$strat} }) {
+            $i++;
+            push @payoff, "$util*p$strat*q$i";
+            $inverse .= ' - q' . $i if $i <= $strat;
+        }
+        $inverse .= ')';
+        push @inverse, $inverse;
+    }
+#    warn "Payoff: ", join(' + ', @payoff), "\n";
+
+    my $i = 0;
+    for my $inv (@inverse) {
+        $i++;
+        my $next = $i + 1;
+        @payoff = grep { /q$next/ ? s/q$next/$inv/ : $_ } @payoff;
+    }
+
+    return join ' + ', @payoff;
 }
 
 1;
