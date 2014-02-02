@@ -278,76 +278,68 @@ sub payoff {
     my $self = shift;
 
     my @payoff;
-    my @pinverse;
-    my @qinverse;
 
-    # Compute the payoff equation components.
-    for my $strat (sort keys %{ $self->{1}{strategy} }) {
-        my $pinverse = '(1';
-        my $qinverse = '(1';
-        my $i = 0;
-        for my $util (@{ $self->{1}{strategy}{$strat} }) {
-            $i++;
-            push @payoff, "$util*p$strat*q$i";
-            $pinverse .= ' - p' . $i if $i <= $strat;
-            $qinverse .= ' - q' . $i if $i <= $strat;
+    for my $player (sort keys %$self) {
+        my @equation;
+        my @pinverse;
+        my @qinverse;
+
+        # Compute the payoff equation components.
+        for my $strat (sort keys %{ $self->{$player}{strategy} }) {
+            my $pinverse = '(1';
+            my $qinverse = '(1';
+            my $i = 0;
+            for my $util (@{ $self->{$player}{strategy}{$strat} }) {
+                $i++;
+                push @equation, "$util*p$strat*q$i";
+                $pinverse .= ' - p' . $i if $i <= $strat;
+                $qinverse .= ' - q' . $i if $i <= $strat;
+            }
+            $pinverse .= ')';
+            $qinverse .= ')';
+            push @pinverse, $pinverse;
+            push @qinverse, $qinverse;
         }
-        $pinverse .= ')';
-        $qinverse .= ')';
-        push @pinverse, $pinverse;
-        push @qinverse, $qinverse;
-    }
-    warn "Payoff: ", join(' + ', @payoff), "\n\n";
+#warn "Player $player payoff: ", join(' + ', @equation), "\n\n";
 
-    pop @pinverse;
-    pop @qinverse;
+        # The last is unused. TODO Fix this with a correct condition, above.
+        pop @pinverse;
+        pop @qinverse;
 
-    # Substitute all the non-initial vars with (1 - ...
-    my $i = @pinverse + 1;
-    for my $inv (reverse @pinverse) {
-#warn "$i:$inv\n";
-        @payoff = grep { /p$i/ ? s/p$i/$inv/ : $_ } @payoff;
-        $i--;
-    }
-    $i = @qinverse + 1;
-    for my $inv (reverse @qinverse) {
-#warn "$i:$inv\n";
-        @payoff = grep { /q$i/ ? s/q$i/$inv/ : $_ } @payoff;
-        $i--;
-    }
+        # Substitute all the non-initial vars with (1 - ...
+        my $i = @pinverse + 1;
+        for my $inv (reverse @pinverse) {
+            @equation = grep { /p$i/ ? s/p$i/$inv/ : $_ } @equation;
+            $i--;
+        }
+        $i = @qinverse + 1;
+        for my $inv (reverse @qinverse) {
+            @equation = grep { /q$i/ ? s/q$i/$inv/ : $_ } @equation;
+            $i--;
+        }
 
-    # Remove the 1-suffix from the equation.
-    @payoff = grep { /p1/ ? s/p1/p/g : $_ } @payoff;
-    @payoff = grep { /q1/ ? s/q1/q/g : $_ } @payoff;
+        # Remove the 1-suffix from the equation.
+        @equation = grep { /p1/ ? s/p1/p/g : $_ } @equation;
+        @equation = grep { /q1/ ? s/q1/q/g : $_ } @equation;
 
-    # 
-    my $payoff = join ' + ', @payoff;
+        # 
+        my $payoff = join ' + ', @equation;
 
-    # Create the expression.
-    my $exp = Math::Calculus::Differentiate->new;
-    $exp->addVariable('p');
-    $exp->addVariable('q');
-    $exp->setExpression($payoff) or die $exp->getError;
-
-    # Simplify until the expression length does not change.
-    my $flag = 1;
-    while ($flag) {
-        my $last = length $exp->getExpression;
+        # Create the expression.
+        my $exp = Math::Calculus::Differentiate->new;
+        $exp->addVariable('p');
+        $exp->addVariable('q');
+        $exp->setExpression($payoff) or die $exp->getError;
         $exp->simplify or die $exp->getError;
-        $flag = length($exp->getExpression) >= $last ? 0 : 1;
-    }
-
-    $exp->differentiate('p') or die $exp->getError;
-
-    # Simplify until the expression length does not change.
-    $flag = 1;
-    while ($flag) {
-        my $last = length $exp->getExpression;
+#warn "E: ",$exp->getExpression, "\n";
+        $exp->differentiate( $player eq 1 ? 'p' : 'q' ) or die $exp->getError;
         $exp->simplify or die $exp->getError;
-        $flag = length($exp->getExpression) >= $last ? 0 : 1;
+#warn "D: ",$exp->getExpression, "\n";
+
+        push @payoff, $exp->getExpression;
     }
 
-    return $exp->getExpression;
+    return \@payoff;
 }
 
 1;
