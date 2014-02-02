@@ -325,12 +325,11 @@ sub payoff {
     # 
     my $payoff = join ' + ', @payoff;
 
-    # Simplify the expression.
+    # Create the expression.
     my $exp = Math::Calculus::Differentiate->new;
     $exp->addVariable('p');
     $exp->addVariable('q');
     $exp->setExpression($payoff) or die $exp->getError;
-    $exp->simplify or die $exp->getError;
 
     # Simplify until the expression length does not change.
     my $flag = 1;
