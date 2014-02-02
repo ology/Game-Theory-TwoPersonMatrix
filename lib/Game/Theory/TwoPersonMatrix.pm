@@ -318,16 +318,39 @@ sub payoff {
         $i--;
     }
 
+    # Remove the 1-suffix from the equation.
+    @payoff = grep { /p1/ ? s/p1/p/g : $_ } @payoff;
+    @payoff = grep { /q1/ ? s/q1/q/g : $_ } @payoff;
+
+    # 
     my $payoff = join ' + ', @payoff;
 
-#    my $exp = Math::Calculus::Differentiate->new;
-#    $exp->addVariable('p1');
-#    $exp->setExpression($payoff) or die $exp->getError;
-#    $exp->differentiate('p1') or die $exp->getError;
-#    $exp->simplify or die $exp->getError;
-     
-#    return $exp->getExpression;
-    return $payoff;
+    # Simplify the expression.
+    my $exp = Math::Calculus::Differentiate->new;
+    $exp->addVariable('p');
+    $exp->addVariable('q');
+    $exp->setExpression($payoff) or die $exp->getError;
+    $exp->simplify or die $exp->getError;
+
+    # Simplify until the expression length does not change.
+    my $flag = 1;
+    while ($flag) {
+        my $last = length $exp->getExpression;
+        $exp->simplify or die $exp->getError;
+        $flag = length($exp->getExpression) >= $last ? 0 : 1;
+    }
+
+    $exp->differentiate('p') or die $exp->getError;
+
+    # Simplify until the expression length does not change.
+    my $flag = 1;
+    while ($flag) {
+        my $last = length $exp->getExpression;
+        $exp->simplify or die $exp->getError;
+        $flag = length($exp->getExpression) >= $last ? 0 : 1;
+    }
+
+    return $exp->getExpression;
 }
 
 1;
