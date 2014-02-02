@@ -32,11 +32,10 @@ is_deeply $x->{'2,2'}, [0,-1], 'nash @ 2,2';
 $g = Game::Theory::TwoPersonMatrix->new(
     1 => { strategy=>{1=>[0,3], 2=>[2,1]} },
     2 => { strategy=>{1=>[3,0], 2=>[1,2]} }
-#    1 => { strategy=>{1=>[-1, 0], 2=>[0,  0]} },
-#    2 => { strategy=>{1=>[-1,-1], 2=>[-1,-1]} },
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix';
 
-use Data::Dumper;warn Data::Dumper->new([$g->payoff])->Indent(1)->Terse(1)->Quotekeys(0)->Sortkeys(1)->Dump;
+is $g->payoff->[0], '3*(1 - q) - 2*q - 1*(1 - q)', 'player 1 payoff';
+is $g->payoff->[1], '3*p + 1 - p - 2*(1 - p)', 'player 2 payoff';
 
 done_testing();
