@@ -277,8 +277,6 @@ sub nash {
 sub payoff {
     my $self = shift;
 
-    my ($player, $opponent) = ($self->{1}{strategy}, $self->{2}{strategy});
-
     my @payoff;
     my @pinverse;
     my @qinverse;
@@ -342,7 +340,7 @@ sub payoff {
     $exp->differentiate('p') or die $exp->getError;
 
     # Simplify until the expression length does not change.
-    my $flag = 1;
+    $flag = 1;
     while ($flag) {
         my $last = length $exp->getExpression;
         $exp->simplify or die $exp->getError;
