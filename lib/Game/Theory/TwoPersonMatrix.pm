@@ -262,13 +262,26 @@ sub nash {
   my $p = $g->payoff;
   print Dumper $p;
 
-      | 0 3 0 |      | 3 0 0 |
-  A = | 2 1 3 |  B = | 1 2 3 |
+Example:
 
-  PA = 0*p1*q1 + 3*p1*q2 + 0*p1*q3
-     + 2*p2*q1 + 1*p2*q2 + 3*p1*q3
-  PB = 3*p1*q1 + 0*p1*q2 ...
-     + 1*p2*q1 + 2*p2*q2
+      | 0 3 |      | 3 0 |
+  A = | 2 1 |  B = | 1 2 |
+
+Where B<A> is the "row player" and B<B> is the "column player."
+
+The payoff probabilities for their mixed strategies are,
+
+  PA = 0*p1*q1 + 3*p1*q2 + 2*p2*q1 + 1*p2*q2
+  PB = 3*p1*q1 + 0*p1*q2 + 1*p2*q1 + 2*p2*q2
+
+Through substitution, simpification and differentiation, these equations become,
+
+  PA = 3*(1 - q) - 2*q - 1*(1 - q)
+  PB = 3*p + 1 - p - 2*(1 - p)
+
+Which can be further simplified (by hand), set to equal zero and solved (by
+hand) for B<p> (and B<q>), to find the optimum probabilites for each
+strategy when playing "mixed strategies."
 
 =cut
 
@@ -344,3 +357,9 @@ sub payoff {
 
 1;
 __END__
+
+=head1 TO DO
+
+Find or make an algebraic solver
+
+=cut
