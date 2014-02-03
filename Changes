@@ -1,6 +1,7 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - Enhanced documentation!
 
 0.02  2014-02-02
     - Implemented optimal strategy equation computation via probabilities over
