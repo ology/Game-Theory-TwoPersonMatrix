@@ -1,6 +1,10 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - Improved documentation.
+    - Renamed payoff() to mixed().
+
+0.0201 2014-02-02
     - Enhanced documentation!
 
 0.02  2014-02-02
