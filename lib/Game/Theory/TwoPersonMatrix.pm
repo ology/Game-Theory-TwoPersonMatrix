@@ -81,7 +81,7 @@ Player defaults:
 
 If the probabilities are not given, they are computed to yield the same results
 as the player strategy profile.  W00!
- 
+
 =cut
 
 sub new {
