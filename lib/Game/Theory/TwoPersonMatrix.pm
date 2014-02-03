@@ -59,8 +59,10 @@ The same game in "linear form" is:
  P1: { 1: [1,1], 3: [0,2] }
  P2: { 1: [0,2], 2: [3,4] }
 
-For a description of player probability profiles, please see the relevant
-literature.
+In "bimatrix" form, the game is:
+
+      | 1 1 |       | 0 2 |
+ P1 = | 0 2 |  P2 = | 3 4 |
 
 =cut
 
@@ -283,6 +285,9 @@ Which can be further simplified (by hand), set to equal zero and solved (by
 hand) for B<p> (and B<q>), to find the optimum probabilites for each
 strategy when playing "mixed strategies."
 
+For a description of mixed strategies and deriving probability profiles, please
+see the relevant literature.
+
 =cut
 
 sub payoff {
@@ -360,6 +365,11 @@ __END__
 
 =head1 TO DO
 
-Find or make an algebraic solver
+Find or make an algebraic solver...
+
+=head1 SEE ALSO
+
+The game theory sections and exercises of "Games and Decision Making"
+L<http://www.amazon.com/Games-Decision-Making-Charalambos-Aliprantis/dp/019530022X/>
 
 =cut
