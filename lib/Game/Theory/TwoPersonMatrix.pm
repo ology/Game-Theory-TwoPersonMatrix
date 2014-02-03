@@ -26,7 +26,7 @@ Game::Theory::TwoPersonMatrix - Reduce & analyze a 2 person matrix game
   );
   $g->reduce(2, 1);
   $g->reduce(1, 2);
-  my $p = $g->payoff;
+  my $p = $g->mixed;
   print Dumper $p;
   my $e = $g->nash;
   print Dumper $e;
@@ -79,9 +79,6 @@ Player defaults:
   1 => { 1 => [1,0], 2 => [0,1] }, # The "row player"
   2 => { 1 => [1,0], 2 => [0,1] }  # The "column player"
 
-If the probabilities are not given, they are computed to yield the same results
-as the player strategy profile.  W00!
-
 =cut
 
 sub new {
@@ -89,12 +86,14 @@ sub new {
     my %args = @_;
     my $self = {
         1 => $args{1} || {
-            strategy    => { 1 => [1,0], 2 => [0,1] },
-            payoff      => undef,
+            strategy => { 1 => [1,0], 2 => [0,1] },
+            mixed    => undef,
+            payoff   => undef,
         },
         2 => $args{2} || {
-            strategy    => { 1 => [1,0], 2 => [0,1] },
-            payoff      => undef,
+            strategy => { 1 => [1,0], 2 => [0,1] },
+            mixed    => undef,
+            payoff   => undef,
         },
     };
     bless $self, $class;
@@ -237,9 +236,6 @@ sub nash {
     my @ystrat = sort { $a <=> $b } keys %y;
     my $estrat = each_array(@xstrat, @ystrat);
     while ( my ($xs, $ys) = $estrat->() ) {
-        # Skip non-strategies.
-        next if $xs eq 'payoff' || $ys eq 'payoff';
-
         #warn "xs:'@{$x{$xs}}'\n";
         #warn "ys:'@{$y{$ys}}'\n";
 
@@ -259,9 +255,9 @@ sub nash {
     return $nash;
 }
 
-=head2 payoff()
+=head2 mixed()
 
-  my $p = $g->payoff;
+  my $p = $g->mixed;
   print Dumper $p;
 
 Example:
@@ -278,22 +274,26 @@ The payoff probabilities for their mixed strategies are,
 
 Through substitution, simplification and differentiation, these equations become,
 
-  PA = 3*(1 - q) - 2*q - 1*(1 - q)
-  PB = 3*p + 1 - p - 2*(1 - p)
+  PA' = 3*(1 - q) - 2*q - 1*(1 - q)
+  PB' = 3*p + 1 - p - 2*(1 - p)
 
-Which can be further simplified (by hand), set to equal zero and solved (by
-hand) for B<p> (and B<q>), to find the optimum probabilities for each
-strategy when playing "mixed strategies."
+Which can be further simplified (by hand) to,
+
+  PA' = -4*p + 2
+  PB' = 4*p - 1
+
+When set equal to zero and solved (by hand) for B<p> (and B<q>), to find the
+optimum probabilities for each strategy when playing "mixed strategies."
 
 For a description of mixed strategies and deriving probability profiles, please
 see the relevant literature.
 
 =cut
 
-sub payoff {
+sub mixed {
     my $self = shift;
 
-    my @payoff;
+    my @mixed;
 
     for my $player (sort keys %$self) {
         my @equation;
@@ -316,7 +316,7 @@ sub payoff {
             push @pinverse, $pinverse;
             push @qinverse, $qinverse;
         }
-#warn "Player $player payoff: ", join(' + ', @equation), "\n\n";
+#warn "Player $player mixed: ", join(' + ', @equation), "\n\n";
 
         # The last is unused. TODO Fix this with a correct condition, above.
         pop @pinverse;
@@ -339,13 +339,13 @@ sub payoff {
         @equation = grep { /q1/ ? s/q1/q/g : $_ } @equation;
 
         # 
-        my $payoff = join ' + ', @equation;
+        my $mixed = join ' + ', @equation;
 
         # Create the expression.
         my $exp = Math::Calculus::Differentiate->new;
         $exp->addVariable('p');
         $exp->addVariable('q');
-        $exp->setExpression($payoff) or die $exp->getError;
+        $exp->setExpression($mixed) or die $exp->getError;
         $exp->simplify or die $exp->getError;
 #warn "E: ",$exp->getExpression, "\n";
         $exp->differentiate( $player eq 1 ? 'p' : 'q' ) or die $exp->getError;
@@ -353,8 +353,26 @@ sub payoff {
 #warn "D: ",$exp->getExpression, "\n";
 
         # Set the player payoff strategy equation.
-        $self->{$player}{payoff} = $exp->getExpression;
-        push @payoff, $exp->getExpression;
+        $self->{$player}{mixed} = $exp->getExpression;
+        push @mixed, $exp->getExpression;
+    }
+
+    return \@mixed;
+}
+
+=head2 payoff()
+
+TODO
+
+=cut
+
+sub payoff {
+    my $self = shift;
+
+    my @payoff;
+
+    for my $player (sort keys %$self) {
+        my @equation;
     }
 
     return \@payoff;
