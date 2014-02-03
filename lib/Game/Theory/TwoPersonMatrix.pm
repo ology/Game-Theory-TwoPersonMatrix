@@ -2,10 +2,10 @@ package Game::Theory::TwoPersonMatrix;
 
 # ABSTRACT: Reduce & analyze a 2 person matrix game
 
-our $VERSION = '0.0201';
-
 use strict;
 use warnings;
+
+our $VERSION = '0.0202';
 
 use Data::Dumper;
 use Algorithm::Combinatorics qw( variations_with_repetition );
@@ -26,10 +26,10 @@ Game::Theory::TwoPersonMatrix - Reduce & analyze a 2 person matrix game
   );
   $g->reduce(2, 1);
   $g->reduce(1, 2);
-  my $p = $g->mixed;
-  print Dumper $p;
-  my $e = $g->nash;
-  print Dumper $e;
+  my $m = $g->mixed;
+  print Dumper $m;
+  my $n = $g->nash;
+  print Dumper $n;
 
 =head1 DESCRIPTION
 
@@ -358,24 +358,6 @@ sub mixed {
     }
 
     return \@mixed;
-}
-
-=head2 payoff()
-
-TODO
-
-=cut
-
-sub payoff {
-    my $self = shift;
-
-    my @payoff;
-
-    for my $player (sort keys %$self) {
-        my @equation;
-    }
-
-    return \@payoff;
 }
 
 1;
