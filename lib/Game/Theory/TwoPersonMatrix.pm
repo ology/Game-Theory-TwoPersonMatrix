@@ -5,17 +5,13 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
-our $VERSION = '0.0202';
+our $VERSION = '0.0203';
 
 use Data::Dumper;
 use Algorithm::Combinatorics qw( variations_with_repetition );
 use List::Util qw( max );
 use List::MoreUtils qw( all indexes each_array );
 use Math::Calculus::Differentiate;
-
-=head1 NAME
-
-Game::Theory::TwoPersonMatrix - Reduce & analyze a 2 person matrix game
 
 =head1 SYNOPSIS
 
