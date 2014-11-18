@@ -5,7 +5,7 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use Algorithm::Combinatorics qw( variations_with_repetition );
 use List::Util qw( max );
