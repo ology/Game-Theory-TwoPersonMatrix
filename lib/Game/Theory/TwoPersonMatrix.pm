@@ -31,6 +31,11 @@ use Math::Calculus::Differentiate;
 A C<Game::Theory::TwoPersonMatrix> reduces and analyzes a two person matrix game
 of player names, strategies and numerical utilities.
 
+* This module depends on C<Math::Calculus::Differentiate>, which in turn depends
+on C<Math::Calculus::Expression> - a module not present on metacpan.org.  These
+must be downloaded and built by hand.  The latter may be obtained at
+L<http://search.cpan.org/~jonathan/Math-Calculus-Expression-0.2.2>.
+
 The players must have the same number of strategies, and each strategy must have
 the same size utility vectors as all the others.
 
@@ -362,7 +367,7 @@ __END__
 
 Find or make an algebraic solver...
 
-Figure out how to re-enable mixed().
+Add tests for mixed()
 
 =head1 SEE ALSO
 
