@@ -1,6 +1,9 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - Re-added mixed() and Math::Calculus::* deps.
+
+0.03  2014-08-30
     - Improved documentation.
     - Removed the broken dependency on the missing Math::Calculus::Expression module.
 
