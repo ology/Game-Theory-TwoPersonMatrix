@@ -106,6 +106,18 @@ sub _init {
 #    my ($player, $opponent) = ($self->{1}{strategy}, $self->{2}{strategy});
 }
 
+=head2 player_strategy()
+
+Return the given player's strategy.
+
+=cut
+
+sub player_strategy
+{
+    my ( $self, $player ) = @_;
+    return $self->{$player}{strategy};
+}
+
 =head2 reduce()
 
   $g->reduce_game(1, 2); # Player 1 given opponent 2
