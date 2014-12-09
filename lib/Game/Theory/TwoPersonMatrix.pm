@@ -16,11 +16,13 @@ use Math::Calculus::Differentiate;
 
   use Game::Theory::TwoPersonMatrix;
   my $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { strategy => { 1 => \@s1, 2 => \@s2, } },
-    2 => { strategy => { 1 => \@t1, 2 => \@t2, } },
+    1 => { strategy => { 1 => \@u11, 2 => \@u12, } },
+    2 => { strategy => { 1 => \@u21, 2 => \@u22, } },
   );
-  $g->reduce(2, 1);
-  $g->reduce(1, 2);
+  $g->player_strategy(1);
+  $g->player_strategy(2);
+  $g->reduce(2, 1); # Player 2 given player 1
+  $g->reduce(1, 2); # Player 1 given player 2
   my $m = $g->mixed;
   print Dumper $m;
   my $n = $g->nash;
