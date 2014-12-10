@@ -89,12 +89,12 @@ sub new {
     my $self = {
         1 => $args{1} || {
             strategy => { 1 => [1,0], 2 => [0,1] },
-            play     => [],
+            play     => {},
             mixed    => undef,
         },
         2 => $args{2} || {
             strategy => { 1 => [1,0], 2 => [0,1] },
-            play     => [],
+            play     => {},
             mixed    => undef,
         },
     };
@@ -109,11 +109,11 @@ sub _init {
 
     for my $p ( keys %{ $player->{strategy} } )
     {
-        push @{ $player->{play} }, { $p => 1 / keys( %{ $player->{strategy} } ) };
+        $player->{play}{$p} = 1 / keys( %{ $player->{strategy} } );
     }
     for my $p ( keys %{ $opponent->{strategy} } )
     {
-        push @{ $opponent->{play} }, { $p => 1 / keys( %{ $opponent->{strategy} } ) };
+        $opponent->{play}{$p} = 1 / keys( %{ $opponent->{strategy} } );
     }
 
 }
@@ -128,6 +128,19 @@ sub player_strategy
 {
     my ( $self, $player ) = @_;
     return $self->{$player}{strategy};
+}
+
+
+=head2 player_play()
+
+Return the given player's stategic play value.
+
+=cut
+
+sub player_play
+{
+    my ( $self, $player ) = @_;
+    return $self->{$player}{play};
 }
 
 =head2 reduce()
