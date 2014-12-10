@@ -133,7 +133,7 @@ sub player_strategy
 
 =head2 player_choice()
 
-Return the given player's stategic choice value.
+Return the given player's strategic choice value.
 
 =cut
 
@@ -145,7 +145,7 @@ sub player_choice
 
 =head2 expected_value()
 
-TODO
+Return a player's expected payoff value for the entire game.
 
 =cut
 
