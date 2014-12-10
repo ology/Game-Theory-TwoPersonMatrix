@@ -109,11 +109,11 @@ sub _init {
 
     for my $p ( keys %{ $player->{strategy} } )
     {
-        $player->{play}{$p} = 1 / keys( %{ $player->{strategy} } );
+        $player->{choice}{$p} = 1 / keys( %{ $player->{strategy} } );
     }
     for my $p ( keys %{ $opponent->{strategy} } )
     {
-        $opponent->{play}{$p} = 1 / keys( %{ $opponent->{strategy} } );
+        $opponent->{choice}{$p} = 1 / keys( %{ $opponent->{strategy} } );
     }
 
 }
@@ -131,16 +131,16 @@ sub player_strategy
 }
 
 
-=head2 player_play()
+=head2 player_choice()
 
-Return the given player's stategic play value.
+Return the given player's stategic choice value.
 
 =cut
 
-sub player_play
+sub player_choice
 {
     my ( $self, $player ) = @_;
-    return $self->{$player}{play};
+    return $self->{$player}{choice};
 }
 
 =head2 reduce()
