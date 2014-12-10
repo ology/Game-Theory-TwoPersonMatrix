@@ -1,6 +1,9 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - Improved documentation.
+
+0.05  2014-12-10
     - Added tests for mixed().
     - Added the player_strategy() method, tests and docs.
     - Added expected_value()
