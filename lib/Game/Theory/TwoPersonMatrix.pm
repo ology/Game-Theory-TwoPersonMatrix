@@ -89,13 +89,13 @@ sub new {
     my $self = {
         1 => $args{1} || {
             strategy => { 1 => [1,0], 2 => [0,1] },
+            play     => [],
             mixed    => undef,
-            payoff   => undef,
         },
         2 => $args{2} || {
             strategy => { 1 => [1,0], 2 => [0,1] },
+            play     => [],
             mixed    => undef,
-            payoff   => undef,
         },
     };
     bless $self, $class;
@@ -105,7 +105,17 @@ sub new {
 
 sub _init {
     my $self = shift;
-#    my ($player, $opponent) = ($self->{1}{strategy}, $self->{2}{strategy});
+    my ( $player, $opponent ) = ( $self->{1}, $self->{2} );
+
+    for my $p ( keys %{ $player->{strategy} } )
+    {
+        push @{ $player->{play} }, { $p => 1 / keys( %{ $player->{strategy} } ) };
+    }
+    for my $p ( keys %{ $opponent->{strategy} } )
+    {
+        push @{ $opponent->{play} }, { $p => 1 / keys( %{ $opponent->{strategy} } ) };
+    }
+
 }
 
 =head2 player_strategy()
