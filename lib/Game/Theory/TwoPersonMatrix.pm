@@ -109,11 +109,11 @@ sub _init {
 
     for my $p ( keys %{ $player->{strategy} } )
     {
-        $player->{choice}{$p} = 1 / keys( %{ $player->{strategy} } );
+        $player->{choice}{$p} ||= 1 / keys( %{ $player->{strategy} } );
     }
     for my $p ( keys %{ $opponent->{strategy} } )
     {
-        $opponent->{choice}{$p} = 1 / keys( %{ $opponent->{strategy} } );
+        $opponent->{choice}{$p} ||= 1 / keys( %{ $opponent->{strategy} } );
     }
 
 }
@@ -141,6 +141,27 @@ sub player_choice
 {
     my ( $self, $player ) = @_;
     return $self->{$player}{choice};
+}
+
+=head2 expected_value()
+
+TODO
+
+=cut
+
+sub expected_value
+{
+    my ( $self, $player ) = @_;
+    my $expected_value = 0;
+    for my $strategy ( keys %{ $self->{$player}{strategy} } )
+    {
+        my $choice = $self->{$player}{choice}{$strategy};
+        for my $utility ( @{ $self->{$player}{strategy}{$strategy} } )
+        {
+            $expected_value += $choice * $utility;
+        }
+    }
+    return $expected_value;
 }
 
 =head2 reduce()
