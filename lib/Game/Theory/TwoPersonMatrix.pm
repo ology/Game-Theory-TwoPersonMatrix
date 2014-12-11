@@ -39,14 +39,10 @@ The above is a simple, symmetrical zero-sum game, i.e. "matching pennies."
 
   $g = Game::Theory::TwoPersonMatrix->new();
   $g = Game::Theory::TwoPersonMatrix->new(
-        1 => {
-            1 => { probability => '0.5', payoff => [1,0] },
-            2 => { probability => '0.5', payoff => [0,1] },
-        },
-        2 => {
-            1 => { probability => '0.5', payoff => [1,0] },
-            2 => { probability => '0.5', payoff => [0,1] },
-        },
+        1 => { 1 => '0.5', 2 => '0.5' },
+        2 => { 1 => '0.5', 2 => '0.5' },
+        payoff => [ [1,0],
+                    [0,1] ]
   );
 
 Create a new C<Game::Theory::TwoPersonMatrix> object.
@@ -57,14 +53,9 @@ sub new {
     my $class = shift;
     my %args = @_;
     my $self = {
-        1 => $args{1} || {
-            1 => { probability => '0.5', payoff => [1,0] },
-            2 => { probability => '0.5', payoff => [0,1] },
-        },
-        2 => $args{2} || {
-            1 => { probability => '0.5', payoff => [1,0] },
-            2 => { probability => '0.5', payoff => [0,1] },
-        },
+        1 => $args{1} || { 1 => '0.5', 2 => '0.5' },
+        2 => $args{2} || { 1 => '0.5', 2 => '0.5' },
+        payoff => $args{payoff} || [ [1,0], [0,1] ],
     };
     bless $self, $class;
     return $self;
@@ -78,9 +69,20 @@ Return the expected payoff value.
 
 sub expected_value
 {
-    my ( $self, $player ) = @_;
+    my ($self) = @_;
+
     my $expected_value = 0;
-    # TODO
+    # For each strategy of player 1...
+    for my $i ( keys %{ $self->{1} } )
+    {
+        # For each strategy of player 2...
+        for my $j ( keys %{ $self->{2} } )
+        {
+            # Expected value is the sum of the probabilities of each payoff
+            $expected_value += $self->{1}{$i} * $self->{2}{$j} * $self->{payoff}[$i - 1][$j - 1];
+        }
+    }
+
     return $expected_value;
 }
 
