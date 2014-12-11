@@ -10,7 +10,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
     2 => { 1 => '0.3', 2 => '0.7' },
     payoff => [ [5,0], [-1,2] ]
 );
-isa_ok $g, 'Game::Theory::TwoPersonMatrix';
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
 is $g->expected_value(), 1.18, 'expected_value';
 
 $g = Game::Theory::TwoPersonMatrix->new(
@@ -21,7 +21,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
                 [ 1,-1, 0],
     ]
 );
-isa_ok $g, 'Game::Theory::TwoPersonMatrix';
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', '3x3';
 is $g->expected_value(), -0.17, 'expected_value';
 
 $g = Game::Theory::TwoPersonMatrix->new(
@@ -32,7 +32,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
                 [1, 0, 1,-2],
     ]
 );
-isa_ok $g, 'Game::Theory::TwoPersonMatrix';
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', '3x4';
 is $g->expected_value(), -0.37, 'expected_value';
 
 done_testing();
