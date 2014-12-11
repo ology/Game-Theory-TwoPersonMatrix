@@ -62,17 +62,17 @@ sub new {
     return $self;
 }
 
-=head2 expected_value()
+=head2 expected_payoff()
 
 Return the expected payoff value.
 
 =cut
 
-sub expected_value
+sub expected_payoff
 {
     my ($self) = @_;
 
-    my $expected_value = 0;
+    my $expected_payoff = 0;
     # For each strategy of player 1...
     for my $i ( keys %{ $self->{1} } )
     {
@@ -80,14 +80,14 @@ sub expected_value
         for my $j ( keys %{ $self->{2} } )
         {
             # Expected value is the sum of the probabilities of each payoff
-            $expected_value += $self->{1}{$i} * $self->{2}{$j} * $self->{payoff}[$i - 1][$j - 1];
+            $expected_payoff += $self->{1}{$i} * $self->{2}{$j} * $self->{payoff}[$i - 1][$j - 1];
         }
     }
 
-    return $expected_value;
+    return $expected_payoff;
 }
 
-=head2 s_expected_value()
+=head2 s_expected_payoff()
 
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 'p', 2 => '1 - p' },
@@ -99,11 +99,11 @@ Return the expected payoff expression for a non-numeric game.
 
 =cut
 
-sub s_expected_value
+sub s_expected_payoff
 {
     my ($self) = @_;
 
-    my $expected_value = '';
+    my $expected_payoff = '';
     # For each strategy of player 1...
     for my $i ( sort { $a <=> $b } keys %{ $self->{1} } )
     {
@@ -111,13 +111,13 @@ sub s_expected_value
         for my $j ( sort { $a <=> $b } keys %{ $self->{2} } )
         {
             # Expected value is the sum of the probabilities of each payoff
-            $expected_value .= " + $self->{1}{$i} * $self->{2}{$j} * $self->{payoff}[$i - 1][$j - 1]";
+            $expected_payoff .= " + $self->{1}{$i} * $self->{2}{$j} * $self->{payoff}[$i - 1][$j - 1]";
         }
     }
 
-    $expected_value =~ s/^ \+ (.+)$/$1/g;
+    $expected_payoff =~ s/^ \+ (.+)$/$1/g;
 
-    return $expected_value;
+    return $expected_payoff;
 }
 
 =head2 counter_strategy()
