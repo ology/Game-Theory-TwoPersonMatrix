@@ -70,6 +70,12 @@ sub new {
     return $self;
 }
 
+=head2 expected_value()
+
+Return the expected payoff value.
+
+=cut
+
 sub expected_value
 {
     my ( $self, $player ) = @_;
