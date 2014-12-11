@@ -35,4 +35,12 @@ $g = Game::Theory::TwoPersonMatrix->new(
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '3x4';
 is $g->expected_value(), -0.37, 'expected_value';
 
+$g = Game::Theory::TwoPersonMatrix->new(
+    1 => { 1 => 'p', 2 => '1 - p' },
+    2 => { 1 => 'q', 2 => '1 - q' },
+    payoff => [ ['a','b'], ['c','d'] ]
+);
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', 'symbolic';
+is $g->s_expected_value(), 'p * q * ap * 1 - q * b1 - p * q * c1 - p * 1 - q * d', 'expected_value';
+
 done_testing();
