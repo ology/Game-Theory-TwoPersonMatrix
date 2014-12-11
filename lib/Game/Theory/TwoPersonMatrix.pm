@@ -120,6 +120,19 @@ sub s_expected_value
     return $expected_value;
 }
 
+=head2 counter_strategy()
+
+Return the optimal counter strategy for a given player.
+
+=cut
+
+sub counter_strategy
+{
+    my ( $self, $player ) = @_;
+    my $counter_strategy = [];
+    return $counter_strategy;
+}
+
 1;
 __END__
 

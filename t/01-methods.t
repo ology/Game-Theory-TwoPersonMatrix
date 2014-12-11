@@ -51,4 +51,15 @@ $g = Game::Theory::TwoPersonMatrix->new(
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', 'symbolic';
 is $g->s_expected_value(), '0.5 * q * 1 + 0.5 * 1 - q * 0 + 0.5 * q * 0 + 0.5 * 1 - q * 1', 'expected_value';
 
+$g = Game::Theory::TwoPersonMatrix->new(
+    1 => { 1 => '0.2', 2 => '0.3', 3 => '0.5' },
+    2 => { 1 => '0.1', 2 => '0.7', 3 => '0.2' },
+    payoff => [ [ 0, 1,-1],
+                [-1, 0, 1],
+                [ 1,-1, 0],
+    ]
+);
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', '3x3';
+is_deeply $g->counter_strategy(2), [ 0.2, -0.3, 0.1 ], 'counter_strategy';
+
 done_testing();
