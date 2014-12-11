@@ -1,7 +1,11 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+
+0.06  2014-12-10
     - Stripped down everything and starting over...
+    - Correctly enabled expected_value()
+    - Added tests from the cited textbook examples
 
 0.05  2014-12-10
     - Added tests for mixed().
