@@ -5,7 +5,7 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
-our $VERSION = '0.07';
+our $VERSION = '0.0701';
 
 =head1 SYNOPSIS
 
@@ -86,6 +86,18 @@ sub expected_value
 
     return $expected_value;
 }
+
+=head2 s_expected_value()
+
+ $g = Game::Theory::TwoPersonMatrix->new(
+    1 => { 1 => 'p', 2 => '1 - p' },
+    2 => { 1 => 'q', 2 => '1 - q' },
+    payoff => [ ['a','b'], ['c','d'] ]
+ );
+
+Return the expected payoff expression for a non-numeric game.
+
+=cut
 
 sub s_expected_value
 {
