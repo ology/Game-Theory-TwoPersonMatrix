@@ -138,9 +138,8 @@ sub counter_strategy
 
     my $opponent = $player == 1 ? 2 : 1;
 
-    my %strategies = %{ $self->{$player} };
-    my @keys       = 1 .. keys %strategies;
-    my @pure       = ( 1, (0) x ( keys(%strategies) - 1 ) );
+    my @keys = 1 .. keys %{ $self->{$player} };
+    my @pure = ( 1, (0) x ( keys( %{ $self->{$player} } ) - 1 ) );
 
     my $i = permutations( \@pure );
     while ( my $x = $i->next )
