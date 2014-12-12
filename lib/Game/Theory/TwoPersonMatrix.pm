@@ -47,13 +47,13 @@ The above is the default - a simple, symmetrical zero-sum game.
 
 =head2 new()
 
-  $g = Game::Theory::TwoPersonMatrix->new();
-  $g = Game::Theory::TwoPersonMatrix->new(
-        1 => { 1 => '0.5', 2 => '0.5' },
-        2 => { 1 => '0.5', 2 => '0.5' },
-        payoff => [ [1,0],
-                    [0,1] ]
-  );
+ $g = Game::Theory::TwoPersonMatrix->new();
+ $g = Game::Theory::TwoPersonMatrix->new(
+    1 => { 1 => '0.5', 2 => '0.5' },
+    2 => { 1 => '0.5', 2 => '0.5' },
+    payoff => [ [1,0],
+                [0,1] ]
+ );
 
 Create a new C<Game::Theory::TwoPersonMatrix> object.
 
