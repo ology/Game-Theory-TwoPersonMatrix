@@ -12,8 +12,15 @@ our $VERSION = '0.08';
 
 =head1 SYNOPSIS
 
-  use Game::Theory::TwoPersonMatrix;
-  my $g = Game::Theory::TwoPersonMatrix->new();
+ use Game::Theory::TwoPersonMatrix;
+ my $g = Game::Theory::TwoPersonMatrix->new();
+ $g = Game::Theory::TwoPersonMatrix->new(
+    1 => { 1 => '0.5', 2 => '0.5' },
+    2 => { 1 => '0.5', 2 => '0.5' },
+    payoff => [ [1,0], [0,1] ]
+ };
+ $g->expected_payoff();
+ $g->counter_strategy($player);
 
 =head1 DESCRIPTION
 
