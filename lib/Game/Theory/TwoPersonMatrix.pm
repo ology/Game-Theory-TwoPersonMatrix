@@ -29,8 +29,8 @@ to the tabular format of a matrix game:
                   Player 2
                   --------
          Strategy 0.5  0.5
- Player |   0.5    1    0  < Payoff
-    1   |   0.5    0    1  <
+ Player |   0.5    1   -1  < Payoff
+    1   |   0.5   -1    1  <
 
 The above is the default - a simple, symmetrical zero-sum game.
 
@@ -58,7 +58,7 @@ sub new {
     my $self = {
         1 => $args{1} || { 1 => '0.5', 2 => '0.5' },
         2 => $args{2} || { 1 => '0.5', 2 => '0.5' },
-        payoff => $args{payoff} || [ [1,0], [0,1] ],
+        payoff => $args{payoff} || [ [1,-1], [-1,1] ],
     };
     bless $self, $class;
     return $self;
