@@ -125,7 +125,7 @@ sub s_expected_payoff
 
 =head2 counter_strategy()
 
-Return the optimal counter-strategy for a given player.
+Return the counter-strategies for a given player.
 
 =cut
 
