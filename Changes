@@ -1,6 +1,9 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - 
+
+0.08  2014-12-11
     - Implemented counter_strategy()
 
 0.07  2014-12-10
