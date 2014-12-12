@@ -18,7 +18,7 @@ our $VERSION = '0.08';
 =head1 DESCRIPTION
 
 A C<Game::Theory::TwoPersonMatrix> analyzes a two person matrix game
-of player names, strategies and numerical utilities.
+of player names, strategies and utilities.
 
 The players must have the same number of strategies, and each strategy must have
 the same size utility vectors as all the others.
