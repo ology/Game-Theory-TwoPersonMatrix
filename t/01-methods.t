@@ -60,6 +60,6 @@ $g = Game::Theory::TwoPersonMatrix->new(
     ]
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '3x3';
-is_deeply $g->counter_strategy(2), [ 0.2, -0.3, 0.1 ], 'counter_strategy';
+is_deeply $g->counter_strategy(2), [ 0.2, -0.3, 0.1 ], 'player 2 counter_strategy';
 
 done_testing();
