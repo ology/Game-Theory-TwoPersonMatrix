@@ -32,8 +32,7 @@ to the tabular format of a matrix game:
  Player |   0.5    1    0  < Payoff
     1   |   0.5    0    1  <
 
-The above is the default - a simple, symmetrical zero-sum game, i.e. "matching
-pennies."
+The above is the default - a simple, symmetrical zero-sum game.
 
 =cut
 
