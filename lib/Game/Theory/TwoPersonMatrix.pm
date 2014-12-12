@@ -5,6 +5,9 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
+use Algorithm::Combinatorics qw( permutations );
+use List::MoreUtils qw( zip );
+
 our $VERSION = '0.0701';
 
 =head1 SYNOPSIS
@@ -122,14 +125,37 @@ sub s_expected_payoff
 
 =head2 counter_strategy()
 
-Return the optimal counter strategy for a given player.
+Return the optimal counter-strategy for a given player.
 
 =cut
 
 sub counter_strategy
 {
     my ( $self, $player ) = @_;
+
     my $counter_strategy = [];
+    my %seen;
+
+    my $opponent = $player == 1 ? 2 : 1;
+
+    my %strategies = %{ $self->{$player} };
+    my @keys       = 1 .. keys %strategies;
+    my @pure       = ( 1, (0) x ( keys(%strategies) - 1 ) );
+
+    my $i = permutations( \@pure );
+    while ( my $x = $i->next )
+    {
+        next if $seen{"@$x"}++;
+
+        my $g = Game::Theory::TwoPersonMatrix->new(
+            $player   => { zip @keys, @$x },
+            $opponent => $self->{$opponent},
+            payoff    => $self->{payoff},
+        );
+
+        push @$counter_strategy, $g->expected_payoff();
+    }
+
     return $counter_strategy;
 }
 
