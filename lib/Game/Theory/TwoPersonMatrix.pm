@@ -66,6 +66,8 @@ sub new {
 
 =head2 expected_payoff()
 
+ $g->expected_payoff();
+
 Return the expected payoff value.
 
 =cut
@@ -96,6 +98,7 @@ sub expected_payoff
     2 => { 1 => 'q', 2 => '1 - q' },
     payoff => [ ['a','b'], ['c','d'] ]
  );
+ $g->s_expected_payoff();
 
 Return the expected payoff expression for a non-numeric game.
 
@@ -123,6 +126,8 @@ sub s_expected_payoff
 }
 
 =head2 counter_strategy()
+
+ $g->counter_strategy($player);
 
 Return the counter-strategies for a given player.
 
