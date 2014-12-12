@@ -8,7 +8,7 @@ use warnings;
 use Algorithm::Combinatorics qw( permutations );
 use List::MoreUtils qw( zip );
 
-our $VERSION = '0.0701';
+our $VERSION = '0.08';
 
 =head1 SYNOPSIS
 
