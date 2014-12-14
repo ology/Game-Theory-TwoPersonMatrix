@@ -101,8 +101,8 @@ sub expected_payoff
 =head2 s_expected_payoff()
 
  $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => 'p', 2 => '1 - p' },
-    2 => { 1 => 'q', 2 => '1 - q' },
+    1 => { 1 => '(1 - p)', 2 => 'p' },
+    2 => { 1 => '(1 - q)', 2 => 'q' },
     payoff => [ ['a','b'], ['c','d'] ]
  );
  $g->s_expected_payoff();
