@@ -41,7 +41,7 @@ to the tabular format of a matrix game:
  Player |   0.5    1   -1  < Payoff
     1   |   0.5   -1    1  <
 
-The above is the default - a simple, symmetrical zero-sum game.
+The above is the default - a symmetrical zero-sum game.
 
 =cut
 
@@ -77,7 +77,7 @@ sub new {
 
  $g->expected_payoff();
 
-Return the expected payoff value.
+Return the expected payoff value of the game.
 
 =cut
 
@@ -104,12 +104,15 @@ sub expected_payoff
 
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => '(1 - p)', 2 => 'p' },
-    2 => { 1 => '(1 - q)', 2 => 'q' },
+    2 => { 1 => 1, 2 => 0 },
     payoff => [ ['a','b'], ['c','d'] ]
  );
  $g->s_expected_payoff();
 
 Return the expected payoff expression for a non-numeric game.
+
+Using real payoff values, we solve the resulting expression for p in the F<eg/>
+examples.
 
 =cut
 
