@@ -15,9 +15,11 @@ our $VERSION = '0.0801';
  use Game::Theory::TwoPersonMatrix;
  my $g = Game::Theory::TwoPersonMatrix->new();
  $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => '0.5', 2 => '0.5' },
-    2 => { 1 => '0.5', 2 => '0.5' },
-    payoff => [ [1,0], [0,1] ]
+    1 => { 1 => 0.2, 2 => 0.3, 3 => 0.5 },
+    2 => { 1 => 0.1, 2 => 0.7, 3 => 0.2 },
+    payoff => [ [ 0, 1,-1],
+                [-1, 0, 1],
+                [ 1,-1, 0] ]
  };
  $g->expected_payoff();
  $g->counter_strategy($player);
