@@ -9,7 +9,7 @@ use Algorithm::Combinatorics qw( permutations );
 use List::Util qw( max min );
 use List::MoreUtils qw( zip );
 
-our $VERSION = '0.0801';
+our $VERSION = '0.09';
 
 =head1 SYNOPSIS
 
