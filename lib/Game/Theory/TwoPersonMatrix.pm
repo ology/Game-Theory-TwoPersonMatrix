@@ -203,17 +203,19 @@ sub saddlepoint
         {
             # Get the payoff
             my $val = $self->{payoff}[$row][$col];
+
             # Is the payoff also the row minimum?
             if ( $val == $min )
             {
+                # Gather the column values for each row
                 my @col;
-                # Gather the column value for each row
                 for my $r ( 0 .. $size )
                 {
                     push @col, $self->{payoff}[$r][$col];
                 }
                 # Get the maximum value of the columns
                 my $max = max @col;
+
                 # Is the payoff also the column maximum?
                 if ( $val == $max )
                 {
