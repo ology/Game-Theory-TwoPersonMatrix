@@ -177,7 +177,9 @@ sub counter_strategy
 
 =head2 saddlepoint()
 
-The game is strictly determined and the saddlepoint is returned.  Otherwise
+ $v = $g->saddlepoint;
+
+If the game is strictly determined, the saddlepoint is returned.  Otherwise
 C<undef> is returned.
 
 =cut
