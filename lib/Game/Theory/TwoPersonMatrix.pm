@@ -197,18 +197,18 @@ sub saddlepoint
         my $min = min @{ $self->{payoff}[$row] };
         for my $col ( 0 .. $size )
         {
-            my $v = $self->{payoff}[$row][$col];
-            if ( $v == $min )
+            my $val = $self->{payoff}[$row][$col];
+            if ( $val == $min )
             {
                 my @col;
-                for my $z ( 0 .. $size )
+                for my $r ( 0 .. $size )
                 {
-                    push @col, $self->{payoff}[$z][$col];
+                    push @col, $self->{payoff}[$r][$col];
                 }
                 my $max = max @col;
-                if ( $v == $max )
+                if ( $val == $max )
                 {
-                    $saddlepoint = $v;
+                    $saddlepoint = $val;
                     last POINT;
                 }
             }
