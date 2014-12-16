@@ -191,21 +191,30 @@ sub saddlepoint
     my $saddlepoint;
     my $size = @{ $self->{payoff}[0] } - 1;
 
+    # Look for saddlepoints!
     POINT:
     for my $row ( 0 .. $size )
     {
+        # Get the minimum value of the current row
         my $min = min @{ $self->{payoff}[$row] };
+
+        # Inspect each column given the row
         for my $col ( 0 .. $size )
         {
+            # Get the payoff
             my $val = $self->{payoff}[$row][$col];
+            # Is the payoff also the row minimum?
             if ( $val == $min )
             {
                 my @col;
+                # Gather the column value for each row
                 for my $r ( 0 .. $size )
                 {
                     push @col, $self->{payoff}[$r][$col];
                 }
+                # Get the maximum value of the columns
                 my $max = max @col;
+                # Is the payoff also the column maximum?
                 if ( $val == $max )
                 {
                     $saddlepoint = $val;
