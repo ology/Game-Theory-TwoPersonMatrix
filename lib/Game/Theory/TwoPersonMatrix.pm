@@ -6,6 +6,7 @@ use strict;
 use warnings;
 
 use Algorithm::Combinatorics qw( permutations );
+use List::Util qw( max min );
 use List::MoreUtils qw( zip );
 
 our $VERSION = '0.0801';
@@ -172,6 +173,47 @@ sub counter_strategy
     }
 
     return $counter_strategy;
+}
+
+=head2 saddlepoint()
+
+The game is strictly determined and the saddlepoint is returned.  Otherwise
+C<undef> is returned.
+
+=cut
+
+sub saddlepoint
+{
+    my ($self) = @_;
+
+    my $saddlepoint;
+    my $size = @{ $self->{payoff}[0] } - 1;
+
+    POINT:
+    for my $row ( 0 .. $size )
+    {
+        my $min = min @{ $self->{payoff}[$row] };
+        for my $col ( 0 .. $size )
+        {
+            my $v = $self->{payoff}[$row][$col];
+            if ( $v == $min )
+            {
+                my @col;
+                for my $z ( 0 .. $size )
+                {
+                    push @col, $self->{payoff}[$z][$col];
+                }
+                my $max = max @col;
+                if ( $v == $max )
+                {
+                    $saddlepoint = $v;
+                    last POINT;
+                }
+            }
+        }
+    }
+
+    return $saddlepoint;
 }
 
 1;
