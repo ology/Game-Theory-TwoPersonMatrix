@@ -235,6 +235,9 @@ __END__
 =head1 SEE ALSO
 
 "A Gentle Introduction to Game Theory"
+
 L<http://www.amazon.com/Gentle-Introduction-Theory-Mathematical-World/dp/0821813390>
+
+L<http://books.google.com/books?id=8doVBAAAQBAJ>
 
 =cut
