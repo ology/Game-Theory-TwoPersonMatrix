@@ -5,6 +5,7 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
+use Carp;
 use Algorithm::Combinatorics qw( permutations );
 use List::Util qw( max min );
 use List::MoreUtils qw( zip );
@@ -227,6 +228,48 @@ sub saddlepoint
     }
 
     return $saddlepoint;
+}
+
+=head2 oddments()
+
+TODO
+
+=cut
+
+sub oddments
+{
+    my ($self) = @_;
+
+    my $rsize = @{ $self->{payoff}[0] };
+    my $csize = @{ $self->{payoff} };
+    carp 'Payoff matrix must be 2x2' unless $rsize == 2 && $csize == 2;
+
+    my ( $player, $opponent );
+
+    my ( $x, $y );
+    $x = $self->{payoff}[1][1] - $self->{payoff}[1][0];
+    $y = $self->{payoff}[0][0] - $self->{payoff}[0][1];
+    if ( $x < 0 || $y < 0 )
+    {
+        $x = $self->{payoff}[1][0] - $self->{payoff}[1][1];
+        $y = $self->{payoff}[0][1] - $self->{payoff}[0][0];
+    }
+    my $i = $x / ( $x + $y );
+    my $j = $y / ( $x + $y );
+    $player = [ $i, $j ];
+
+    $x = $self->{payoff}[1][1] - $self->{payoff}[0][1];
+    $y = $self->{payoff}[0][0] - $self->{payoff}[1][0];
+    if ( $x < 0 || $y < 0 )
+    {
+        $x = $self->{payoff}[0][1] - $self->{payoff}[1][1];
+        $y = $self->{payoff}[1][0] - $self->{payoff}[0][0];
+    }
+    $i = $x / ( $x + $y );
+    $j = $y / ( $x + $y );
+    $opponent = [ $i, $j ];
+
+    return [ $player, $opponent ];
 }
 
 1;

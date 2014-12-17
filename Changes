@@ -1,7 +1,7 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
-    - 
+    - Added oddments().
 
 0.09  2014-12-15
     - Implemented saddlepoint computation for strictly domainated games.
