@@ -85,4 +85,12 @@ $g = Game::Theory::TwoPersonMatrix->new(
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
 is_deeply $g->oddments, [ [ 0.3, 0.7 ], [ 0.6, 0.4 ] ], 'oddments';
 
+$g = Game::Theory::TwoPersonMatrix->new(
+    payoff => [ [-5, 4, 6],
+                [ 3,-2, 2],
+                [ 2,-3, 1] ]
+);
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
+is_deeply $g->reduce, [ [-5,4], [3,-2] ], 'reduce';
+
 done_testing();

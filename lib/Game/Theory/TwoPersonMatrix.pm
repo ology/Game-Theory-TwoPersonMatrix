@@ -277,6 +277,36 @@ sub oddments
     return [ $player, $opponent ];
 }
 
+=head2 reduce()
+
+TODO
+
+=cut
+
+sub reduce
+{
+    my ($self) = @_;
+
+    my $rsize = @{ $self->{payoff} };
+    my $csize = @{ $self->{payoff}[0] };
+
+    my $index;
+
+    for my $row ( 0 .. $rsize )
+    {
+        for my $col ( 0 .. $csize )
+        {
+            for my $r ( 0 .. $rsize )
+            {
+                $index->{ $row . $col } = $r . $col if $self->{payoff}[$r][$col] > $self->{payoff}[$row][$col];
+            }
+        }
+    }
+use Data::Dumper::Concise;print Dumper($index);
+
+    return [];
+}
+
 1;
 __END__
 
