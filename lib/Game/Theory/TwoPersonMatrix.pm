@@ -232,7 +232,7 @@ sub saddlepoint
 
 =head2 oddments()
 
-TODO
+Return each player's "oddments" for a 2x2 game.
 
 =cut
 
