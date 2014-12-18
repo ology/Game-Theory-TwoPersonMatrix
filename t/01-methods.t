@@ -93,4 +93,13 @@ $g = Game::Theory::TwoPersonMatrix->new(
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
 is_deeply $g->reduce, [ [-5,4], [3,-2] ], 'reduce';
 
+$g = Game::Theory::TwoPersonMatrix->new(
+    payoff => [ [ 3,-2, 2, 1],
+                [ 1,-2, 2, 0],
+                [ 0, 6, 0, 7],
+                [-1, 5, 0, 8] ]
+);
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', '4x4';
+is_deeply $g->reduce, [ [-2,2], [6,0] ], 'reduce';
+
 done_testing();
