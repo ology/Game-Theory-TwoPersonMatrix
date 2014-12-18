@@ -287,8 +287,8 @@ sub reduce
 {
     my ($self) = @_;
 
-    my $rsize = @{ $self->{payoff} };
-    my $csize = @{ $self->{payoff}[0] };
+    my $rsize = @{ $self->{payoff} } - 1;
+    my $csize = @{ $self->{payoff}[0] } - 1;
 
     my $index;
 
@@ -298,7 +298,9 @@ sub reduce
         {
             for my $r ( 0 .. $rsize )
             {
-                $index->{ $row . $col } = $r . $col if $self->{payoff}[$r][$col] > $self->{payoff}[$row][$col];
+                next if $r == $row;
+                push @{ $index->{ $row . ',' . $col } }, $r . ',' . $col
+                    if $self->{payoff}[$r][$col] > $self->{payoff}[$row][$col];
             }
         }
     }
