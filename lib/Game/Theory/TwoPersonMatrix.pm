@@ -290,21 +290,23 @@ sub reduce
     my $rsize = @{ $self->{payoff} } - 1;
     my $csize = @{ $self->{payoff}[0] } - 1;
 
-    my $index;
-
     for my $row ( 0 .. $rsize )
     {
+my $index;
         for my $col ( 0 .. $csize )
         {
             for my $r ( 0 .. $rsize )
             {
                 next if $r == $row;
-                push @{ $index->{ $row . ',' . $col } }, $r . ',' . $col
-                    if $self->{payoff}[$r][$col] > $self->{payoff}[$row][$col];
+
+                if ( $self->{payoff}[$r][$col] > $self->{payoff}[$row][$col] )
+                {
+                    push @{ $index->{ $row . ',' . $col } }, $r . ',' . $col;
+                }
             }
         }
+print "R:$row\n" if keys %$index == $rsize + 1;
     }
-use Data::Dumper::Concise;print Dumper($index);
 
     return [];
 }
