@@ -1,6 +1,9 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - 
+
+0.10  2014-12-17
     - Added oddments().
 
 0.09  2014-12-15
