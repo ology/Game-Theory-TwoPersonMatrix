@@ -9,6 +9,7 @@ use Carp;
 use Algorithm::Combinatorics qw( permutations );
 use List::Util qw( max min );
 use List::MoreUtils qw( zip );
+use Array::Transpose;
 
 our $VERSION = '0.10';
 
@@ -292,23 +293,54 @@ sub reduce
 
     for my $row ( 0 .. $rsize )
     {
-my $index;
+        my $dominated;
         for my $col ( 0 .. $csize )
         {
             for my $r ( 0 .. $rsize )
             {
                 next if $r == $row;
-
                 if ( $self->{payoff}[$r][$col] > $self->{payoff}[$row][$col] )
                 {
-                    push @{ $index->{ $row . ',' . $col } }, $r . ',' . $col;
+                    push @{ $dominated->{ $row . ',' . $col } }, $r . ',' . $col;
                 }
             }
         }
-print "R:$row\n" if keys %$index == $rsize + 1;
+        if ( keys %$dominated == $rsize + 1 )
+        {
+            print "R:$row\n";
+            splice @{ $self->{payoff} }, $row, 1;
+        }
     }
 
-    return [];
+    my $transposed = transpose( $self->{payoff} );
+    $rsize = @$transposed - 1;
+    $csize = @{ $transposed->[0] } - 1;
+    for my $row ( 0 .. $rsize )
+    {
+        my $dominated;
+        for my $col ( 0 .. $csize )
+        {
+            for my $r ( 0 .. $rsize )
+            {
+                next if $r == $row;
+                if ( $transposed->[$r][$col] < $transposed->[$row][$col] )
+                {
+warn"$transposed->[$r][$col] < $transposed->[$row][$col]\n";
+                    push @{ $dominated->{ $row . ',' . $col } }, $r . ',' . $col;
+                }
+            }
+        }
+        if ( keys %$dominated == $rsize + 1 )
+        {
+warn "R:$row\n";
+            splice @$transposed, $row, 1;
+        }
+    }
+use Data::Dumper::Concise;warn Dumper$transposed;
+#    $self->{payoff} = transpose( $transposed );
+#use Data::Dumper::Concise;warn Dumper$self->{payoff};
+
+    return $self->{payoff};
 }
 
 1;
