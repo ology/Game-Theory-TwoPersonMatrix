@@ -307,7 +307,6 @@ sub reduce
         }
         if ( keys %$dominated == $rsize + 1 )
         {
-            print "R:$row\n";
             splice @{ $self->{payoff} }, $row, 1;
         }
     }
@@ -325,20 +324,16 @@ sub reduce
                 next if $r == $row;
                 if ( $transposed->[$r][$col] < $transposed->[$row][$col] )
                 {
-warn"$transposed->[$r][$col] < $transposed->[$row][$col]\n";
                     push @{ $dominated->{ $row . ',' . $col } }, $r . ',' . $col;
                 }
             }
         }
-        if ( keys %$dominated == $rsize + 1 )
+        if ( keys %$dominated == $rsize )
         {
-warn "R:$row\n";
             splice @$transposed, $row, 1;
         }
     }
-use Data::Dumper::Concise;warn Dumper$transposed;
-#    $self->{payoff} = transpose( $transposed );
-#use Data::Dumper::Concise;warn Dumper$self->{payoff};
+    $self->{payoff} = transpose( $transposed );
 
     return $self->{payoff};
 }
