@@ -95,6 +95,8 @@ is_deeply $g->row_reduce, [ [-5,4,6],[3,-2,2] ], 'row_reduce';
 is_deeply $g->col_reduce, [ [-5,4],[3,-2] ], 'col_reduce';
 
 $g = Game::Theory::TwoPersonMatrix->new(
+    1 => { 1 => 0.1, 2 => 0.2, 3 => 0.3, 4 => 0.4 },
+    2 => { 1 => 0.2, 2 => 0.3, 3 => 0.4, 4 => 0.1 },
     payoff => [ [ 3,-2, 2, 1],
                 [ 1,-2, 2, 0],
                 [ 0, 6, 0, 7],
@@ -104,5 +106,6 @@ isa_ok $g, 'Game::Theory::TwoPersonMatrix', '4x4';
 is_deeply $g->col_reduce, [ [3,-2,2 ],[1,-2,2],[0,6,0],[-1,5,0] ], 'col_reduce';
 is_deeply $g->row_reduce, [ [3,-2,2],[0,6,0] ], 'row_reduce';
 is_deeply $g->col_reduce, [ [-2,2],[6,0] ], 'col_reduce';
+use Data::Dumper::Concise;print Dumper($g);
 
 done_testing();
