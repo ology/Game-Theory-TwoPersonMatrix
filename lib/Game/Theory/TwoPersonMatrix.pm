@@ -8,7 +8,7 @@ use warnings;
 use Carp;
 use Algorithm::Combinatorics qw( permutations );
 use List::Util qw( max min );
-use List::MoreUtils qw( zip );
+use List::MoreUtils qw( all zip );
 use Array::Transpose;
 
 our $VERSION = '0.10';
@@ -288,51 +288,66 @@ sub reduce
 {
     my ($self) = @_;
 
+    my @spliced;
+
     my $rsize = @{ $self->{payoff} } - 1;
     my $csize = @{ $self->{payoff}[0] } - 1;
 
     for my $row ( 0 .. $rsize )
     {
-        my $dominated;
-        for my $col ( 0 .. $csize )
+#warn "R:$row = @{ $self->{payoff}[$row] }\n";
+        for my $r ( 0 .. $rsize )
         {
-            for my $r ( 0 .. $rsize )
+            next if $r == $row;
+#warn "\tN:$r = @{ $self->{payoff}[$r] }\n";
+            my @cmp;
+            for my $x ( 0 .. $csize )
             {
-                next if $r == $row;
-                if ( $self->{payoff}[$r][$col] > $self->{payoff}[$row][$col] )
-                {
-                    push @{ $dominated->{ $row . ',' . $col } }, $r . ',' . $col;
-                }
+                push @cmp, ( $self->{payoff}[$row][$x] < $self->{payoff}[$r][$x] ? 1 : 0 );
+            }
+#warn "\t\tC:@cmp\n";
+            if ( all { $_ == 1 } @cmp )
+            {
+                push @spliced, $row;
             }
         }
-        if ( keys %$dominated == $rsize + 1 )
-        {
-            splice @{ $self->{payoff} }, $row, 1;
-        }
     }
+    for my $row ( @spliced )
+    {
+        splice @{ $self->{payoff} }, $row, 1;
+    }
+    @spliced = ();
 
     my $transposed = transpose( $self->{payoff} );
+#use Data::Dumper::Concise;print Dumper($transposed);
+
     $rsize = @$transposed - 1;
     $csize = @{ $transposed->[0] } - 1;
+
     for my $row ( 0 .. $rsize )
     {
-        my $dominated;
-        for my $col ( 0 .. $csize )
+#warn "R:$row = @{ $transposed->[$row] }\n";
+        for my $r ( 0 .. $rsize )
         {
-            for my $r ( 0 .. $rsize )
+            next if $r == $row;
+#warn "\tN:$r = @{ $transposed->[$r] }\n";
+            my @cmp;
+            for my $x ( 0 .. $csize )
             {
-                next if $r == $row;
-                if ( $transposed->[$r][$col] < $transposed->[$row][$col] )
-                {
-                    push @{ $dominated->{ $row . ',' . $col } }, $r . ',' . $col;
-                }
+                push @cmp, ( $transposed->[$row][$x] > $transposed->[$r][$x] ? 1 : 0 );
+            }
+#warn "\t\tC:@cmp\n";
+            if ( all { $_ == 1 } @cmp )
+            {
+                push @spliced, $row;
             }
         }
-        if ( keys %$dominated == $rsize )
-        {
-            splice @$transposed, $row, 1;
-        }
     }
+    for my $row ( @spliced )
+    {
+        splice @$transposed, $row, 1;
+    }
+
     $self->{payoff} = transpose( $transposed );
 
     return $self->{payoff};
