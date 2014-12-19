@@ -11,7 +11,7 @@ use List::Util qw( max min );
 use List::MoreUtils qw( all zip );
 use Array::Transpose;
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 =head1 SYNOPSIS
 
@@ -26,6 +26,7 @@ our $VERSION = '0.10';
  };
  $g->expected_payoff();
  $g->counter_strategy($player);
+ $g->reduce();
 
 =head1 DESCRIPTION
 
