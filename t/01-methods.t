@@ -100,6 +100,6 @@ $g = Game::Theory::TwoPersonMatrix->new(
                 [-1, 5, 0, 8] ]
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '4x4';
-is_deeply $g->reduce, [ [-2,2], [6,0] ], 'reduce';
+is_deeply $g->reduce, [ [ 3, -2, 2 ], [ 1, -2, 2 ], [ 0, 6, 0 ], [ -1, 5, 0 ] ], 'reduce';
 
 done_testing();
