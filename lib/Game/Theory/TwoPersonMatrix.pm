@@ -281,7 +281,7 @@ sub oddments
 
 =head2 reduce()
 
-TODO
+Reduce a game by identifying and eliminating strictly dominated rows or columns.
 
 =cut
 
