@@ -283,8 +283,7 @@ sub oddments
 
 =head2 row_reduce()
 
-Reduce a game by identifying and eliminating strictly dominated rows and the
-associated player strategies.
+Reduce a game by identifying and eliminating strictly dominated rows.
 
 =cut
 
@@ -320,7 +319,7 @@ sub row_reduce
     my $seen = 0;
     for my $row ( @spliced )
     {
-#warn "S:$row\n";
+#warn "1S:$row\n";
         $row -= $seen++;
         # Reduce the payoff row
         splice @{ $self->{payoff} }, $row, 1;
@@ -334,8 +333,7 @@ sub row_reduce
 
 =head2 col_reduce()
 
-Reduce a game by identifying and eliminating strictly dominated columns and the
-associated opponent strategies.
+Reduce a game by identifying and eliminating strictly dominated columns.
 
 =cut
 
@@ -373,6 +371,7 @@ sub col_reduce
 
     for my $row ( @spliced )
     {
+#warn "1S:$row\n";
         # Reduce the payoff column
         splice @$transposed, $row, 1;
         # Eliminate the strategy of the opponent
