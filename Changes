@@ -1,7 +1,7 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
-    - 
+    - Added reduce() game reduction by strictly dominated rows or columns.
 
 0.10  2014-12-17
     - Added oddments() computation for 2x2 games.
