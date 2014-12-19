@@ -279,14 +279,14 @@ sub oddments
     return [ $player, $opponent ];
 }
 
-=head2 reduce()
+=head2 row_reduce()
 
-Reduce a game by identifying and eliminating strictly dominated rows or columns
-and the associated strategies.
+Reduce a game by identifying and eliminating strictly dominated rows and the
+associated player strategies.
 
 =cut
 
-sub reduce
+sub row_reduce
 {
     my ($self) = @_;
 
@@ -297,17 +297,17 @@ sub reduce
 
     for my $row ( 0 .. $rsize )
     {
-#warn "R:$row = @{ $self->{payoff}[$row] }\n";
+warn "R:$row = @{ $self->{payoff}[$row] }\n";
         for my $r ( 0 .. $rsize )
         {
             next if $r == $row;
-#warn "\tN:$r = @{ $self->{payoff}[$r] }\n";
+warn "\tN:$r = @{ $self->{payoff}[$r] }\n";
             my @cmp;
             for my $x ( 0 .. $csize )
             {
-                push @cmp, ( $self->{payoff}[$row][$x] < $self->{payoff}[$r][$x] ? 1 : 0 );
+                push @cmp, ( $self->{payoff}[$row][$x] <= $self->{payoff}[$r][$x] ? 1 : 0 );
             }
-#warn "\t\tC:@cmp\n";
+warn "\t\tC:@cmp\n";
             if ( all { $_ == 1 } @cmp )
             {
                 push @spliced, $row;
@@ -323,11 +323,27 @@ sub reduce
     }
     @spliced = ();
 
+    return $self->{payoff};
+}
+
+=head2 col_reduce()
+
+Reduce a game by identifying and eliminating strictly dominated columns and the
+associated opponent strategies.
+
+=cut
+
+sub col_reduce
+{
+    my ($self) = @_;
+
+    my @spliced;
+
     my $transposed = transpose( $self->{payoff} );
 #use Data::Dumper::Concise;print Dumper($transposed);
 
-    $rsize = @$transposed - 1;
-    $csize = @{ $transposed->[0] } - 1;
+    my $rsize = @$transposed - 1;
+    my $csize = @{ $transposed->[0] } - 1;
 
     for my $row ( 0 .. $rsize )
     {
@@ -339,7 +355,7 @@ sub reduce
             my @cmp;
             for my $x ( 0 .. $csize )
             {
-                push @cmp, ( $transposed->[$row][$x] > $transposed->[$r][$x] ? 1 : 0 );
+                push @cmp, ( $transposed->[$row][$x] >= $transposed->[$r][$x] ? 1 : 0 );
             }
 #warn "\t\tC:@cmp\n";
             if ( all { $_ == 1 } @cmp )
@@ -348,6 +364,7 @@ sub reduce
             }
         }
     }
+
     for my $row ( @spliced )
     {
         # Reduce the payoff column
@@ -360,6 +377,19 @@ sub reduce
 
     return $self->{payoff};
 }
+
+1;
+__END__
+
+=head1 SEE ALSO
+
+"A Gentle Introduction to Game Theory"
+
+L<http://www.amazon.com/Gentle-Introduction-Theory-Mathematical-World/dp/0821813390>
+
+L<http://books.google.com/books?id=8doVBAAAQBAJ>
+
+=cut
 
 1;
 __END__
