@@ -324,7 +324,7 @@ sub row_reduce
         # Reduce the payoff row
         splice @{ $self->{payoff} }, $row, 1;
         # Eliminate the strategy of the player
-        delete $self->{1}{$row} if exists $self->{1}{$row};
+        delete $self->{1}{$row + 1} if exists $self->{1}{$row + 1};
     }
     @spliced = ();
 
@@ -369,13 +369,15 @@ sub col_reduce
         }
     }
 
+    my $seen = 0;
     for my $row ( @spliced )
     {
-#warn "1S:$row\n";
+#warn "2S:$row\n";
+        $row -= $seen++;
         # Reduce the payoff column
         splice @$transposed, $row, 1;
         # Eliminate the strategy of the opponent
-        delete $self->{2}{$row} if exists $self->{2}{$row};
+        delete $self->{2}{$row + 1} if exists $self->{2}{$row + 1};
     }
 
     $self->{payoff} = transpose( $transposed );
