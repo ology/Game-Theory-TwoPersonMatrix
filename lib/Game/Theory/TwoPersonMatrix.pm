@@ -297,25 +297,29 @@ sub row_reduce
 
     for my $row ( 0 .. $rsize )
     {
-warn "R:$row = @{ $self->{payoff}[$row] }\n";
+#warn "R:$row = @{ $self->{payoff}[$row] }\n";
         for my $r ( 0 .. $rsize )
         {
             next if $r == $row;
-warn "\tN:$r = @{ $self->{payoff}[$r] }\n";
+#warn "\tN:$r = @{ $self->{payoff}[$r] }\n";
             my @cmp;
             for my $x ( 0 .. $csize )
             {
                 push @cmp, ( $self->{payoff}[$row][$x] <= $self->{payoff}[$r][$x] ? 1 : 0 );
             }
-warn "\t\tC:@cmp\n";
+#warn "\t\tC:@cmp\n";
             if ( all { $_ == 1 } @cmp )
             {
                 push @spliced, $row;
             }
         }
     }
+
+    my $seen = 0;
     for my $row ( @spliced )
     {
+#warn "S:$row\n";
+        $row -= $seen++;
         # Reduce the payoff row
         splice @{ $self->{payoff} }, $row, 1;
         # Eliminate the strategy of the player
