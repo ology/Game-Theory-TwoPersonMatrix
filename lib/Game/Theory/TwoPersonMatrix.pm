@@ -82,7 +82,7 @@ sub new {
 
 =head2 expected_payoff()
 
- $g->expected_payoff();
+ $e = $g->expected_payoff();
 
 Return the expected payoff value of the game.
 
@@ -114,7 +114,7 @@ sub expected_payoff
     2 => { 1 => 1, 2 => 0 },
     payoff => [ ['a','b'], ['c','d'] ]
  );
- $g->s_expected_payoff();
+ $s = $g->s_expected_payoff();
 
 Return the expected payoff expression for a non-numeric game.
 
@@ -146,7 +146,7 @@ sub s_expected_payoff
 
 =head2 counter_strategy()
 
- $g->counter_strategy($player);
+ $c = $g->counter_strategy($player);
 
 Return the counter-strategies for a given player.
 
@@ -183,7 +183,7 @@ sub counter_strategy
 
 =head2 saddlepoint()
 
- $v = $g->saddlepoint;
+ $p = $g->saddlepoint;
 
 If the game is strictly determined, the saddlepoint is returned.  Otherwise
 C<undef> is returned.
@@ -237,6 +237,8 @@ sub saddlepoint
 
 =head2 oddments()
 
+ $o = $g->oddments();
+
 Return each player's "oddments" for a 2x2 game.
 
 =cut
@@ -284,6 +286,8 @@ sub oddments
 
 =head2 row_reduce()
 
+ $g->row_reduce();
+
 Reduce a game by identifying and eliminating strictly dominated rows and their
 associated player strategies.
 
@@ -324,6 +328,8 @@ sub row_reduce
 }
 
 =head2 col_reduce()
+
+ $g->col_reduce();
 
 Reduce a game by identifying and eliminating strictly dominated columns and their
 associated opponent strategies.
