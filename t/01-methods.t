@@ -120,4 +120,14 @@ is_deeply $g->mm_tally, {
     2 => { strategy => [0,1,0,1], value => 4 }
 }, 'mm_tally';
 
+$g = Game::Theory::TwoPersonMatrix->new(
+    payoff1 => [ [2,3],[2,1] ],
+    payoff2 => [ [3,5],[2,3] ],
+);
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
+is_deeply $g->mm_tally, {
+    1 => { strategy => [1,0], value => 2 },
+    2 => { strategy => [0,1], value => 3 }
+}, 'mm_tally';
+
 done_testing();
