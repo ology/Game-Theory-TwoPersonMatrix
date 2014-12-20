@@ -26,10 +26,10 @@ our $VERSION = '0.1201';
  };
  $g->expected_payoff();
  $g->counter_strategy($player);
- $p = $g->saddlepoint();
- $q = $g->oddments();
  $g->row_reduce();
  $g->col_reduce();
+ $p = $g->saddlepoint();
+ $q = $g->oddments();
 
 =head1 DESCRIPTION
 
@@ -387,6 +387,8 @@ sub _reduce_game
 __END__
 
 =head1 SEE ALSO
+
+The F<eg/> and F<t/> scripts in this distribution.
 
 "A Gentle Introduction to Game Theory"
 
