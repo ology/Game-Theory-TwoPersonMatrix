@@ -391,7 +391,7 @@ sub _reduce_game
 
 =head2 mm_tally()
 
-Return the maximum of row minimums and the minimum of colum maximums.
+Return the maximum of row minimums and the minimum of column maximums.
 
 =cut
 
