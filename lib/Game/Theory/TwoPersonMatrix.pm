@@ -16,7 +16,6 @@ our $VERSION = '0.13';
 =head1 SYNOPSIS
 
  use Game::Theory::TwoPersonMatrix;
- my $g = Game::Theory::TwoPersonMatrix->new();
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.2, 2 => 0.3, 3 => 0.5 },
     2 => { 1 => 0.1, 2 => 0.7, 3 => 0.2 },
@@ -49,15 +48,12 @@ to the tabular format of a matrix game:
  Player |   0.5    1   -1  < Payoff
     1   |   0.5   -1    1  <
 
-The above is the default - a symmetrical zero-sum game.
-
 =cut
 
 =head1 METHODS
 
 =head2 new()
 
- $g = Game::Theory::TwoPersonMatrix->new();
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => '0.5', 2 => '0.5' },
     2 => { 1 => '0.5', 2 => '0.5' },
@@ -77,9 +73,9 @@ sub new {
     my $class = shift;
     my %args = @_;
     my $self = {
-        1 => $args{1} || { 1 => '0.5', 2 => '0.5' },
-        2 => $args{2} || { 1 => '0.5', 2 => '0.5' },
-        payoff => $args{payoff} || [ [1,-1], [-1,1] ],
+        1 => $args{1},
+        2 => $args{2},
+        payoff => $args{payoff},
         payoff1 => $args{payoff1},
         payoff2 => $args{payoff2},
     };
