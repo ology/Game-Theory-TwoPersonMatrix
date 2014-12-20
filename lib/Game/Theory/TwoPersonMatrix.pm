@@ -334,7 +334,6 @@ sub col_reduce
     my @spliced;
 
     my $transposed = transpose( $self->{payoff} );
-#use Data::Dumper::Concise;print Dumper($transposed);
 
     my $rsize = @$transposed - 1;
     my $csize = @{ $transposed->[0] } - 1;
