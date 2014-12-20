@@ -30,11 +30,12 @@ our $VERSION = '0.13';
  $o = $g->oddments();
  $e = $g->expected_payoff();
  $c = $g->counter_strategy($player);
+ $m = $g->mm_tally();
 
 =head1 DESCRIPTION
 
 A C<Game::Theory::TwoPersonMatrix> analyzes a two person matrix game
-of player names, strategies and utilities.
+of player names, strategies and utilities ("payoffs").
 
 The players must have the same number of strategies, and each strategy must have
 the same size utility vectors as all the others.
