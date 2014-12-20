@@ -27,6 +27,7 @@ our $VERSION = '0.1201';
  $g->expected_payoff();
  $g->counter_strategy($player);
  $p = $g->saddlepoint();
+ $q = $g->oddments();
  $g->row_reduce();
  $g->col_reduce();
 
@@ -283,7 +284,8 @@ sub oddments
 
 =head2 row_reduce()
 
-Reduce a game by identifying and eliminating strictly dominated rows.
+Reduce a game by identifying and eliminating strictly dominated rows and their
+associated player strategies.
 
 =cut
 
@@ -323,7 +325,8 @@ sub row_reduce
 
 =head2 col_reduce()
 
-Reduce a game by identifying and eliminating strictly dominated columns.
+Reduce a game by identifying and eliminating strictly dominated columns and their
+associated opponent strategies.
 
 =cut
 
