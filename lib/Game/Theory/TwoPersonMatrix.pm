@@ -11,7 +11,7 @@ use List::Util qw( max min );
 use List::MoreUtils qw( all zip );
 use Array::Transpose;
 
-our $VERSION = '0.1202';
+our $VERSION = '0.13';
 
 =head1 SYNOPSIS
 
