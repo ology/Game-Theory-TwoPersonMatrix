@@ -316,6 +316,7 @@ sub row_reduce
         }
     }
 
+    # Reduce the game
     my $seen = 0;
     for my $row ( @spliced )
     {
@@ -326,7 +327,6 @@ sub row_reduce
         # Eliminate the strategy of the player
         delete $self->{1}{$row + 1} if exists $self->{1}{$row + 1};
     }
-    @spliced = ();
 
     return $self->{payoff};
 }
@@ -369,6 +369,7 @@ sub col_reduce
         }
     }
 
+    # Reduce the game
     my $seen = 0;
     for my $row ( @spliced )
     {
