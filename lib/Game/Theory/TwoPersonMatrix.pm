@@ -403,22 +403,11 @@ sub mm_tally
     my $mm_tally;
 
     # Find maximum of row minimums
-    my @m;
-    my %s;
-    for my $row ( 0 .. @{ $self->{payoff} } - 1 )
-    {
-        $s{$row} = min @{ $self->{payoff}[$row] };
-        push @m, $s{$row};
-    }
-    $mm_tally->{1}{value} = max @m;
-    for my $row ( sort { $a <=> $b } keys %s )
-    {
-        push @{ $mm_tally->{1}{strategy} }, ( $s{$row} == $mm_tally->{1}{value} ? 1 : 0 );
-    }
+    $mm_tally = $self->_tally_max( $self->{payoff} );
 
-    # Find minimum of colum maximums
-    @m = ();
-    %s = ();
+    # Find minimum of column maximums
+    my @m = ();
+    my %s = ();
     my $transposed = transpose( $self->{payoff} );
     for my $row ( 0 .. @$transposed - 1 )
     {
@@ -429,6 +418,31 @@ sub mm_tally
     for my $row ( sort { $a <=> $b } keys %s )
     {
         push @{ $mm_tally->{2}{strategy} }, ( $s{$row} == $mm_tally->{2}{value} ? 1 : 0 );
+    }
+
+    return $mm_tally;
+}
+
+sub _tally_max
+{
+    my ( $self, $payoff ) = @_;
+
+    # Find maximum of row minimums
+    my $mm_tally;
+    my @m;
+    my %s;
+
+    for my $row ( 0 .. @$payoff - 1 )
+    {
+        $s{$row} = min @{ $payoff->[$row] };
+        push @m, $s{$row};
+    }
+
+    $mm_tally->{1}{value} = max @m;
+
+    for my $row ( sort { $a <=> $b } keys %s )
+    {
+        push @{ $mm_tally->{1}{strategy} }, ( $s{$row} == $mm_tally->{1}{value} ? 1 : 0 );
     }
 
     return $mm_tally;
