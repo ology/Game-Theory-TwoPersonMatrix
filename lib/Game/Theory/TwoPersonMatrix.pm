@@ -20,16 +20,16 @@ our $VERSION = '0.1201';
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.2, 2 => 0.3, 3 => 0.5 },
     2 => { 1 => 0.1, 2 => 0.7, 3 => 0.2 },
-    payoff => [ [ 0, 1,-1],
-                [-1, 0, 1],
-                [ 1,-1, 0] ]
+    payoff => [ [-5, 4, 6],
+                [ 3,-2, 2],
+                [ 2,-3, 1] ]
  };
- $g->expected_payoff();
- $g->counter_strategy($player);
  $g->row_reduce();
  $g->col_reduce();
  $p = $g->saddlepoint();
- $q = $g->oddments();
+ $o = $g->oddments();
+ $e = $g->expected_payoff();
+ $c = $g->counter_strategy($player);
 
 =head1 DESCRIPTION
 
