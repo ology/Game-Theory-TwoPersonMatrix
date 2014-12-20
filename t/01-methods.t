@@ -118,8 +118,8 @@ $g = Game::Theory::TwoPersonMatrix->new(
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '3x4';
 is_deeply $g->mm_tally, {
-    1 => { strategy => [ 0, 1, 0 ], value => 3 },
-    2 => { strategy => [ 0, 1, 0, 1 ], value => 4 }
+    1 => { strategy => [0,1,0], value => 3 },
+    2 => { strategy => [0,1,0,1], value => 4 }
 }, 'mm_tally';
 
 done_testing();
