@@ -316,17 +316,7 @@ sub row_reduce
         }
     }
 
-    # Reduce the game
-    my $seen = 0;
-    for my $row ( @spliced )
-    {
-#warn "1S:$row\n";
-        $row -= $seen++;
-        # Reduce the payoff row
-        splice @{ $self->{payoff} }, $row, 1;
-        # Eliminate the strategy of the player
-        delete $self->{1}{$row + 1} if exists $self->{1}{$row + 1};
-    }
+    $self->_reduce_game( $self->{payoff}, \@spliced, 1 );
 
     return $self->{payoff};
 }
@@ -369,21 +359,26 @@ sub col_reduce
         }
     }
 
-    # Reduce the game
-    my $seen = 0;
-    for my $row ( @spliced )
-    {
-#warn "2S:$row\n";
-        $row -= $seen++;
-        # Reduce the payoff column
-        splice @$transposed, $row, 1;
-        # Eliminate the strategy of the opponent
-        delete $self->{2}{$row + 1} if exists $self->{2}{$row + 1};
-    }
+    $self->_reduce_game( $transposed, \@spliced, 2 );
 
     $self->{payoff} = transpose( $transposed );
 
     return $self->{payoff};
+}
+
+sub _reduce_game
+{
+    my ( $self, $payoff, $spliced, $player ) = @_;
+
+    my $seen = 0;
+    for my $row ( @$spliced )
+    {
+        $row -= $seen++;
+        # Reduce the payoff column
+        splice @$payoff, $row, 1;
+        # Eliminate the strategy of the opponent
+        delete $self->{$player}{$row + 1} if exists $self->{$player}{$row + 1};
+    }
 }
 
 1;
