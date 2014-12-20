@@ -64,6 +64,10 @@ The above is the default - a symmetrical zero-sum game.
     payoff => [ [1,0],
                 [0,1] ]
  );
+ $g = Game::Theory::TwoPersonMatrix->new(
+    payoff1 => [ [2,3],[2,1] ],
+    payoff2 => [ [3,5],[2,3] ],
+ );
 
 Create a new C<Game::Theory::TwoPersonMatrix> object.
 
@@ -394,7 +398,10 @@ sub _reduce_game
 
 =head2 mm_tally()
 
-Return the maximum of row minimums and the minimum of column maximums.
+ $t = $g->mm_tally();
+
+For zero-sum games, return the maximum of row minimums and the minimum of column
+maximums.  For non-zero-sum games, return the maximum of row and column minimums.
 
 =cut
 
