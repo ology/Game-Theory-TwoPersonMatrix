@@ -510,6 +510,7 @@ sub pareto_optimal
                     if ( $self->{payoff1}[$row][$col] >= $self->{payoff1}[$r][$c]
                         && $self->{payoff2}[$row][$col] >= $self->{payoff2}[$r][$c] )
                     {
+#warn "\t\t$row,$col > $r,$c at ($self->{payoff1}[$row][$col], $self->{payoff2}[$row][$col])\n";
                         $pareto_optimal->{ "$row,$col" } = [
                             $self->{payoff1}[$row][$col], $self->{payoff2}[$row][$col]
                         ];
