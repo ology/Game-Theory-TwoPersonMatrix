@@ -8,7 +8,7 @@ use warnings;
 use Carp;
 use Algorithm::Combinatorics qw( permutations );
 use List::Util qw( max min );
-use List::MoreUtils qw( all indexes zip );
+use List::MoreUtils qw( all zip );
 use Array::Transpose;
 
 our $VERSION = '0.1501';
