@@ -175,12 +175,12 @@ isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
 is_deeply $g->expected_payoff(), [1.18, 1.18], 'expected_payoff';
 
 $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => '0.3', 2 => '0.7' },
-    2 => { 1 => '0.6', 2 => '0.4' },
-    payoff1 => [ [5,2],[4,1] ],
-    payoff2 => [ [4,2],[1,3] ],
+    1 => { 1 => '0.5', 2 => '0.5' },
+    2 => { 1 => '0.4', 2 => '0.6' },
+    payoff1 => [ [3,2],[0,4] ],
+    payoff2 => [ [2,1],[3,4] ],
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
-is_deeply $g->expected_payoff(), [3.1, 2.22], 'expected_payoff';
+is_deeply $g->expected_payoff(), [2.4, 2.5], 'expected_payoff';
 
 done_testing();
