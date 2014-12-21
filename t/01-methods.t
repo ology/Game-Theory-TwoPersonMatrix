@@ -144,4 +144,11 @@ $g = Game::Theory::TwoPersonMatrix->new(
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
 is_deeply $g->pareto_optimal, { "0,0" => [2,3], "0,1" => [3,5] }, 'pareto_optimal';
 
+$g = Game::Theory::TwoPersonMatrix->new(
+    payoff1 => [ [-1, 0],[ 0, 0] ],
+    payoff2 => [ [-1,-1],[-1,-1] ],
+);
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
+is_deeply $g->nash, {}, 'nash';
+
 done_testing();
