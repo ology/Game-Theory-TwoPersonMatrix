@@ -29,8 +29,9 @@ our $VERSION = '0.14';
  $o = $g->oddments();
  $e = $g->expected_payoff();
  $c = $g->counter_strategy($player);
- $m = $g->mm_tally();
- $n = $g->pareto_optimal();
+ $t = $g->mm_tally();
+ $m = $g->pareto_optimal();
+ $n = $g->nash();
 
 =head1 DESCRIPTION
 
@@ -478,7 +479,7 @@ sub _tally_max
 
 =head2 pareto_optimal()
 
- $n = $g->pareto_optimal();
+ $m = $g->pareto_optimal();
 
 Return the Pareto optimal outcomes.
 
@@ -519,6 +520,23 @@ sub pareto_optimal
     }
 
     return $pareto_optimal;
+}
+
+=head2 nash()
+
+ $n = $g->nash();
+
+TODO
+
+=cut
+
+sub nash
+{
+    my ($self) = @_;
+
+    my $nash;
+
+    return $nash;
 }
 
 1;
