@@ -105,15 +105,22 @@ sub expected_payoff
 {
     my ($self) = @_;
 
-    my $expected_payoff = 0;
+    my $expected_payoff;
     # For each strategy of player 1...
     for my $i ( sort { $a <=> $b } keys %{ $self->{1} } )
     {
         # For each strategy of player 2...
         for my $j ( sort { $a <=> $b } keys %{ $self->{2} } )
         {
-            # Expected value is the sum of the probabilities of each payoff
-            $expected_payoff += $self->{1}{$i} * $self->{2}{$j} * $self->{payoff}[$i - 1][$j - 1];
+            if ( $self->{payoff1} && $self->{payoff2} )
+            {
+                $expected_payoff->[0] += $self->{1}{$i} * $self->{2}{$j} * $self->{payoff1}[$i - 1][$j - 1];
+                $expected_payoff->[1] += $self->{1}{$i} * $self->{2}{$j} * $self->{payoff2}[$i - 1][$j - 1];
+            }
+            else {
+                # Expected value is the sum of the probabilities of each payoff
+                $expected_payoff += $self->{1}{$i} * $self->{2}{$j} * $self->{payoff}[$i - 1][$j - 1];
+            }
         }
     }
 
