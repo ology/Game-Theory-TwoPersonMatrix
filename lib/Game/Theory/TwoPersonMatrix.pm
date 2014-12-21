@@ -8,7 +8,7 @@ use warnings;
 use Carp;
 use Algorithm::Combinatorics qw( permutations );
 use List::Util qw( max min );
-use List::MoreUtils qw( all zip );
+use List::MoreUtils qw( all indexes zip );
 use Array::Transpose;
 
 our $VERSION = '0.14';
@@ -529,6 +529,9 @@ sub pareto_optimal
 
 Identify the Nash equilibria.
 
+Given payoff pair C<(a, b)> B<a> is maximum for its column and B<b> is maximum
+for its row.
+
 =cut
 
 sub nash
@@ -536,6 +539,17 @@ sub nash
     my ($self) = @_;
 
     my $nash;
+
+    my $rsize = @{ $self->{payoff1} } - 1;
+    my $csize = @{ $self->{payoff1}[0] } - 1;
+
+    for my $row ( 0 .. $rsize )
+    {
+        for my $col ( 0 .. $csize )
+        {
+warn "RC:$row,$col = ($self->{payoff1}[$row][$col],$self->{payoff2}[$row][$col])\n";
+        }
+    }
 
     return $nash;
 }
