@@ -527,7 +527,7 @@ sub pareto_optimal
 
  $n = $g->nash();
 
-TODO
+Identify the Nash equilibria.
 
 =cut
 
