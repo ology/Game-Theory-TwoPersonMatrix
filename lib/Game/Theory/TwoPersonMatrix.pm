@@ -545,9 +545,23 @@ sub nash
 
     for my $row ( 0 .. $rsize )
     {
+        my $rmax = max @{ $self->{payoff2}[$row] };
+
         for my $col ( 0 .. $csize )
         {
-warn "RC:$row,$col = ($self->{payoff1}[$row][$col],$self->{payoff2}[$row][$col])\n";
+#warn "RC:$row,$col = ($self->{payoff1}[$row][$col],$self->{payoff2}[$row][$col])\n";
+
+            my @col;
+            for my $r ( 0 .. $rsize )
+            {
+                push @col, $self->{payoff1}[$r][$col];
+            }
+            my $cmax = max @col;
+            if ( $self->{payoff1}[$row][$col] == $cmax && $self->{payoff2}[$row][$col] == $rmax )
+            {
+#warn "\t$self->{payoff1}[$row][$col] == $cmax && $self->{payoff2}[$row][$col] == $rmax\n";
+                $nash->{"$row,$col"} = [ $self->{payoff1}[$row][$col],$self->{payoff2}[$row][$col] ];
+            }
         }
     }
 
