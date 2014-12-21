@@ -30,6 +30,7 @@ our $VERSION = '0.14';
  $e = $g->expected_payoff();
  $c = $g->counter_strategy($player);
  $m = $g->mm_tally();
+ $n = $g->pareto_optimal();
 
 =head1 DESCRIPTION
 
@@ -477,7 +478,9 @@ sub _tally_max
 
 =head2 pareto_optimal()
 
-TODO
+ $n = $g->pareto_optimal();
+
+Return the Pareto optimal outcomes.
 
 =cut
 
