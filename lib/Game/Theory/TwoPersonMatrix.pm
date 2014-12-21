@@ -31,12 +31,15 @@ our $VERSION = '0.1502';
  $c = $g->counter_strategy($player);
 
  $g = Game::Theory::TwoPersonMatrix->new(
+    1 => { 1 => 0.1, 2 => 0.2, 3 => 0.7 },
+    2 => { 1 => 0.1, 2 => 0.2, 3 => 0.3, 4 => 0.4 },
     payoff1 => [ [5,3,8,2],[6,5,7,1],[7,4,6,0] ],
     payoff2 => [ [2,0,1,3],[3,4,4,1],[5,6,8,2] ],
  );
  $t = $g->mm_tally();
  $m = $g->pareto_optimal();
  $n = $g->nash();
+ $e = $g->expected_payoff();
 
 =head1 DESCRIPTION
 
