@@ -475,6 +475,49 @@ sub _tally_max
     return $mm_tally;
 }
 
+=head2 pareto_optimal()
+
+TODO
+
+=cut
+
+sub pareto_optimal
+{
+    my ($self) = @_;
+
+    my $pareto_optimal;
+
+    my $rsize = @{ $self->{payoff1} } - 1;
+    my $csize = @{ $self->{payoff1}[0] } - 1;
+
+    for my $row ( 0 .. $rsize )
+    {
+        for my $col ( 0 .. $csize )
+        {
+#warn "RC:$row,$col = ($self->{payoff1}[$row][$col],$self->{payoff2}[$row][$col])\n";
+
+            my %seen;
+            for my $r ( 0 .. $rsize )
+            {
+                for my $c ( 0 .. $csize )
+                {
+                    next if ( $r == $row && $c == $col ) || $seen{"$r,$c"}++;
+#warn "\trc:$r,$c = ($self->{payoff1}[$r][$c],$self->{payoff2}[$r][$c])\n";
+                    if ( $self->{payoff1}[$row][$col] >= $self->{payoff1}[$r][$c]
+                        && $self->{payoff2}[$row][$col] >= $self->{payoff2}[$r][$c] )
+                    {
+                        $pareto_optimal->{ "$row,$col" } = [
+                            $self->{payoff1}[$row][$col], $self->{payoff2}[$row][$col]
+                        ];
+                    }
+                }
+            }
+        }
+    }
+
+    return $pareto_optimal;
+}
+
 1;
 __END__
 
