@@ -144,7 +144,7 @@ sub expected_payoff
  );
  $s = $g->s_expected_payoff();
 
-Return the expected payoff expression for a non-numeric game.
+Return the expected payoff expression for a non-numeric, zero-sum game.
 
 Using real payoff values, we solve the resulting expression for p in the F<eg/>
 examples.
