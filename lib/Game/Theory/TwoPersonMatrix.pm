@@ -547,7 +547,7 @@ sub pareto_optimal
 
 Identify the Nash equilibria.
 
-Given payoff pair C<(a, b)> B<a> is maximum for its column and B<b> is maximum
+Given payoff pair C<(a,b)>, B<a> is maximum for its column and B<b> is maximum
 for its row.
 
 =cut
