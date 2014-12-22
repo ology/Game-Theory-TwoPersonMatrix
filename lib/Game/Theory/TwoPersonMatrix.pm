@@ -429,10 +429,10 @@ sub mm_tally
 
     if ( $self->{payoff1} && $self->{payoff2} )
     {
-        # Find maximum of row minimums for each player
+        # Find maximum of row minimums for the player
         $mm_tally = $self->_tally_max( $mm_tally, 1, $self->{payoff1} );
 
-        # Find minimum of column maximums
+        # Find minimum of column maximums for the opponent
         my @m = ();
         my %s = ();
         my $transposed = transpose( $self->{payoff2} );
