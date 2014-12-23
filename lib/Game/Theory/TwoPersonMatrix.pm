@@ -40,6 +40,7 @@ our $VERSION = '0.1504';
  $m = $g->pareto_optimal();
  $n = $g->nash();
  $e = $g->expected_payoff();
+ $c = $g->counter_strategy($opponent);
 
 =head1 DESCRIPTION
 
@@ -173,7 +174,8 @@ sub s_expected_payoff
 
  $c = $g->counter_strategy($player);
 
-Return the counter-strategies for a given player of a zero-sum game.
+Return the counter-strategies for a given player of either a zero-sum or
+non-zero-sum game.
 
 =cut
 
