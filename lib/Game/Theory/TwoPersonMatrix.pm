@@ -197,7 +197,7 @@ sub counter_strategy
         my $g = Game::Theory::TwoPersonMatrix->new(
             $player   => { zip @keys, @$x },
             $opponent => $self->{$opponent},
-            payoff    => $self->{payoff},
+            payoff    => $self->{payoff} || $self->{"payoff$player"},
         );
 
         push @$counter_strategy, $g->expected_payoff();
