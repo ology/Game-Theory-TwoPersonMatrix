@@ -568,6 +568,7 @@ sub nash
     my $rsize = @{ $self->{payoff1} } - 1;
     my $csize = @{ $self->{payoff1}[0] } - 1;
 
+    # Find all row & column max pairs
     for my $row ( 0 .. $rsize )
     {
         my $rmax = max @{ $self->{payoff2}[$row] };
@@ -582,10 +583,12 @@ sub nash
                 push @col, $self->{payoff1}[$r][$col];
             }
             my $cmax = max @col;
-            if ( $self->{payoff1}[$row][$col] == $cmax && $self->{payoff2}[$row][$col] == $rmax )
+            my $p = $self->{payoff1}[$row][$col];
+            my $q = $self->{payoff2}[$row][$col];
+            if ( $p == $cmax && $q == $rmax )
             {
-#warn "\t$self->{payoff1}[$row][$col] == $cmax && $self->{payoff2}[$row][$col] == $rmax\n";
-                $nash->{"$row,$col"} = [ $self->{payoff1}[$row][$col],$self->{payoff2}[$row][$col] ];
+#warn "\t$p == $cmax && $q == $rmax\n";
+                $nash->{"$row,$col"} = [ $p, $q ];
             }
         }
     }
