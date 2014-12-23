@@ -1,7 +1,7 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
-    - 
+    - Enabled counter_strategy() computation for non-zero-sum games.
 
 0.1504 2014-12-23 08:42:14
     - Fixed misleading documentation. 
