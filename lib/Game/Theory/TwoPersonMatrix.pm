@@ -517,26 +517,28 @@ sub pareto_optimal
     my $rsize = @{ $self->{payoff1} } - 1;
     my $csize = @{ $self->{payoff1}[0] } - 1;
 
+    # Compare each row & column with every other
     for my $row ( 0 .. $rsize )
     {
         for my $col ( 0 .. $csize )
         {
 #warn "RC:$row,$col = ($self->{payoff1}[$row][$col],$self->{payoff2}[$row][$col])\n";
 
+            # Find all pairs to compare against
             my %seen;
             for my $r ( 0 .. $rsize )
             {
                 for my $c ( 0 .. $csize )
                 {
                     next if ( $r == $row && $c == $col ) || $seen{"$r,$c"}++;
+                    my $p = $self->{payoff1}[$row][$col];
+                    my $q = $self->{payoff2}[$row][$col];
 #warn "\trc:$r,$c = ($self->{payoff1}[$r][$c],$self->{payoff2}[$r][$c])\n";
-                    if ( $self->{payoff1}[$row][$col] >= $self->{payoff1}[$r][$c]
-                        && $self->{payoff2}[$row][$col] >= $self->{payoff2}[$r][$c] )
+                    if ( $p >= $self->{payoff1}[$r][$c] && $q >= $self->{payoff2}[$r][$c] )
                     {
-#warn "\t\t$row,$col > $r,$c at ($self->{payoff1}[$row][$col], $self->{payoff2}[$row][$col])\n";
-                        $pareto_optimal->{ "$row,$col" } = [
-                            $self->{payoff1}[$row][$col], $self->{payoff2}[$row][$col]
-                        ];
+#warn "\t\t$row,$col > $r,$c at ($p,$q)\n";
+                        # XXX We exploit the unique key feature of perl hashes
+                        $pareto_optimal->{ "$row,$col" } = [ $p, $q ];
                     }
                 }
             }
