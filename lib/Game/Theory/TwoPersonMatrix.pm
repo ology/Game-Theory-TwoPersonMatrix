@@ -105,7 +105,7 @@ sub new {
 
  $e = $g->expected_payoff();
 
-Return the expected payoff value of the game.
+Return the expected payoff value of a game.
 
 =cut
 
@@ -176,7 +176,7 @@ sub s_expected_payoff
 
  $c = $g->counter_strategy($player);
 
-Return the counter-strategies for a given player.
+Return the counter-strategies for a given player of a zero-sum game.
 
 =cut
 
@@ -213,8 +213,8 @@ sub counter_strategy
 
  $p = $g->saddlepoint;
 
-If the game is strictly determined, the saddlepoint is returned.  Otherwise
-C<undef> is returned.
+If the 2x2 zero-sum game is strictly determined, the saddlepoint is returned.
+Otherwise C<undef> is returned.
 
 =cut
 
@@ -267,7 +267,7 @@ sub saddlepoint
 
  $o = $g->oddments();
 
-Return each player's "oddments" for a 2x2 game.
+Return each player's "oddments" for a 2x2 zero-sum game.
 
 =cut
 
@@ -316,8 +316,8 @@ sub oddments
 
  $g->row_reduce();
 
-Reduce a game by identifying and eliminating strictly dominated rows and their
-associated player strategies.
+Reduce a zero-sum game by identifying and eliminating strictly dominated rows
+and their associated player strategies.
 
 =cut
 
@@ -359,8 +359,8 @@ sub row_reduce
 
  $g->col_reduce();
 
-Reduce a game by identifying and eliminating strictly dominated columns and their
-associated opponent strategies.
+Reduce a zero-sum game by identifying and eliminating strictly dominated columns
+and their associated opponent strategies.
 
 =cut
 
@@ -504,7 +504,7 @@ sub _tally_max
 
  $m = $g->pareto_optimal();
 
-Return the Pareto optimal outcomes.
+Return the Pareto optimal outcomes for a non-zero-sum game.
 
 =cut
 
@@ -550,7 +550,7 @@ sub pareto_optimal
 
  $n = $g->nash();
 
-Identify the Nash equilibria.
+Identify the Nash equilibria in a non-zero-sum game.
 
 Given payoff pair C<(a,b)>, B<a> is maximum for its column and B<b> is maximum
 for its row.
