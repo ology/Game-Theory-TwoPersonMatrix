@@ -30,6 +30,7 @@ our $VERSION = '0.19';
  $o = $g->oddments();
  $e = $g->expected_payoff();
  $c = $g->counter_strategy($player);
+ $u = $g->play();
 
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.1, 2 => 0.2, 3 => 0.7 },
@@ -41,7 +42,7 @@ our $VERSION = '0.19';
  $m = $g->pareto_optimal();
  $n = $g->nash();
  $e = $g->expected_payoff();
- $c = $g->counter_strategy($opponent);
+ $c = $g->counter_strategy($player);
  $u = $g->play();
 
 =head1 DESCRIPTION
@@ -603,7 +604,7 @@ sub nash
 Return a single outcome for a zero-sum game or a pair for a non-zero-sum game.
 
 An optional list of player strategies can be provided.  This is a hashref of the
-same strategies given to the constructor.
+same type of strategies that are given to the constructor.
 
 =cut
 
@@ -612,10 +613,7 @@ sub play
     my ( $self, $strategies ) = @_;
 
     # Allow for alternate strategies
-    for my $player ( keys %$strategies )
-    {
-        $self->{$player} = $strategies->{$player};
-    }
+    $self->{$_} = $strategies->{$_} for keys %$strategies;
 
     my ( $rplay, $cplay );
 
