@@ -241,6 +241,6 @@ $g = Game::Theory::TwoPersonMatrix->new(
     payoff2 => [ [4,5],[6,7] ],
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
-like $g->play, qr/^\d,\d$/, 'play';
+is scalar(@{ $g->play }), 2, 'play';
 
 done_testing();
