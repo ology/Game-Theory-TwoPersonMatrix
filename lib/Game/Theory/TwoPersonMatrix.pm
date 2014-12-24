@@ -593,6 +593,19 @@ sub nash
     return $nash;
 }
 
+=head2 play
+
+Return a single outcome for a zero-sum game or a pair for a non-zero-sum game.
+
+=cut
+
+sub play
+{
+    my ($self) = @_;
+    my $play;
+    return $play;
+}
+
 1;
 __END__
 
