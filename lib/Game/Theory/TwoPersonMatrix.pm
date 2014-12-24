@@ -212,8 +212,7 @@ sub counter_strategy
 
  $p = $g->saddlepoint;
 
-If the 2x2 zero-sum game is strictly determined, the saddlepoint is returned.
-Otherwise C<undef> is returned.
+Return the saddlepoint of a zero-sum game, or C<undef> if there is none.
 
 =cut
 
