@@ -79,6 +79,15 @@ isa_ok $g, 'Game::Theory::TwoPersonMatrix', '4x3';
 is $g->saddlepoint, 2, 'saddlepoint';
 
 $g = Game::Theory::TwoPersonMatrix->new(
+    payoff => [ [2,2],
+                [0,4],
+                [1,6],
+                [3,7] ]
+);
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', '4x2';
+is $g->saddlepoint, 3, 'saddlepoint';
+
+$g = Game::Theory::TwoPersonMatrix->new(
     payoff => [ [5,-2],
                 [1, 4] ]
 );
