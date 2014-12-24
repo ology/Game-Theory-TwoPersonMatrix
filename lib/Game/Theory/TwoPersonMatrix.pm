@@ -616,9 +616,8 @@ sub play
     $weights = [ map { $self->{$player}{$_} } @keys ];
     $playj   = choose_weighted( \@keys, $weights );
 
-    return $self->{payoff}
-        ? $self->{payoff}[$playi - 1][$playj - 1]
-        : "$self->{payoff1}[$playi - 1][$playj - 1],$self->{payoff2}[$playi - 1][$playj - 1]";
+    return $self->{payoff} ? $self->{payoff}[$playi - 1][$playj - 1]
+        : [ $self->{payoff1}[$playi - 1][$playj - 1], $self->{payoff2}[$playi - 1][$playj - 1] ];
 }
 
 1;
