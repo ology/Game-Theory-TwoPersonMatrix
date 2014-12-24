@@ -607,14 +607,14 @@ sub play
     my ( $playi, $playj );
 
     my $player  = 1;
-    my @keys    = sort { $a <=> $b } keys %{ $self->{$player} };
-    my $weights = [ map { $self->{$player}{$_} } @keys ];
-    $playi      = choose_weighted( \@keys, $weights );
+    my $keys    = [ sort { $a <=> $b } keys %{ $self->{$player} } ];
+    my $weights = [ map { $self->{$player}{$_} } @$keys ];
+    $playi      = choose_weighted( $keys, $weights );
 
     $player  = 2;
-    @keys    = sort { $a <=> $b } keys %{ $self->{$player} };
-    $weights = [ map { $self->{$player}{$_} } @keys ];
-    $playj   = choose_weighted( \@keys, $weights );
+    $keys    = [ sort { $a <=> $b } keys %{ $self->{$player} } ];
+    $weights = [ map { $self->{$player}{$_} } @$keys ];
+    $playj   = choose_weighted( $keys, $weights );
 
     return $self->{payoff} ? $self->{payoff}[$playi - 1][$playj - 1]
         : [ $self->{payoff1}[$playi - 1][$playj - 1], $self->{payoff2}[$playi - 1][$playj - 1] ];
