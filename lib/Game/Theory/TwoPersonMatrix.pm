@@ -42,6 +42,7 @@ our $VERSION = '0.19';
  $n = $g->nash();
  $e = $g->expected_payoff();
  $c = $g->counter_strategy($opponent);
+ $u = $g->play();
 
 =head1 DESCRIPTION
 
@@ -596,7 +597,13 @@ sub nash
 
 =head2 play
 
+ $u = $g->play();
+ $u = $g->play(\%strategies);
+
 Return a single outcome for a zero-sum game or a pair for a non-zero-sum game.
+
+An optional list of player strategies can be provided.  This is a hashref of the
+same strategies given to the constructor.
 
 =cut
 
