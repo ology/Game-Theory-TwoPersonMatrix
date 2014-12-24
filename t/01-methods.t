@@ -229,9 +229,18 @@ is_deeply $g->counter_strategy(2), [2.8, 3.4], 'player 2 counter_strategy';
 $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.5, 2 => 0.5 },
     2 => { 1 => 0.5, 2 => 0.5 },
-    payoff1 => [ [1,0],[0,2] ],
-    payoff2 => [ [2,0],[0,1] ],
+    payoff => [ [1,2],[3,4] ],
 );
-is ref($g->play), 'ARRAY', 'play';
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
+like $g->play, qr/^\d$/, 'play';
+
+$g = Game::Theory::TwoPersonMatrix->new(
+    1 => { 1 => 0.5, 2 => 0.5 },
+    2 => { 1 => 0.5, 2 => 0.5 },
+    payoff1 => [ [0,1],[2,3] ],
+    payoff2 => [ [4,5],[6,7] ],
+);
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
+like $g->play, qr/^\d,\d$/, 'play';
 
 done_testing();
