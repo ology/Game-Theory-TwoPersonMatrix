@@ -1,6 +1,9 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - Added an actual play() method!
+
+0.17  2014-12-24 09:15:11
     - Allowed multiple saddlepoints to be found in non-symmetric games.
 
 0.16  2014-12-23 06:07:49
