@@ -10,6 +10,7 @@ use Algorithm::Combinatorics qw( permutations );
 use List::Util qw( max min );
 use List::MoreUtils qw( all zip );
 use Array::Transpose;
+use List::Util::WeightedChoice qw( choose_weighted );
 
 our $VERSION = '0.17';
 
@@ -602,8 +603,22 @@ Return a single outcome for a zero-sum game or a pair for a non-zero-sum game.
 sub play
 {
     my ($self) = @_;
-    my $play;
-    return $play;
+
+    my ( $playi, $playj );
+
+    my $player  = 1;
+    my @keys    = sort { $a <=> $b } keys %{ $self->{$player} };
+    my $weights = [ map { $self->{$player}{$_} } @keys ];
+    $playi      = choose_weighted( \@keys, $weights );
+
+    $player  = 2;
+    @keys    = sort { $a <=> $b } keys %{ $self->{$player} };
+    $weights = [ map { $self->{$player}{$_} } @keys ];
+    $playj   = choose_weighted( \@keys, $weights );
+
+    return $self->{payoff}
+        ? $self->{payoff}[$playi - 1][$playj - 1]
+        : "$self->{payoff1}[$playi - 1][$playj - 1],$self->{payoff2}[$playi - 1][$playj - 1]";
 }
 
 1;
