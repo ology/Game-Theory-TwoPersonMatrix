@@ -1,8 +1,7 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
-    - Allowed multiple saddlepoints to be found.
-    - Added non-symmetric saddlepoint tests.
+    - Allowed multiple saddlepoints to be found in non-symmetric games.
 
 0.16  2014-12-23 06:07:49
     - Enabled counter_strategy() computation for non-zero-sum games.
