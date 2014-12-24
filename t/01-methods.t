@@ -182,6 +182,13 @@ isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
 is_deeply $g->nash, { "0,1" => [0,-1], "1,0" => [0,-1], "1,1" => [0,-1] }, 'nash';
 
 $g = Game::Theory::TwoPersonMatrix->new(
+    payoff1 => [ [3,0],[5,1] ],
+    payoff2 => [ [3,5],[0,1] ],
+);
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
+is_deeply $g->nash, { "1,1" => [1,1] }, 'nash';
+
+$g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => '0.2', 2 => '0.8' },
     2 => { 1 => '0.3', 2 => '0.7' },
     payoff1 => [ [5,0], [-1,2] ],
