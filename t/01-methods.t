@@ -233,6 +233,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
 like $g->play, qr/^\d$/, 'play';
+is $g->play({ 1 => { 1 => 0, 2 => 1 }, 2 => { 1 => 0, 2 => 1 } }), 4, 'play alternate strategies';
 
 $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.5, 2 => 0.5 },
