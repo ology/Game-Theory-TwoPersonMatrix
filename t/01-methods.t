@@ -226,4 +226,12 @@ isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2';
 is_deeply $g->counter_strategy(1), [2.7, 1.2], 'player 1 counter_strategy';
 is_deeply $g->counter_strategy(2), [2.8, 3.4], 'player 2 counter_strategy';
 
+$g = Game::Theory::TwoPersonMatrix->new(
+    1 => { 1 => 0.5, 2 => 0.5 },
+    2 => { 1 => 0.5, 2 => 0.5 },
+    payoff1 => [ [1,0],[0,2] ],
+    payoff2 => [ [2,0],[0,1] ],
+);
+is ref($g->play), 'ARRAY', 'play';
+
 done_testing();
