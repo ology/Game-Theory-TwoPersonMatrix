@@ -1,6 +1,9 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - Improved documentation! 
+
+0.19  2014-12-24 03:12:36
     - Return a proper arrayref for non-zero-sum play().
     - Improved documentation!
     - Allowed alternate strategies to be given to play(). 
