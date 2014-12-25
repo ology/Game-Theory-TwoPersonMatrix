@@ -615,17 +615,15 @@ sub play
     # Allow for alternate strategies
     $self->{$_} = $strategies->{$_} for keys %$strategies;
 
-    my ( $rplay, $cplay );
-
     my $player  = 1;
     my $keys    = [ sort { $a <=> $b } keys %{ $self->{$player} } ];
     my $weights = [ map { $self->{$player}{$_} } @$keys ];
-    $rplay      = choose_weighted( $keys, $weights );
+    my $rplay   = choose_weighted( $keys, $weights );
 
-    $player  = 2;
-    $keys    = [ sort { $a <=> $b } keys %{ $self->{$player} } ];
-    $weights = [ map { $self->{$player}{$_} } @$keys ];
-    $cplay   = choose_weighted( $keys, $weights );
+    $player   = 2;
+    $keys     = [ sort { $a <=> $b } keys %{ $self->{$player} } ];
+    $weights  = [ map { $self->{$player}{$_} } @$keys ];
+    my $cplay = choose_weighted( $keys, $weights );
 
     return $self->{payoff} ? $self->{payoff}[$rplay - 1][$cplay - 1]
         : [ $self->{payoff1}[$rplay - 1][$cplay - 1], $self->{payoff2}[$rplay - 1][$cplay - 1] ];
