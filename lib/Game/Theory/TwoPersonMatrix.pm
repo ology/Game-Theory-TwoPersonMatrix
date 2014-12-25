@@ -612,6 +612,8 @@ sub play
 {
     my ( $self, $strategies ) = @_;
 
+    my $play;
+
     # Allow for alternate strategies
     $self->{$_} = $strategies->{$_} for keys %$strategies;
 
@@ -625,8 +627,11 @@ sub play
     $weights  = [ map { $self->{$player}{$_} } @$keys ];
     my $cplay = choose_weighted( $keys, $weights );
 
-    return $self->{payoff} ? $self->{payoff}[$rplay - 1][$cplay - 1]
+    $play->{ "$rplay,$cplay" } = $self->{payoff}
+        ? $self->{payoff}[$rplay - 1][$cplay - 1]
         : [ $self->{payoff1}[$rplay - 1][$cplay - 1], $self->{payoff2}[$rplay - 1][$cplay - 1] ];
+
+    return $play;
 }
 
 1;
