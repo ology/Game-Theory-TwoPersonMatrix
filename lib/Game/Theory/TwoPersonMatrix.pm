@@ -596,7 +596,7 @@ sub nash
     return $nash;
 }
 
-=head2 play
+=head2 play()
 
  $u = $g->play();
  $u = $g->play(\%strategies);
