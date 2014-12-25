@@ -12,7 +12,7 @@ use List::MoreUtils qw( all zip );
 use Array::Transpose;
 use List::Util::WeightedChoice qw( choose_weighted );
 
-our $VERSION = '0.1901';
+our $VERSION = '0.1902';
 
 =head1 SYNOPSIS
 
