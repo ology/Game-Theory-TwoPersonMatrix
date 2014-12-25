@@ -1,7 +1,7 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
-    - 
+    - Return play() as a strategy - outcome set, instead of just the outcome.
 
 0.1901 2014-12-24 03:27:49
     - Improved documentation! 
