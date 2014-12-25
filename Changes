@@ -1,6 +1,9 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - 
+
+0.1903 2014-12-25 09:43:36
     - Re-added a non-zero-sum play() test.
     - Improved documentation.
     - Fixed play() arguments - hashref to hash.
