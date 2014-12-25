@@ -12,7 +12,7 @@ use List::MoreUtils qw( all zip );
 use Array::Transpose;
 use List::Util::WeightedChoice qw( choose_weighted );
 
-our $VERSION = '0.1902';
+our $VERSION = '0.1903';
 
 =head1 SYNOPSIS
 
@@ -599,7 +599,7 @@ sub nash
 =head2 play()
 
  $u = $g->play();
- $u = $g->play(\%strategies);
+ $u = $g->play(%strategies);
 
 Return a single outcome for a zero-sum game or a pair for a non-zero-sum game.
 
@@ -610,12 +610,12 @@ same type of strategies that are given to the constructor.
 
 sub play
 {
-    my ( $self, $strategies ) = @_;
+    my ( $self, %strategies ) = @_;
 
     my $play;
 
     # Allow for alternate strategies
-    $self->{$_} = $strategies->{$_} for keys %$strategies;
+    $self->{$_} = $strategies{$_} for keys %strategies;
 
     my $player  = 1;
     my $keys    = [ sort { $a <=> $b } keys %{ $self->{$player} } ];
