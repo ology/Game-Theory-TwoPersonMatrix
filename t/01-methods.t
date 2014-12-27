@@ -36,20 +36,37 @@ isa_ok $g, 'Game::Theory::TwoPersonMatrix', '3x4';
 is $g->expected_payoff(), -0.37, 'expected_payoff';
 
 $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => 'p', 2 => '1 - p' },
-    2 => { 1 => 'q', 2 => '1 - q' },
+    1 => { 1 => 'p', 2 => '(1 - p)' },
+    2 => { 1 => 'q', 2 => '(1 - q)' },
     payoff => [ ['a','b'], ['c','d'] ]
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', 'symbolic';
-is $g->s_expected_payoff(), 'p * q * a + p * 1 - q * b + 1 - p * q * c + 1 - p * 1 - q * d', 'expected_payoff';
+is $g->s_expected_payoff(),
+    'p * q * a + p * (1 - q) * b + (1 - p) * q * c + (1 - p) * (1 - q) * d',
+    'expected_payoff';
 
 $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => '0.5', 2 => '0.5' },
-    2 => { 1 => 'q', 2 => '1 - q' },
+    2 => { 1 => 'q', 2 => '(1 - q)' },
     payoff => [ [1,0], [0,1] ]
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', 'symbolic';
-is $g->s_expected_payoff(), '0.5 * q * 1 + 0.5 * 1 - q * 0 + 0.5 * q * 0 + 0.5 * 1 - q * 1', 'expected_payoff';
+is $g->s_expected_payoff(),
+    '0.5 * q * 1 + 0.5 * (1 - q) * 0 + 0.5 * q * 0 + 0.5 * (1 - q) * 1',
+    'expected_payoff';
+
+$g = Game::Theory::TwoPersonMatrix->new(
+    1 => { 1 => 'p', 2 => '(1 - p)' },
+    2 => { 1 => 'q', 2 => '(1 - q)' },
+    payoff1 => [ ['a','b'], ['c','d'] ],
+    payoff2 => [ ['e','f'], ['g','h'] ]
+);
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', 'symbolic';
+is_deeply $g->s_expected_payoff(),
+    [ "p * q * a + p * (1 - q) * b + (1 - p) * q * c + (1 - p) * (1 - q) * d",
+      "p * q * e + p * (1 - q) * f + (1 - p) * q * g + (1 - p) * (1 - q) * h"
+    ],
+    'expected_payoff';
 
 $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => '0.2', 2 => '0.3', 3 => '0.5' },
