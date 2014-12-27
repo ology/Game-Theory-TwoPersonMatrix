@@ -1,6 +1,9 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - Fixed copy-pasta eg/minimax messages.
+
+0.2001 2014-12-27 01:11:43
     - Improved documentation.
     - Added a simplistic play() simulation under eg/.
 
