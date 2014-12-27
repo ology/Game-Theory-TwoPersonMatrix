@@ -61,7 +61,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
     payoff1 => [ ['a','b'], ['c','d'] ],
     payoff2 => [ ['e','f'], ['g','h'] ]
 );
-isa_ok $g, 'Game::Theory::TwoPersonMatrix', 'symbolic';
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', 'symbolic non-zero-sum';
 is_deeply $g->s_expected_payoff(),
     [ 'p * q * a + p * (1 - q) * b + (1 - p) * q * c + (1 - p) * (1 - q) * d',
       'p * q * e + p * (1 - q) * f + (1 - p) * q * g + (1 - p) * (1 - q) * h' ],
@@ -73,7 +73,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
     payoff1 => [ [0,3], [2,1] ],
     payoff2 => [ [3,0], [1,2] ]
 );
-isa_ok $g, 'Game::Theory::TwoPersonMatrix', 'symbolic';
+isa_ok $g, 'Game::Theory::TwoPersonMatrix', 'symbolic non-zero-sum';
 is_deeply $g->s_expected_payoff(),
     [ 'p1 * q1 * 0 + p1 * q2 * 3 + p2 * q1 * 2 + p2 * q2 * 1',
       'p1 * q1 * 3 + p1 * q2 * 0 + p2 * q1 * 1 + p2 * q2 * 2' ],
