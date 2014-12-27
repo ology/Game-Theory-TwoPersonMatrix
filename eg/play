@@ -17,7 +17,7 @@ my ( $player, $opponent );
 
 for ( 1 .. $n )
 {
-    my $p = [ values %{ $g->play() } ]->[0];
+    my ($p) = values %{ $g->play() };
     $player   += $p->[0];
     $opponent += $p->[1];
 }
