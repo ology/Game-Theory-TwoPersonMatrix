@@ -198,8 +198,8 @@ sub s_expected_payoff
 
  $c = $g->counter_strategy($player);
 
-Return the counter-strategies for a given player of either a zero-sum or
-non-zero-sum game.
+Return the expected payoff, for a given player, of either a zero-sum or
+non-zero-sum game, given pure opponent strategies.
 
 =cut
 
@@ -237,6 +237,8 @@ sub counter_strategy
  $p = $g->saddlepoint;
 
 Return the saddlepoint of a zero-sum game, or C<undef> if there is none.
+
+A saddlepoint is simultaneously minimum for its row and maximum for its column.
 
 =cut
 
@@ -288,7 +290,7 @@ sub saddlepoint
 
  $o = $g->oddments();
 
-Return each player's "oddments" for a 2x2 zero-sum game.
+Return each player's "oddments" for a 2x2 zero-sum game with no saddlepoint.
 
 =cut
 
