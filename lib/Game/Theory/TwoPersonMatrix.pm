@@ -116,10 +116,10 @@ sub expected_payoff
 
     my $expected_payoff;
     # For each strategy of player 1...
-    for my $i ( sort { $a <=> $b } keys %{ $self->{1} } )
+    for my $i ( sort keys %{ $self->{1} } )
     {
         # For each strategy of player 2...
-        for my $j ( sort { $a <=> $b } keys %{ $self->{2} } )
+        for my $j ( sort keys %{ $self->{2} } )
         {
             if ( $self->{payoff1} && $self->{payoff2} )
             {
@@ -158,10 +158,10 @@ sub s_expected_payoff
 
     my $expected_payoff;
     # For each strategy of player 1...
-    for my $i ( sort { $a <=> $b } keys %{ $self->{1} } )
+    for my $i ( sort keys %{ $self->{1} } )
     {
         # For each strategy of player 2...
-        for my $j ( sort { $a <=> $b } keys %{ $self->{2} } )
+        for my $j ( sort keys %{ $self->{2} } )
         {
             if ( $self->{payoff1} && $self->{payoff2} )
             {
@@ -470,7 +470,7 @@ sub mm_tally
             push @m, $s{$row};
         }
         $mm_tally->{2}{value} = max @m;
-        for my $row ( sort { $a <=> $b } keys %s )
+        for my $row ( sort keys %s )
         {
             push @{ $mm_tally->{2}{strategy} }, ( $s{$row} == $mm_tally->{2}{value} ? 1 : 0 );
         }
@@ -490,7 +490,7 @@ sub mm_tally
             push @m, $s{$row};
         }
         $mm_tally->{2}{value} = min @m;
-        for my $row ( sort { $a <=> $b } keys %s )
+        for my $row ( sort keys %s )
         {
             push @{ $mm_tally->{2}{strategy} }, ( $s{$row} == $mm_tally->{2}{value} ? 1 : 0 );
         }
@@ -515,7 +515,7 @@ sub _tally_max
 
     $mm_tally->{$player}{value} = max @m;
 
-    for my $row ( sort { $a <=> $b } keys %s )
+    for my $row ( sort keys %s )
     {
         push @{ $mm_tally->{$player}{strategy} }, ( $s{$row} == $mm_tally->{$player}{value} ? 1 : 0 );
     }
@@ -641,12 +641,12 @@ sub play
     $self->{$_} = $strategies{$_} for keys %strategies;
 
     my $player  = 1;
-    my $keys    = [ sort { $a <=> $b } keys %{ $self->{$player} } ];
+    my $keys    = [ sort keys %{ $self->{$player} } ];
     my $weights = [ map { $self->{$player}{$_} } @$keys ];
     my $rplay   = choose_weighted( $keys, $weights );
 
     $player   = 2;
-    $keys     = [ sort { $a <=> $b } keys %{ $self->{$player} } ];
+    $keys     = [ sort keys %{ $self->{$player} } ];
     $weights  = [ map { $self->{$player}{$_} } @$keys ];
     my $cplay = choose_weighted( $keys, $weights );
 
