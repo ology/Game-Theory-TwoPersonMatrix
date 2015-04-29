@@ -7,17 +7,35 @@ use Game::Theory::TwoPersonMatrix;
 my $n = shift || 100;
 
 my $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => '0.5', 2 => '0.5' },
-    2 => { 1 => '0.5', 2 => '0.5' },
-    payoff1 => [ [3, 0], [5, 1] ],
-    payoff2 => [ [3, 5], [0, 1] ],
+    payoff1 => [ [3, 0],
+                 [5, 1] ],
+    payoff2 => [ [3, 5],
+                 [0, 1] ],
 );
 
 my ( $player, $opponent );
 
+my %strategy = (
+    1 => { 1 => '0.5', 2 => '0.5' },
+    2 => { 1 => '0.5', 2 => '0.5' },
+);
+
 for ( 1 .. $n )
 {
-    my ($p) = values %{ $g->play() };
+    my ($play) = $g->play(%strategy);
+    my ( $strat1, $strat2 ) = split /,/, (keys %$play)[0];
+    # Tit-for-tat:
+    %strategy = (
+        1 => {
+            1 => ( $strat2 == 1 ? 1 : 0 ),
+            2 => ( $strat2 == 2 ? 2 : 0 ),
+        },
+        2 => {
+            1 => ( $strat1 == 1 ? 1 : 0 ),
+            2 => ( $strat1 == 2 ? 2 : 0 ),
+        },
+    );
+    my ($p) = values %$play;
     $player   += $p->[0];
     $opponent += $p->[1];
 }
