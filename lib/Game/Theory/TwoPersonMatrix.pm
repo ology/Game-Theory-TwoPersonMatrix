@@ -650,7 +650,7 @@ sub play
     $weights  = [ map { $self->{$player}{$_} } @$keys ];
     my $cplay = choose_weighted( $keys, $weights );
 
-    $play->{ "$rplay,$cplay" } = $self->{payoff}
+    $play->{ "$rplay,$cplay" } = exists $self->{payoff} && $self->{payoff}
         ? $self->{payoff}[$rplay - 1][$cplay - 1]
         : [ $self->{payoff1}[$rplay - 1][$cplay - 1], $self->{payoff2}[$rplay - 1][$cplay - 1] ];
 
