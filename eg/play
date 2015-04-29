@@ -23,18 +23,20 @@ my %strategy = (
 for ( 1 .. $n )
 {
     my ($play) = $g->play(%strategy);
-    my ( $strat1, $strat2 ) = split /,/, (keys %$play)[0];
+
     # Tit-for-tat:
+    my ( $strat1, $strat2 ) = split /,/, (keys %$play)[0];
     %strategy = (
         1 => {
             1 => ( $strat2 == 1 ? 1 : 0 ),
-            2 => ( $strat2 == 2 ? 2 : 0 ),
+            2 => ( $strat2 == 2 ? 1 : 0 ),
         },
         2 => {
             1 => ( $strat1 == 1 ? 1 : 0 ),
-            2 => ( $strat1 == 2 ? 2 : 0 ),
+            2 => ( $strat1 == 2 ? 1 : 0 ),
         },
     );
+
     my ($p) = values %$play;
     $player   += $p->[0];
     $opponent += $p->[1];
