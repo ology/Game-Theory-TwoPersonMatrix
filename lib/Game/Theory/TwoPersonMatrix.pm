@@ -5,11 +5,10 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
-use Carp;
 use Algorithm::Combinatorics qw( permutations );
-use List::Util qw( max min );
-use List::MoreUtils qw( all zip );
 use Array::Transpose;
+use List::MoreUtils qw( all zip );
+use List::Util qw( max min );
 use List::Util::WeightedChoice qw( choose_weighted );
 
 our $VERSION = '0.2003';
