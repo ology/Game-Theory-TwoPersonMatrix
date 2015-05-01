@@ -8,14 +8,15 @@ my $n = shift || 100;
 
 # A Prisoner's Dilemma
 my $g = Game::Theory::TwoPersonMatrix->new(
+    # Payoff table for the row player
     payoff1 => [ [3, 0],
                  [5, 1] ],
+    # Payoff table for the column player
     payoff2 => [ [3, 5],
                  [0, 1] ],
 );
 
-my ( $player, $opponent );
-
+# Initial strategies
 my %strategy = (
     1 => cooperate(),
 #    2 => cooperate(),
@@ -25,7 +26,7 @@ my %strategy = (
 #    2 => random(),
 );
 
-my @moves;
+my ( $player, $opponent, @moves );
 
 for ( 1 .. $n )
 {
@@ -34,6 +35,7 @@ for ( 1 .. $n )
     # The strategies are encoded in the key
     push @moves, (keys %$play)[0];
 
+    # Set next strategies
     %strategy = (
         1 => tit_for_tat(\@moves)->{1},
 #        1 => tit_for_two_tats(\@moves)->{1},
@@ -41,6 +43,7 @@ for ( 1 .. $n )
 #        2 => defect()
     );
 
+    # Update the score for each player
     my ($p) = values %$play;
     $player   += $p->[0];
     $opponent += $p->[1];
