@@ -81,11 +81,11 @@ sub tit_for_two_tats {
     return {
         1 => {
             1 => ( $strat2 == 2 && $strat4 == 2 ? 0 : ( $strat2 == 1 ? 1 : 0 ) ),
-            2 => ( $strat2 == 2 && $strat4 == 2 ? 1 : ( $strat2 == 1 ? 1 : 0 ) ),
+            2 => ( $strat2 == 2 && $strat4 == 2 ? 1 : ( $strat2 == 2 ? 1 : 0 ) ),
         },
         2 => {
             1 => ( $strat1 == 2 && $strat3 == 2 ? 0 : ( $strat1 == 1 ? 1 : 0 ) ),
-            2 => ( $strat1 == 2 && $strat3 == 2 ? 1 : ( $strat1 == 1 ? 1 : 0 ) ),
+            2 => ( $strat1 == 2 && $strat3 == 2 ? 1 : ( $strat1 == 2 ? 1 : 0 ) ),
         },
     }
 }
