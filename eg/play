@@ -4,6 +4,7 @@ use warnings;
 
 use Game::Theory::TwoPersonMatrix;
 
+# Set the number of moves
 my $n = shift || 100;
 
 # A Prisoner's Dilemma
@@ -30,6 +31,7 @@ my ( $player, $opponent, @moves );
 
 for ( 1 .. $n )
 {
+    # Each player makes a move
     my ($play) = $g->play(%strategy);
 
     # The strategies are encoded in the key
