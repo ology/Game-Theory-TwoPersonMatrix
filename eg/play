@@ -37,6 +37,11 @@ for ( 1 .. $n )
     # The strategies are encoded in the key
     push @moves, (keys %$play)[0];
 
+    # Update the score for each player
+    my ($p) = values %$play;
+    $player   += $p->[0];
+    $opponent += $p->[1];
+
     # Set next strategies
     %strategy = (
         1 => tit_for_tat(\@moves)->{1},
@@ -44,11 +49,6 @@ for ( 1 .. $n )
         2 => random(),
 #        2 => defect()
     );
-
-    # Update the score for each player
-    my ($p) = values %$play;
-    $player   += $p->[0];
-    $opponent += $p->[1];
 }
 
 print "Player = $player, Opponent = $opponent\n";
