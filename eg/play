@@ -36,6 +36,7 @@ for ( 1 .. $n )
 
     %strategy = (
         1 => tit_for_tat(\@moves)->{1},
+#        1 => tit_for_two_tats(\@moves)->{1},
         2 => random(),
 #        2 => defect()
     );
@@ -64,6 +65,27 @@ sub tit_for_tat {
         2 => {
             1 => ( $strat1 == 1 ? 1 : 0 ),
             2 => ( $strat1 == 2 ? 1 : 0 ),
+        },
+    }
+}
+
+sub tit_for_two_tats {
+    my $moves = shift;
+
+    return tit_for_tat() if @$moves == 1;
+
+    my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
+    my ( $strat3, $strat4 ) = split /,/, $moves->[-2];
+    # Defect if the opponent has defected twice in a row
+    # Otherwise use tit_for_tat
+    return {
+        1 => {
+            1 => ( $strat2 == 2 && $strat4 == 2 ? 0 : ( $strat2 == 1 ? 1 : 0 ) ),
+            2 => ( $strat2 == 2 && $strat4 == 2 ? 1 : ( $strat2 == 1 ? 1 : 0 ) ),
+        },
+        2 => {
+            1 => ( $strat1 == 2 && $strat3 == 2 ? 0 : ( $strat1 == 1 ? 1 : 0 ) ),
+            2 => ( $strat1 == 2 && $strat3 == 2 ? 1 : ( $strat1 == 1 ? 1 : 0 ) ),
         },
     }
 }
