@@ -6,6 +6,7 @@ use Game::Theory::TwoPersonMatrix;
 
 my $n = shift || 100;
 
+# A Prisoner's Dilemma
 my $g = Game::Theory::TwoPersonMatrix->new(
     payoff1 => [ [3, 0],
                  [5, 1] ],
@@ -16,25 +17,27 @@ my $g = Game::Theory::TwoPersonMatrix->new(
 my ( $player, $opponent );
 
 my %strategy = (
-    1 => { 1 => '0.5', 2 => '0.5' },
-    2 => { 1 => '0.5', 2 => '0.5' },
+    1 => cooperate(),
+#    2 => cooperate(),
+#    1 => defect(),
+    2 => defect(),
+#    1 => random(),
+#    2 => random(),
 );
+
+my @moves;
 
 for ( 1 .. $n )
 {
     my ($play) = $g->play(%strategy);
 
-    # Tit-for-tat:
-    my ( $strat1, $strat2 ) = split /,/, (keys %$play)[0];
+    # The strategies are encoded in the key
+    push @moves, (keys %$play)[0];
+
     %strategy = (
-        1 => {
-            1 => ( $strat2 == 1 ? 1 : 0 ),
-            2 => ( $strat2 == 2 ? 1 : 0 ),
-        },
-        2 => {
-            1 => ( $strat1 == 1 ? 1 : 0 ),
-            2 => ( $strat1 == 2 ? 1 : 0 ),
-        },
+        1 => tit_for_tat(\@moves)->{1},
+        2 => random(),
+#        2 => defect()
     );
 
     my ($p) = values %$play;
@@ -43,3 +46,24 @@ for ( 1 .. $n )
 }
 
 print "Player = $player, Opponent = $opponent\n";
+
+sub random { return { 1 => 0.5, 2 => 0.5 } }
+
+sub cooperate { return { 1 => 1, 2 => 0 } }
+
+sub defect { return { 1 => 0, 2 => 1 } }
+
+sub tit_for_tat {
+    my $moves = shift;
+    my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
+    return {
+        1 => {
+            1 => ( $strat2 == 1 ? 1 : 0 ),
+            2 => ( $strat2 == 2 ? 1 : 0 ),
+        },
+        2 => {
+            1 => ( $strat1 == 1 ? 1 : 0 ),
+            2 => ( $strat1 == 2 ? 1 : 0 ),
+        },
+    }
+}
