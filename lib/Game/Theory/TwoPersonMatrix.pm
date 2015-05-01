@@ -35,8 +35,15 @@ our $VERSION = '0.2003';
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.1, 2 => 0.2, 3 => 0.7 },
     2 => { 1 => 0.1, 2 => 0.2, 3 => 0.3, 4 => 0.4 },
-    payoff1 => [ [5,3,8,2],[6,5,7,1],[7,4,6,0] ],
-    payoff2 => [ [2,0,1,3],[3,4,4,1],[5,6,8,2] ],
+    # Payoff table for the row player
+    payoff1 => [ [5,3,8,2],   # 1
+                 [6,5,7,1],   # 2
+                 [7,4,6,0] ], # 3
+    # Payoff table for the column player (opponent)
+    #             1 2 3 4
+    payoff2 => [ [2,0,1,3],
+                 [3,4,4,1],
+                 [5,6,8,2] ],
  );
  $t = $g->mm_tally();
  $m = $g->pareto_optimal();
@@ -69,14 +76,16 @@ SYNOPSIS.
 =head2 new()
 
  $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => '0.5', 2 => '0.5' },
-    2 => { 1 => '0.5', 2 => '0.5' },
+    1 => { 1 => 0.5, 2 => 0.5 },
+    2 => { 1 => 0.5, 2 => 0.5 },
     payoff => [ [1,0],
                 [0,1] ]
  );
  $g = Game::Theory::TwoPersonMatrix->new(
-    payoff1 => [ [2,3],[2,1] ],
-    payoff2 => [ [3,5],[2,3] ],
+    payoff1 => [ [2,3],
+                 [2,1] ],
+    payoff2 => [ [3,5],
+                 [2,3] ],
  );
 
 Create a new C<Game::Theory::TwoPersonMatrix> object.
