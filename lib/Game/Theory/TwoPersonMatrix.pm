@@ -12,7 +12,7 @@ use List::MoreUtils qw( all zip );
 use List::Util qw( max min );
 use List::Util::WeightedChoice qw( choose_weighted );
 
-our $VERSION = '0.2004';
+our $VERSION = '0.2005';
 
 =head1 SYNOPSIS
 
