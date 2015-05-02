@@ -5,6 +5,7 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
+use Carp;
 use Algorithm::Combinatorics qw( permutations );
 use Array::Transpose;
 use List::MoreUtils qw( all zip );
