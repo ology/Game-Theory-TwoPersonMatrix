@@ -2,6 +2,7 @@ Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
     - Enhanced the eg/play script with strategic subroutines.
+    - Improved documentation.
 
 0.2003 2014-12-27 01:40:21
     - Fixed the syntax of eg/play.
