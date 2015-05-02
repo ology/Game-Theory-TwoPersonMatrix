@@ -156,8 +156,8 @@ sub expected_payoff
 
 Return the expected payoff expression for a non-numeric game.
 
-Using real payoff values, we solve the resulting expression for p in the F<eg/>
-examples.
+Using real payoff values, we solve the resulting expression for B<p> in the
+F<eg/> examples.
 
 =cut
 
