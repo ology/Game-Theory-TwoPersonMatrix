@@ -10,9 +10,10 @@ my $n = shift || 100;
 # A Prisoner's Dilemma
 my $g = Game::Theory::TwoPersonMatrix->new(
     # Payoff table for the row player
-    payoff1 => [ [3, 0],
-                 [5, 1] ],
-    # Payoff table for the column player
+    payoff1 => [ [3, 0],   # 1
+                 [5, 1] ], # 2
+    # Payoff table for the column player (opponent)
+    #             1  2
     payoff2 => [ [3, 5],
                  [0, 1] ],
 );
