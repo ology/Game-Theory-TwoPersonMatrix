@@ -1,6 +1,9 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - 
+
+0.2005 2015-05-02 05:18:21
     - Removed compiler restriction from eg/ scripts.
     - Replaced numeric tests with cmp_ok ==.
 
