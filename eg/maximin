@@ -10,18 +10,22 @@ use Math::Algebra::Symbols;
 
 my ($p) = symbols(qw(p));
 
+my $strategy0 = { 1 => '(1 - p)', 2 => 'p' };
+my $strategy1 = { 1 => 1, 2 => 0 };
+my $strategy2 = { 1 => 0, 2 => 1 };
+
 print "Ex 1:\n";
 my $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => '(1 - p)', 2 => 'p' },
-    2 => { 1 => 1, 2 => 0 },
+    1 => $strategy0,
+    2 => $strategy1,
     payoff => [ [1,-1], [-1,1] ]
 );
 print 's_expected_payoff: ', $g->s_expected_payoff(), "\n";
 my $r1 = (1 - $p) * 1 * 1 + (1 - $p) * 0 * -1 + $p * 1 * -1 + $p * 0 * 1;
 print 'simplify: ', $r1->simplify, "\n";
 $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => '(1 - p)', 2 => 'p' },
-    2 => { 1 => 0, 2 => 1 },
+    1 => $strategy0,
+    2 => $strategy2,
     payoff => [ [1,-1], [-1,1] ]
 );
 print 's_expected_payoff: ', $g->s_expected_payoff(), "\n";
@@ -35,16 +39,16 @@ print 'maximin expectation: ', $s, "\n";
 
 print "Ex 2:\n";
 $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => '(1 - p)', 2 => 'p' },
-    2 => { 1 => 1, 2 => 0 },
+    1 => $strategy0,
+    2 => $strategy1,
     payoff => [ [0.8, 1], [0.9, 0.5] ]
 );
 print 's_expected_payoff: ', $g->s_expected_payoff(), "\n";
 $r1 = (1 - $p) * 1 * 0.8 + (1 - $p) * 0 * 1 + $p * 1 * 0.9 + $p * 0 * 0.5;
 print 'simplify: ', $r1->simplify, "\n";
 $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => '(1 - p)', 2 => 'p' },
-    2 => { 1 => 0, 2 => 1 },
+    1 => $strategy0,
+    2 => $strategy2,
     payoff => [ [0.8, 1], [0.9, 0.5] ]
 );
 print 's_expected_payoff: ', $g->s_expected_payoff(), "\n";
@@ -58,16 +62,16 @@ print 'maximin expectation: ', $s, "\n";
 
 print "Ex 4:\n";
 $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => '(1 - p)', 2 => 'p' },
-    2 => { 1 => 1, 2 => 0 },
+    1 => $strategy0,
+    2 => $strategy1,
     payoff => [ [0,-1], [2,3] ]
 );
 print 's_expected_payoff: ', $g->s_expected_payoff(), "\n";
 $r1 = (1 - $p) * 1 * 0 + (1 - $p) * 0 * -1 + $p * 1 * 2 + $p * 0 * 3;
 print 'simplify: ', $r1->simplify, "\n";
 $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => '(1 - p)', 2 => 'p' },
-    2 => { 1 => 0, 2 => 1 },
+    1 => $strategy0,
+    2 => $strategy2,
     payoff => [ [0,-1], [2,3] ]
 );
 print 's_expected_payoff: ', $g->s_expected_payoff(), "\n";
@@ -81,16 +85,16 @@ print 'maximin expectation: ', $s, "\n";
 
 print "Ex 6:\n";
 $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => '(1 - p)', 2 => 'p' },
-    2 => { 1 => 1, 2 => 0 },
+    1 => $strategy0,
+    2 => $strategy1,
     payoff => [ [0,1], [2,1] ]
 );
 print 's_expected_payoff: ', $g->s_expected_payoff(), "\n";
 $r1 = (1 - $p) * 1 * 0 + (1 - $p) * 0 * 1 + $p * 1 * 2 + $p * 0 * 1;
 print 'simplify: ', $r1->simplify, "\n";
 $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => '(1 - p)', 2 => 'p' },
-    2 => { 1 => 0, 2 => 1 },
+    1 => $strategy0,
+    2 => $strategy2,
     payoff => [ [0,1], [2,1] ]
 );
 print 's_expected_payoff: ', $g->s_expected_payoff(), "\n";
