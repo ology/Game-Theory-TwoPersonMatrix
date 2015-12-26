@@ -17,6 +17,7 @@ our $VERSION = '0.2005';
 =head1 SYNOPSIS
 
  use Game::Theory::TwoPersonMatrix;
+
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.2, 2 => 0.3, 3 => 0.5 },
     2 => { 1 => 0.1, 2 => 0.7, 3 => 0.2 },
