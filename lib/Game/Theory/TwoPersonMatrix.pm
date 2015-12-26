@@ -5,14 +5,14 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
+our $VERSION = '0.2006';
+
 use Carp;
 use Algorithm::Combinatorics qw( permutations );
 use Array::Transpose;
 use List::MoreUtils qw( all zip );
 use List::Util qw( max min );
 use List::Util::WeightedChoice qw( choose_weighted );
-
-our $VERSION = '0.2005';
 
 =head1 SYNOPSIS
 
