@@ -1,9 +1,9 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
-    - Clean code a bit.
+    - Cleaned code a bit.
     - Improved documentation slightly.
-    - Add Test::Synopsis to the distribution.
+    - Added eg/play-music.
 
 0.2005 2015-05-02 05:18:21
     - Removed compiler restriction from eg/ scripts.
