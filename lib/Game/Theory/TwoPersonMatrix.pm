@@ -24,7 +24,7 @@ use List::Util::WeightedChoice qw( choose_weighted );
     payoff => [ [-5, 4, 6],
                 [ 3,-2, 2],
                 [ 2,-3, 1] ]
- };
+ );
  $g->row_reduce();
  $g->col_reduce();
  $p = $g->saddlepoint();
