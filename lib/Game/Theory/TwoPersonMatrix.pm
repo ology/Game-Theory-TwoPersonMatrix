@@ -18,7 +18,7 @@ use List::Util::WeightedChoice qw( choose_weighted );
 
  use Game::Theory::TwoPersonMatrix;
 
- $g = Game::Theory::TwoPersonMatrix->new(
+ my $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.2, 2 => 0.3, 3 => 0.5 },
     2 => { 1 => 0.1, 2 => 0.7, 3 => 0.2 },
     payoff => [ [-5, 4, 6],
@@ -27,11 +27,12 @@ use List::Util::WeightedChoice qw( choose_weighted );
  );
  $g->row_reduce();
  $g->col_reduce();
- $p = $g->saddlepoint();
- $o = $g->oddments();
- $e = $g->expected_payoff();
- $c = $g->counter_strategy($player);
- $u = $g->play();
+ my $player = 1;
+ my $p = $g->saddlepoint();
+ my $o = $g->oddments();
+ my $e = $g->expected_payoff();
+ my $c = $g->counter_strategy($player);
+ my $u = $g->play();
 
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.1, 2 => 0.2, 3 => 0.7 },
@@ -46,9 +47,9 @@ use List::Util::WeightedChoice qw( choose_weighted );
                  [3,4,4,1],
                  [5,6,8,2] ],
  );
- $t = $g->mm_tally();
- $m = $g->pareto_optimal();
- $n = $g->nash();
+ my $t = $g->mm_tally();
+ my $m = $g->pareto_optimal();
+ my $n = $g->nash();
  $e = $g->expected_payoff();
  $c = $g->counter_strategy($player);
  $u = $g->play();
