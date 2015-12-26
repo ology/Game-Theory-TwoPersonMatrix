@@ -4,6 +4,7 @@ Revision history for Game-Theory-TwoPersonMatrix
     - Cleaned code a bit.
     - Improved documentation slightly.
     - Added eg/play-music.
+    - Added the Test::Synopsis author plugin.
 
 0.2005 2015-05-02 05:18:21
     - Removed compiler restriction from eg/ scripts.
