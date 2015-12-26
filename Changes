@@ -1,6 +1,8 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+
+0.2006 2015-12-25 18:40:48
     - Cleaned code a bit.
     - Improved documentation slightly.
     - Added eg/play-music.
