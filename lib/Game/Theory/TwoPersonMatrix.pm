@@ -320,24 +320,14 @@ sub oddments
     my $D = $self->{payoff}[1][1];
 
     my ( $x, $y );
-    $x = $D - $C;
-    $y = $A - $B;
-    if ( $x < 0 || $y < 0 )
-    {
-        $x = $C - $D;
-        $y = $B - $A;
-    }
+    $x = abs( $D - $C );
+    $y = abs( $A - $B );
     my $i = $x / ( $x + $y );
     my $j = $y / ( $x + $y );
     $player = [ $i, $j ];
 
-    $x = $D - $B;
-    $y = $A - $C;
-    if ( $x < 0 || $y < 0 )
-    {
-        $x = $B - $D;
-        $y = $C - $A;
-    }
+    $x = abs( $D - $B );
+    $y = abs( $A - $C );
     $i = $x / ( $x + $y );
     $j = $y / ( $x + $y );
     $opponent = [ $i, $j ];
