@@ -1,6 +1,7 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - Simplified code in eg/minimax and eg/maximin.
 
 0.2006 2015-12-25 18:40:48
     - Cleaned code a bit.
