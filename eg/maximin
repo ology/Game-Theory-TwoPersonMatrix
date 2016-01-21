@@ -10,7 +10,7 @@ use Math::Algebra::Symbols;
 
 my ($p) = symbols(qw(p));
 
-my $strategy0 = { 1 => '(1 - p)', 2 => 'p' };
+my $strategy0 = { 1 => '(1 - $p)', 2 => '$p' };
 my $strategy1 = { 1 => 1, 2 => 0 };
 my $strategy2 = { 1 => 0, 2 => 1 };
 
@@ -21,7 +21,7 @@ my $g = Game::Theory::TwoPersonMatrix->new(
     payoff => [ [1,-1], [-1,1] ]
 );
 print 'expected_payoff: ', $g->s_expected_payoff(), "\n";
-my $r1 = (1 - $p) * 1 * 1 + (1 - $p) * 0 * -1 + $p * 1 * -1 + $p * 0 * 1;
+my $r1 = eval $g->s_expected_payoff();
 print "\tsimplify: ", $r1->simplify, "\n";
 $g = Game::Theory::TwoPersonMatrix->new(
     1 => $strategy0,
@@ -29,7 +29,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
     payoff => [ [1,-1], [-1,1] ]
 );
 print 'expected_payoff: ', $g->s_expected_payoff(), "\n";
-my $r2 = (1 - $p) * 0 * 1 + (1 - $p) * 1 * -1 + $p * 0 * -1 + $p * 1 * 1;
+my $r2 = eval $g->s_expected_payoff();
 print "\tsimplify: ", $r2->simplify, "\n";
 my $s = $r1 eq $r2;
 my $q = $s->solve($p);
@@ -44,7 +44,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
     payoff => [ [0.8, 1], [0.9, 0.5] ]
 );
 print 'expected_payoff: ', $g->s_expected_payoff(), "\n";
-$r1 = (1 - $p) * 1 * 0.8 + (1 - $p) * 0 * 1 + $p * 1 * 0.9 + $p * 0 * 0.5;
+$r1 = eval $g->s_expected_payoff();
 print 'simplify: ', $r1->simplify, "\n";
 $g = Game::Theory::TwoPersonMatrix->new(
     1 => $strategy0,
@@ -52,7 +52,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
     payoff => [ [0.8, 1], [0.9, 0.5] ]
 );
 print 'expected_payoff: ', $g->s_expected_payoff(), "\n";
-$r2 = (1 - $p) * 0 * 0.8 + (1 - $p) * 1 * 1 + $p * 0 * 0.9 + $p * 1 * 0.5;
+$r2 = eval $g->s_expected_payoff();
 print "\tsimplify: ", $r2->simplify, "\n";
 $s = $r1 eq $r2;
 $q = $s->solve($p);
@@ -67,7 +67,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
     payoff => [ [0,-1], [2,3] ]
 );
 print 'expected_payoff: ', $g->s_expected_payoff(), "\n";
-$r1 = (1 - $p) * 1 * 0 + (1 - $p) * 0 * -1 + $p * 1 * 2 + $p * 0 * 3;
+$r1 = eval $g->s_expected_payoff();
 print "\tsimplify: ", $r1->simplify, "\n";
 $g = Game::Theory::TwoPersonMatrix->new(
     1 => $strategy0,
@@ -75,7 +75,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
     payoff => [ [0,-1], [2,3] ]
 );
 print 'expected_payoff: ', $g->s_expected_payoff(), "\n";
-$r2 = (1 - $p) * 0 * 0 + (1 - $p) * 1 * -1 + $p * 0 * 2 + $p * 1 * 3;
+$r2 = eval $g->s_expected_payoff();
 print "\tsimplify: ", $r2->simplify, "\n";
 $s = $r1 eq $r2;
 $q = $s->solve($p);
@@ -90,7 +90,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
     payoff => [ [0,1], [2,1] ]
 );
 print 'expected_payoff: ', $g->s_expected_payoff(), "\n";
-$r1 = (1 - $p) * 1 * 0 + (1 - $p) * 0 * 1 + $p * 1 * 2 + $p * 0 * 1;
+$r1 = eval $g->s_expected_payoff();
 print "\tsimplify: ", $r1->simplify, "\n";
 $g = Game::Theory::TwoPersonMatrix->new(
     1 => $strategy0,
@@ -98,7 +98,7 @@ $g = Game::Theory::TwoPersonMatrix->new(
     payoff => [ [0,1], [2,1] ]
 );
 print 'expected_payoff: ', $g->s_expected_payoff(), "\n";
-$r2 = (1 - $p) * 0 * 0 + (1 - $p) * 1 * 1 + $p * 0 * 2 + $p * 1 * 1;
+$r2 = eval $g->s_expected_payoff();
 print "\tsimplify: ", $r2->simplify, "\n";
 $s = $r1 eq $r2;
 $q = $s->solve($p);

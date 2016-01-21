@@ -10,22 +10,26 @@ use Math::Algebra::Symbols;
 
 my ($q) = symbols(qw(p));
 
+my $strategy0 = { 1 => '(1 - $q)', 2 => '$q' };
+my $strategy1 = { 1 => 1, 2 => 0 };
+my $strategy2 = { 1 => 0, 2 => 1 };
+
 print "Ex 1:\n";
 my $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => 1, 2 => 0 },
-    2 => { 1 => '(1 - q)', 2 => 'q' },
+    1 => $strategy1,
+    2 => $strategy0,
     payoff => [ [1,-1], [-1,1] ]
 );
 print 's_expected_payoff: ', $g->s_expected_payoff(), "\n";
-my $c1 = 1 * (1 - $q) * 1 + 1 * $q * -1 + 0 * (1 - $q) * -1 + 0 * $q * 1;
+my $c1 = eval $g->s_expected_payoff();
 print 'simplify: ', $c1->simplify, "\n";
 $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => 0, 2 => 1 },
-    2 => { 1 => '(1 - q)', 2 => 'q' },
+    1 => $strategy2,
+    2 => $strategy0,
     payoff => [ [1,-1], [-1,1] ]
 );
 print 's_expected_payoff: ', $g->s_expected_payoff(), "\n";
-my $c2 = 0 * (1 - $q) * 1 + 0 * $q * -1 + 1 * (1 - $q) * -1 + 1 * $q * 1;
+my $c2 = eval $g->s_expected_payoff();
 print 'simplify: ', $c2->simplify, "\n";
 my $s = $c1 eq $c2;
 my $v = $s->solve($q);
@@ -34,24 +38,24 @@ $s = $c2->sub( p => $v );
 print 'minimax expectation: ', $s, "\n";
 
 print "Ex 2:\n";
-my $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => 1, 2 => 0 },
-    2 => { 1 => '(1 - q)', 2 => 'q' },
+$g = Game::Theory::TwoPersonMatrix->new(
+    1 => $strategy1,
+    2 => $strategy0,
     payoff => [ [0.8,1], [0.9,0.5] ]
 );
 print 's_expected_payoff: ', $g->s_expected_payoff(), "\n";
-my $c1 = 1 * (1 - $q) * 0.8 + 1 * $q * 1 + 0 * (1 - $q) * 0.9 + 0 * $q * 0.5;
+$c1 = eval $g->s_expected_payoff();
 print 'simplify: ', $c1->simplify, "\n";
 $g = Game::Theory::TwoPersonMatrix->new(
-    1 => { 1 => 0, 2 => 1 },
-    2 => { 1 => '(1 - q)', 2 => 'q' },
+    1 => $strategy2,
+    2 => $strategy0,
     payoff => [ [0.8,1], [0.9,0.5] ]
 );
 print 's_expected_payoff: ', $g->s_expected_payoff(), "\n";
-my $c2 = 0 * (1 - $q) * 0.8 + 0 * $q * 1 + 1 * (1 - $q) * 0.9 + 1 * $q * 0.5;
+$c2 = eval $g->s_expected_payoff();
 print 'simplify: ', $c2->simplify, "\n";
-my $s = $c1 eq $c2;
-my $v = $s->solve($q);
+$s = $c1 eq $c2;
+$v = $s->solve($q);
 print 'minimax strategy: ', $v, "\n";
 $s = $c2->sub( p => $v );
 print 'minimax expectation: ', $s, "\n";
