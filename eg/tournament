@@ -165,11 +165,11 @@ sub tit_for_two_tats { # https://en.wikipedia.org/wiki/Tit_for_tat#Tit_for_two_t
     # Otherwise use tit_for_tat
     return {
         1 => {
-            1 => $strat2 == DEFECT && $strat4 == DEFECT ? 0 : $strat2 == COOP || $strat4 == COOP ? 1 : 0,
+            1 => $strat2 == COOP || $strat4 == COOP ? 1 : 0,
             2 => $strat2 == DEFECT && $strat4 == DEFECT ? 1 : 0,
         },
         2 => {
-            1 => $strat1 == DEFECT && $strat3 == DEFECT ? 0 : $strat1 == COOP || $strat3 == COOP ? 1 : 0,
+            1 => $strat1 == COOP || $strat3 == COOP ? 1 : 0,
             2 => $strat1 == DEFECT && $strat3 == DEFECT ? 1 : 0,
         },
     }
