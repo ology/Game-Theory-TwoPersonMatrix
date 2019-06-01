@@ -11,18 +11,18 @@ use constant COOP   => 1;
 use constant DEFECT => 2;
 
 # Set the number of moves
-my $max = shift || 100;
+my $max = shift || 200;
 
 my $players = {
-    jesus   => [ \&cooperate, \&cooperate ],
-    lucifer => [ \&defect, \&defect ],
-    random  => [ \&random, \&random ],
+    jesus   => [ \&cooperate, \&cooperate ], # Always cooperate
+    lucifer => [ \&defect, \&defect ], # Always defect
+#    random  => [ \&random, \&random ],
     tft     => [ \&cooperate, \&tit_for_tat ], # Cooperate, then do whatever the opponent did the last move
     atft    => [ \&defect, \&tit_for_tat ], # Defect, then do whatever the opponent did the last move
     tftt    => [ \&cooperate, \&tit_for_two_tats ], # Cooperate or defect if the opponent defected against twice in a row
+#    gtft    => [ \&cooperate, \&generous_tit_for_tat ], # Tit-for-tat except occasionally cooperate when defected against
     grudger => [ \&cooperate, \&grudger ], # Cooperate until defected against; then defect forever
 #    tester  => [ \&cooperate, \&tester ], # Defect, then if defected against, cooperate for X then defect once again, repeat
-#    gtft    => [ \&cooperate, \&generous_tit_for_tat ],
 };
 
 my %scores;
