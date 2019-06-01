@@ -5,13 +5,13 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
-our $VERSION = '0.2008';
+our $VERSION = '0.2100';
 
 use Carp;
 use Algorithm::Combinatorics qw( permutations );
 use Array::Transpose;
 use List::MoreUtils qw( all zip );
-use List::Util qw( max min );
+use List::Util qw( max min sum0 );
 use List::Util::WeightedChoice qw( choose_weighted );
 
 =head1 SYNOPSIS
@@ -644,11 +644,13 @@ sub play
     my $player  = 1;
     my $keys    = [ sort keys %{ $self->{$player} } ];
     my $weights = [ map { $self->{$player}{$_} } @$keys ];
+    $weights = [ 1, 1 ] if 0 == sum0 @$weights;
     my $rplay   = choose_weighted( $keys, $weights );
 
     $player   = 2;
     $keys     = [ sort keys %{ $self->{$player} } ];
     $weights  = [ map { $self->{$player}{$_} } @$keys ];
+    $weights  = [ 1, 1 ] if 0 == sum0 @$weights;
     my $cplay = choose_weighted( $keys, $weights );
 
     $play->{ "$rplay,$cplay" } = exists $self->{payoff} && $self->{payoff}
