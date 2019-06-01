@@ -5,7 +5,7 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
-our $VERSION = '0.2100';
+our $VERSION = '0.2101';
 
 use Carp;
 use Algorithm::Combinatorics qw( permutations );
@@ -70,6 +70,9 @@ to the tabular format of a matrix game:
 
 A non-zero sum game is represented by two payoff profiles, as above in the
 SYNOPSIS.
+
+A prisoner's dilemma tournament of different strategies, ala Axelrod, can be
+found the the F<eg/> directory of this distribution.
 
 =cut
 
