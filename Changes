@@ -1,6 +1,7 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - Added code to handle the weighted choice [0,0] case.
     - Added sprintf() calls to test cases.
     - Improved the eg/play code.
 
