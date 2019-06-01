@@ -78,7 +78,7 @@ while ( my $v = $iter->next ) {
     $scores{ $v->[1] } += $opponent;
 }
 
-for my $player ( sort { $scores{$a} <=> $scores{$b} } keys %scores ) {
+for my $player ( sort { $scores{$b} <=> $scores{$a} } keys %scores ) {
     print "$player = $scores{$player}\n";
 }
 
