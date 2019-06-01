@@ -5,7 +5,6 @@ use warnings;
 # Partly taken from https://www.forbes.com/sites/rogerkay/2011/12/19/generous-tit-for-tat-a-winning-strategy
 # And https://medium.com/thinking-is-hard/a-prisoners-dilemma-cheat-sheet-4d85fe289d87
 
-use lib '/Users/gene/sandbox/Game-Theory-TwoPersonMatrix/lib';
 use Game::Theory::TwoPersonMatrix;
 use Algorithm::Combinatorics qw/ combinations_with_repetition /;
 use List::Util::WeightedChoice qw/ choose_weighted /;
@@ -19,14 +18,13 @@ my $max = shift || 100;
 my $players = {
     jesus   => [ \&cooperate, \&cooperate ], # Always cooperate
     lucifer => [ \&defect, \&defect ], # Always defect
-#    random  => [ \&random, \&random ],
+    random  => [ \&random, \&random ],
     tft     => [ \&cooperate, \&tit_for_tat ], # Cooperate, then do whatever the opponent did the last move
     rtft    => [ \&defect, \&rev_tit_for_tat ], # Defect, then do the opposite of whatever the opponent did the last move
     atft    => [ \&defect, \&tit_for_tat ], # Defect, then do whatever the opponent did the last move
     tftt    => [ \&cooperate, \&tit_for_two_tats ], # Cooperate or defect if the opponent defected against twice in a row
     gtft    => [ \&cooperate, \&generous_tit_for_tat ], # Tit-for-tat except 10% cooperate when defected against
     grudger => [ \&cooperate, \&grudger ], # Cooperate until defected against; then defect forever
-#    tester  => [ \&defect, \&tester ], # Defect, then if defected against, cooperate for X then defect once again, repeat
     fbf     => [ \&cooperate, \&firm_but_fair ], # Cooperate, then cooperate until defected against. Cooperate if defected last and defected against
 };
 
