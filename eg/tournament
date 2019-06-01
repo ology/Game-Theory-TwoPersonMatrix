@@ -45,7 +45,7 @@ my $i = 0;
 
 while ( my $v = $iter->next ) {
     $i++;
-    print "$i: @$v\n";
+#    print "$i: @$v\n";
 
     my ( $player, $opponent, @moves );
 
