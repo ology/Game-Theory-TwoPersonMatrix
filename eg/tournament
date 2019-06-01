@@ -177,7 +177,6 @@ sub tit_for_two_tats { # https://en.wikipedia.org/wiki/Tit_for_tat#Tit_for_two_t
 
 sub firm_but_fair {
     my $moves = shift;
-#use Data::Dumper;warn(__PACKAGE__,' ',__LINE__," MARK: ",Dumper$moves);
 
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
 
