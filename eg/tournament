@@ -162,7 +162,6 @@ sub tit_for_two_tats { # https://en.wikipedia.org/wiki/Tit_for_tat#Tit_for_two_t
     my ( $strat3, $strat4 ) = split /,/, $moves->[-2];
 
     # Defect if the opponent has defected twice in a row
-    # Otherwise use tit_for_tat
     return {
         1 => {
             1 => $strat2 == COOP || $strat4 == COOP ? 1 : 0,
