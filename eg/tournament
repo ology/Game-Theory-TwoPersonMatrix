@@ -7,6 +7,9 @@ use warnings;
 use Game::Theory::TwoPersonMatrix;
 use Algorithm::Combinatorics qw/ combinations_with_repetition /;
 
+use constant COOP   => 1;
+use constant DEFECT => 2;
+
 # Set the number of moves
 my $max = shift || 100;
 
@@ -97,12 +100,12 @@ sub tit_for_tat {
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
     return {
         1 => {
-            1 => ( $strat2 == 1 ? 1 : 0 ),
-            2 => ( $strat2 == 2 ? 1 : 0 ),
+            1 => ( $strat2 == COOP ? 1 : 0 ),
+            2 => ( $strat2 == DEFECT ? 1 : 0 ),
         },
         2 => {
-            1 => ( $strat1 == 1 ? 1 : 0 ),
-            2 => ( $strat1 == 2 ? 1 : 0 ),
+            1 => ( $strat1 == COOP ? 1 : 0 ),
+            2 => ( $strat1 == DEFECT ? 1 : 0 ),
         },
     }
 }
@@ -118,12 +121,12 @@ sub tit_for_two_tats {
     # Otherwise use tit_for_tat
     return {
         1 => {
-            1 => ( $strat2 == 2 && $strat4 == 2 ? 0 : ( $strat2 == 1 ? 1 : 0 ) ),
-            2 => ( $strat2 == 2 && $strat4 == 2 ? 1 : ( $strat2 == 2 ? 1 : 0 ) ),
+            1 => ( $strat2 == DEFECT && $strat4 == DEFECT ? 0 : ( $strat2 == COOP ? 1 : 0 ) ),
+            2 => ( $strat2 == DEFECT && $strat4 == DEFECT ? 1 : ( $strat2 == DEFECT ? 1 : 0 ) ),
         },
         2 => {
-            1 => ( $strat1 == 2 && $strat3 == 2 ? 0 : ( $strat1 == 1 ? 1 : 0 ) ),
-            2 => ( $strat1 == 2 && $strat3 == 2 ? 1 : ( $strat1 == 2 ? 1 : 0 ) ),
+            1 => ( $strat1 == DEFECT && $strat3 == DEFECT ? 0 : ( $strat1 == COOP ? 1 : 0 ) ),
+            2 => ( $strat1 == DEFECT && $strat3 == DEFECT ? 1 : ( $strat1 == DEFECT ? 1 : 0 ) ),
         },
     }
 }
