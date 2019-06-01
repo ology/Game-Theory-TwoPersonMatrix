@@ -109,13 +109,13 @@ sub grudger { # https://en.wikipedia.org/wiki/Grim_trigger
     #    Player1, Player2
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
     return {
-        1 => {                                                          # Player1
-            1 => ( $strat1 == COOP && $strat2 == COOP ? 1 : 0 ),        # Cooperate
-            2 => ( $strat1 == DEFECT || $strat2 == DEFECT ? 1 : 0 ),    # Defect
+        1 => {                                                      # Player1
+            1 => $strat1 == COOP && $strat2 == COOP ? 1 : 0,        # Cooperate
+            2 => $strat1 == DEFECT || $strat2 == DEFECT ? 1 : 0,    # Defect
         },
-        2 => {                                                          # Player2
-            1 => ( $strat1 == COOP && $strat2 == COOP ? 1 : 0 ),        # Cooperate
-            2 => ( $strat1 == DEFECT || $strat2 == DEFECT ? 1 : 0 ),    # Defect
+        2 => {                                                      # Player2
+            1 => $strat1 == COOP && $strat2 == COOP ? 1 : 0,        # Cooperate
+            2 => $strat1 == DEFECT || $strat2 == DEFECT ? 1 : 0,    # Defect
         },
     }
 }
@@ -126,12 +126,12 @@ sub tit_for_tat { # https://en.wikipedia.org/wiki/Tit_for_tat
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
     return {
         1 => {
-            1 => ( $strat2 == COOP ? 1 : 0 ),
-            2 => ( $strat2 == DEFECT ? 1 : 0 ),
+            1 => $strat2 == COOP ? 1 : 0,
+            2 => $strat2 == DEFECT ? 1 : 0,
         },
         2 => {
-            1 => ( $strat1 == COOP ? 1 : 0 ),
-            2 => ( $strat1 == DEFECT ? 1 : 0 ),
+            1 => $strat1 == COOP ? 1 : 0,
+            2 => $strat1 == DEFECT ? 1 : 0,
         },
     }
 }
@@ -147,12 +147,12 @@ sub tit_for_two_tats { # https://en.wikipedia.org/wiki/Tit_for_tat#Tit_for_two_t
     # Otherwise use tit_for_tat
     return {
         1 => {
-            1 => ( $strat2 == DEFECT && $strat4 == DEFECT ? 0 : ( $strat2 == COOP ? 1 : 0 ) ),
-            2 => ( $strat2 == DEFECT && $strat4 == DEFECT ? 1 : ( $strat2 == DEFECT ? 1 : 0 ) ),
+            1 => $strat2 == DEFECT && $strat4 == DEFECT ? 0 : $strat2 == COOP ? 1 : 0,
+            2 => $strat2 == DEFECT && $strat4 == DEFECT ? 1 : $strat2 == DEFECT ? 1 : 0,
         },
         2 => {
-            1 => ( $strat1 == DEFECT && $strat3 == DEFECT ? 0 : ( $strat1 == COOP ? 1 : 0 ) ),
-            2 => ( $strat1 == DEFECT && $strat3 == DEFECT ? 1 : ( $strat1 == DEFECT ? 1 : 0 ) ),
+            1 => $strat1 == DEFECT && $strat3 == DEFECT ? 0 : $strat1 == COOP ? 1 : 0,
+            2 => $strat1 == DEFECT && $strat3 == DEFECT ? 1 : $strat1 == DEFECT ? 1 : 0,
         },
     }
 }
