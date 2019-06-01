@@ -16,17 +16,17 @@ use constant DEFECT => 2;
 my $max = shift || 100;
 
 my $players = {
-#    jesus   => [ \&cooperate, \&cooperate ], # Always cooperate
-#    lucifer => [ \&defect, \&defect ], # Always defect
+    jesus   => [ \&cooperate, \&cooperate ], # Always cooperate
+    lucifer => [ \&defect, \&defect ], # Always defect
 #    random  => [ \&random, \&random ],
     tft     => [ \&cooperate, \&tit_for_tat ], # Cooperate, then do whatever the opponent did the last move
-#    rtft    => [ \&defect, \&rev_tit_for_tat ], # Defect, then do the opposite of whatever the opponent did the last move
-#    atft    => [ \&defect, \&tit_for_tat ], # Defect, then do whatever the opponent did the last move
+    rtft    => [ \&defect, \&rev_tit_for_tat ], # Defect, then do the opposite of whatever the opponent did the last move
+    atft    => [ \&defect, \&tit_for_tat ], # Defect, then do whatever the opponent did the last move
     tftt    => [ \&cooperate, \&tit_for_two_tats ], # Cooperate or defect if the opponent defected against twice in a row
 #    gtft    => [ \&cooperate, \&generous_tit_for_tat ], # Tit-for-tat except 10% cooperate when defected against
-#    grudger => [ \&cooperate, \&grudger ], # Cooperate until defected against; then defect forever
+    grudger => [ \&cooperate, \&grudger ], # Cooperate until defected against; then defect forever
 #    tester  => [ \&defect, \&tester ], # Defect, then if defected against, cooperate for X then defect once again, repeat
-#    fbf     => [ \&cooperate, \&firm_but_fair ], # Cooperate, then cooperate until defected against. Cooperate if defected last and defected against
+    fbf     => [ \&cooperate, \&firm_but_fair ], # Cooperate, then cooperate until defected against. Cooperate if defected last and defected against
 };
 
 my %scores;
@@ -165,12 +165,12 @@ sub tit_for_two_tats { # https://en.wikipedia.org/wiki/Tit_for_tat#Tit_for_two_t
     # Otherwise use tit_for_tat
     return {
         1 => {
-            1 => $strat2 == DEFECT && $strat4 == DEFECT ? 0 : $strat2 == COOP ? 1 : 0,
-            2 => $strat2 == DEFECT && $strat4 == DEFECT ? 1 : $strat2 == DEFECT ? 1 : 0,
+            1 => $strat2 == DEFECT && $strat4 == DEFECT ? 0 : $strat2 == COOP || $strat4 == COOP ? 1 : 0,
+            2 => $strat2 == DEFECT && $strat4 == DEFECT ? 1 : 0,
         },
         2 => {
-            1 => $strat1 == DEFECT && $strat3 == DEFECT ? 0 : $strat1 == COOP ? 1 : 0,
-            2 => $strat1 == DEFECT && $strat3 == DEFECT ? 1 : $strat1 == DEFECT ? 1 : 0,
+            1 => $strat1 == DEFECT && $strat3 == DEFECT ? 0 : $strat1 == COOP || $strat3 == COOP ? 1 : 0,
+            2 => $strat1 == DEFECT && $strat3 == DEFECT ? 1 : 0,
         },
     }
 }
