@@ -16,17 +16,17 @@ use constant DEFECT => 2;
 my $max = shift || 100;
 
 my $players = {
-    jesus   => [ \&cooperate, \&cooperate ], # Always cooperate
-    lucifer => [ \&defect, \&defect ], # Always defect
+#    jesus   => [ \&cooperate, \&cooperate ], # Always cooperate
+#    lucifer => [ \&defect, \&defect ], # Always defect
 #    random  => [ \&random, \&random ],
     tft     => [ \&cooperate, \&tit_for_tat ], # Cooperate, then do whatever the opponent did the last move
-    rtft    => [ \&defect, \&rev_tit_for_tat ], # Defect, then do the opposite of whatever the opponent did the last move
-    atft    => [ \&defect, \&tit_for_tat ], # Defect, then do whatever the opponent did the last move
+#    rtft    => [ \&defect, \&rev_tit_for_tat ], # Defect, then do the opposite of whatever the opponent did the last move
+#    atft    => [ \&defect, \&tit_for_tat ], # Defect, then do whatever the opponent did the last move
     tftt    => [ \&cooperate, \&tit_for_two_tats ], # Cooperate or defect if the opponent defected against twice in a row
 #    gtft    => [ \&cooperate, \&generous_tit_for_tat ], # Tit-for-tat except 10% cooperate when defected against
-    grudger => [ \&cooperate, \&grudger ], # Cooperate until defected against; then defect forever
+#    grudger => [ \&cooperate, \&grudger ], # Cooperate until defected against; then defect forever
 #    tester  => [ \&defect, \&tester ], # Defect, then if defected against, cooperate for X then defect once again, repeat
-    fbf     => [ \&cooperate, \&firm_but_fair ], # Cooperate, then cooperate until defected against. Cooperate if defected last and defected against
+#    fbf     => [ \&cooperate, \&firm_but_fair ], # Cooperate, then cooperate until defected against. Cooperate if defected last and defected against
 };
 
 my %scores;
@@ -156,7 +156,7 @@ sub rev_tit_for_tat {
 sub tit_for_two_tats { # https://en.wikipedia.org/wiki/Tit_for_tat#Tit_for_two_tats
     my $moves = shift;
 
-    return tit_for_tat($moves) if @$moves == 1;
+    return cooperate() if @$moves == 1;
 
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
     my ( $strat3, $strat4 ) = split /,/, $moves->[-2];
