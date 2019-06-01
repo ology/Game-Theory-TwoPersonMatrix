@@ -1,6 +1,7 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - Improved documentation slightly.
 
 0.2100 2019-06-01 16:28:32
     - Added code to handle the weighted choice [0,0] case.
