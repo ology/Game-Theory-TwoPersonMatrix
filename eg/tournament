@@ -2,10 +2,25 @@
 use strict;
 use warnings;
 
+# Partly taken from https://www.forbes.com/sites/rogerkay/2011/12/19/generous-tit-for-tat-a-winning-strategy
+
 use Game::Theory::TwoPersonMatrix;
+use Algorithm::Combinatorics qw/ combinations_with_repetition /;
 
 # Set the number of moves
-my $n = shift || 100;
+my $max = shift || 100;
+
+my $players = {
+    jesus   => [ \&cooperate, \&cooperate ],
+    lucifer => [ \&defect, \&defect ],
+    random  => [ \&random, \&random ],
+    tft     => [ \&cooperate, \&tit_for_tat ], # Cooperate, then do whatever the opponent did the last move
+    atft    => [ \&defect, \&tit_for_tat ], # Defect, then do whatever the opponent did the last move
+    tftt    => [ \&cooperate, \&tit_for_two_tats ], # Cooperate or defect if the opponent defected against twice in a row
+#    gtft    => [ \&cooperate, \&generous_tit_for_tat ],
+#    grudger => [ \&cooperate, \&grudger ], # Cooperate until defected against; then defect forever
+#    tester  => [ \&cooperate, \&tester ], # Defect, then if defected against, cooperate for X then defect once again, repeat
+};
 
 # A Prisoner's Dilemma
 my $g = Game::Theory::TwoPersonMatrix->new(
@@ -18,56 +33,67 @@ my $g = Game::Theory::TwoPersonMatrix->new(
                  [0, 1] ],
 );
 
-# Initial strategies
-my %strategy = (
-    1 => cooperate(),
-    2 => cooperate(),
-#    1 => defect(),
-#    2 => defect(),
-#    1 => random(),
-#    2 => random(),
-);
+my $iter = combinations_with_repetition( [ sort keys %$players ], 2 );
 
-my ( $player, $opponent, @moves );
+my $i = 0;
 
-for ( 1 .. $n )
-{
-    # Each player makes a move
-    my ($play) = $g->play(%strategy);
+while ( my $v = $iter->next ) {
+    $i++;
+    print "$i: @$v\n";
 
-    # The strategies are encoded in the key
-    push @moves, (keys %$play)[0];
+    my ( $player, $opponent, @moves );
 
-    # Update the score for each player
-    my ($p) = values %$play;
-    $player   += $p->[0];
-    $opponent += $p->[1];
-
-    # Set next strategies
-    %strategy = (
-#        1 => cooperate(),
-#        2 => cooperate(),
-#        1 => defect(),
-#        2 => defect(),
-#        1 => random(),
-#        2 => random(),
-#        1 => tit_for_tat(\@moves)->{1},
-#        2 => tit_for_tat(\@moves)->{2},
-        1 => tit_for_two_tats(\@moves)->{1},
-        2 => tit_for_two_tats(\@moves)->{2},
+    my %strategy = (
+        1 => $players->{ $v->[0] }[0]->()->{1},
+        2 => $players->{ $v->[1] }[0]->()->{2},
     );
+
+    for my $n ( 1 .. $max ) {
+        # Each player makes a move
+        my ($play) = $g->play(%strategy);
+
+        # The strategies are encoded in the key
+        push @moves, ( keys %$play )[0];
+
+        # Update the score for each player
+        my ($p) = values %$play;
+        $player   += $p->[0];
+        $opponent += $p->[1];
+
+        # Set next strategies
+        %strategy = (
+            1 => $players->{ $v->[0] }[1]->(\@moves)->{1},
+            2 => $players->{ $v->[1] }[1]->(\@moves)->{2},
+        );
+    }
+
+    print "\t= $player vs $opponent\n";
 }
 
-print "Player = $player, Opponent = $opponent\n";
+sub random {
+    return {
+        1 => { 1 => 0.5, 2 => 0.5 },
+        2 => { 1 => 0.5, 2 => 0.5 }
+    };
+}
 
-sub random { return { 1 => 0.5, 2 => 0.5 } }
+sub cooperate {
+    return {
+        1 => { 1 => 1, 2 => 0 },
+        2 => { 1 => 1, 2 => 0 },
+    };
+}
 
-sub cooperate { return { 1 => 1, 2 => 0 } }
-
-sub defect { return { 1 => 0, 2 => 1 } }
+sub defect {
+    return {
+        1 => { 1 => 0, 2 => 1 },
+        2 => { 1 => 0, 2 => 1 },
+    };
+}
 
 sub tit_for_tat {
     my $moves = shift;
+
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
     return {
         1 => {
