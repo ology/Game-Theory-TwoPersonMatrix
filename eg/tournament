@@ -20,10 +20,13 @@ my $players = {
     tft     => [ \&cooperate, \&tit_for_tat ], # Cooperate, then do whatever the opponent did the last move
     atft    => [ \&defect, \&tit_for_tat ], # Defect, then do whatever the opponent did the last move
     tftt    => [ \&cooperate, \&tit_for_two_tats ], # Cooperate or defect if the opponent defected against twice in a row
-#    gtft    => [ \&cooperate, \&generous_tit_for_tat ],
-#    grudger => [ \&cooperate, \&grudger ], # Cooperate until defected against; then defect forever
+    grudger => [ \&cooperate, \&grudger ], # Cooperate until defected against; then defect forever
 #    tester  => [ \&cooperate, \&tester ], # Defect, then if defected against, cooperate for X then defect once again, repeat
+#    gtft    => [ \&cooperate, \&generous_tit_for_tat ],
 };
+
+my %scores;
+@scores{ keys %$players } = (0) x keys %$players;
 
 # A Prisoner's Dilemma
 my $g = Game::Theory::TwoPersonMatrix->new(
@@ -70,7 +73,13 @@ while ( my $v = $iter->next ) {
         );
     }
 
-    print "\t= $player vs $opponent\n";
+#    print "\t= $player vs $opponent\n";
+    $scores{ $v->[0] } += $player;
+    $scores{ $v->[1] } += $opponent;
+}
+
+for my $player ( sort { $scores{$a} <=> $scores{$b} } keys %scores ) {
+    print "$player = $scores{$player}\n";
 }
 
 sub random {
@@ -92,6 +101,23 @@ sub defect {
         1 => { 1 => 0, 2 => 1 },
         2 => { 1 => 0, 2 => 1 },
     };
+}
+
+sub grudger {
+    my $moves = shift;
+
+    #    Player1, Player2
+    my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
+    return {
+        1 => {                                                          # Player1
+            1 => ( $strat1 == COOP && $strat2 == COOP ? 1 : 0 ),        # Cooperate
+            2 => ( $strat1 == DEFECT || $strat2 == DEFECT ? 1 : 0 ),    # Defect
+        },
+        2 => {                                                          # Player2
+            1 => ( $strat1 == COOP && $strat2 == COOP ? 1 : 0 ),        # Cooperate
+            2 => ( $strat1 == DEFECT || $strat2 == DEFECT ? 1 : 0 ),    # Defect
+        },
+    }
 }
 
 sub tit_for_tat {
