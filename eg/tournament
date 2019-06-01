@@ -103,7 +103,7 @@ sub defect {
     };
 }
 
-sub grudger {
+sub grudger { # https://en.wikipedia.org/wiki/Grim_trigger
     my $moves = shift;
 
     #    Player1, Player2
@@ -120,7 +120,7 @@ sub grudger {
     }
 }
 
-sub tit_for_tat {
+sub tit_for_tat { # https://en.wikipedia.org/wiki/Tit_for_tat
     my $moves = shift;
 
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
@@ -136,7 +136,7 @@ sub tit_for_tat {
     }
 }
 
-sub tit_for_two_tats {
+sub tit_for_two_tats { # https://en.wikipedia.org/wiki/Tit_for_tat#Tit_for_two_tats
     my $moves = shift;
 
     return tit_for_tat($moves) if @$moves == 1;
