@@ -29,6 +29,20 @@ my $players = {
     fbf     => [ \&cooperate, \&firm_but_fair ], # Cooperate, then cooperate until defected against. Cooperate if defected last and defected against
 };
 
+my $population = [
+#    sort keys %$players,
+    ('jesus') x 1,
+    ('lucifer') x 1,
+    ('random') x 1,
+    ('tft') x 1,
+    ('rtft') x 1,
+    ('atft') x 1,
+    ('tftt') x 1,
+    ('gtft') x 2,
+    ('grudger') x 1,
+    ('fbf') x 1,
+];
+
 my %scores;
 @scores{ keys %$players } = (0) x keys %$players;
 
@@ -41,7 +55,7 @@ my $g = Game::Theory::TwoPersonMatrix->new(
     payoff2 => [ [3, 5], [0, 1] ],
 );
 
-my $iter = combinations_with_repetition( [ sort keys %$players ], 2 );
+my $iter = combinations_with_repetition( $population, 2 );
 
 my $i = 0;
 
