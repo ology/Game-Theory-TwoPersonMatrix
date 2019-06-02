@@ -14,7 +14,7 @@ use constant COOP   => 1;
 use constant DEFECT => 2;
 
 # Set the number of moves
-my $max = shift || 100;
+my $max = shift || 200;
 
 my $players = {
     jesus   => [ \&cooperate, \&cooperate ], # Always cooperate
@@ -30,16 +30,16 @@ my $players = {
 };
 
 my $population = [
-    ('jesus')   x 1,
-    ('lucifer') x 1,
-    ('random')  x 1,
-    ('tft')     x 1,
-    ('rtft')    x 1,
-    ('atft')    x 1,
-    ('tftt')    x 1,
-    ('gtft')    x 1,
-    ('grudger') x 1,
-    ('fbf')     x 1,
+    ('jesus')   x 2,
+    ('lucifer') x 2,
+    ('random')  x 2,
+    ('tft')     x 2,
+    ('rtft')    x 2,
+    ('atft')    x 2,
+    ('tftt')    x 2,
+    ('gtft')    x 2,
+    ('grudger') x 2,
+    ('fbf')     x 2,
 ];
 
 my %scores;
