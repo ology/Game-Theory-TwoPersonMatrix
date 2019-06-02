@@ -7,7 +7,7 @@ use warnings;
 
 use lib '/Users/gene/sandbox/Game-Theory-TwoPersonMatrix/lib';
 use Game::Theory::TwoPersonMatrix;
-use Algorithm::Combinatorics qw/ combinations combinations_with_repetition /;
+use Algorithm::Combinatorics qw/ combinations /;
 use List::Util::WeightedChoice qw/ choose_weighted /;
 
 use constant COOP   => 1;
@@ -55,7 +55,6 @@ my $g = Game::Theory::TwoPersonMatrix->new(
 );
 
 my $iter = combinations( $population, 2 );
-#my $iter = combinations_with_repetition( $population, 2 );
 
 my $i = 0;
 
