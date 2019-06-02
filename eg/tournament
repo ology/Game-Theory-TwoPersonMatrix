@@ -30,17 +30,16 @@ my $players = {
 };
 
 my $population = [
-#    sort keys %$players,
-    ('jesus') x 1,
+    ('jesus')   x 1,
     ('lucifer') x 1,
-    ('random') x 1,
-    ('tft') x 1,
-    ('rtft') x 1,
-    ('atft') x 1,
-    ('tftt') x 1,
-    ('gtft') x 2,
+    ('random')  x 1,
+    ('tft')     x 1,
+    ('rtft')    x 1,
+    ('atft')    x 1,
+    ('tftt')    x 1,
+    ('gtft')    x 1,
     ('grudger') x 1,
-    ('fbf') x 1,
+    ('fbf')     x 1,
 ];
 
 my %scores;
