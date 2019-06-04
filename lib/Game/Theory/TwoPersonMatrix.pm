@@ -56,8 +56,8 @@ use List::Util::WeightedChoice qw( choose_weighted );
 
 =head1 DESCRIPTION
 
-A C<Game::Theory::TwoPersonMatrix> analyzes a two person matrix game
-of player names, strategies and utilities ("payoffs").
+A C<Game::Theory::TwoPersonMatrix> analyzes a two person matrix game of player
+names, strategies and utilities ("payoffs").
 
 Players 1 and 2 are the "row" and "column" players, respectively.  This is due
 to the tabular format of a matrix game:
@@ -68,33 +68,40 @@ to the tabular format of a matrix game:
  Player |   0.5    1   -1  < Payoff
     1   |   0.5   -1    1  <
 
-A non-zero sum game is represented by two payoff profiles, as above in the
-SYNOPSIS.
-
-A prisoner's dilemma tournament of different strategies, ala Axelrod, can be
-found the the F<eg/> directory of this distribution.
+A non-zero sum game is represented by two payoff profiles, as in the SYNOPSIS.
 
 A prisoner's dilemma, where Blue is the row player, Red is the column player,
 and T > R > P > S is:
 
-    \ Red  |           |
+    \  Red |           |
       \    | Cooperate | Defect
  Blue   \  |           |
  --------------------------------
-           | \   R     | \   T
+           | \   R2    | \   T2
  Cooperate |   \       |   \
-           | R   \     | S   \
+           | R1  \     | S1  \
  --------------------------------
-           | \   S     | \   P
+           | \   S2    | \   P2
  Defect    |   \       |   \
-           | T   \     | P   \
+           | T1  \     | P1  \
 
 And in this implementation that would be:
 
  $g = Game::Theory::TwoPersonMatrix->new(
-    payoff1 => [ [ -1, -3 ], [ 0, -2 ] ],   # Blue: [ R, S ], [ T, P ]
-    payoff2 => [ [ -1,  0 ], [-3, -2 ] ],   # Red:  [ R, T ], [ S, P ]
+    payoff1 => [ [ -1, -3 ], [  0, -2 ] ],  # Blue: [ R1, S1 ], [ T1, P1 ]
+    payoff2 => [ [ -1,  0 ], [ -3, -2 ] ],  # Red:  [ R2, T2 ], [ S2, P2 ]
  );
+
+Where the two player strategies are to either Cooperate or Defect.  This is
+given by a hash for each of the two players:
+
+ %strategy = (
+    1 => { 1 => $cooporate1, 2 => $defect1 }, # Blue
+    2 => { 1 => $cooporate2, 2 => $defect2 }, # Red
+ );
+
+See the F<eg/play> program in this distribution for an example that exercises
+strategic variations of the prisoner's dilemma.
 
 =cut
 
