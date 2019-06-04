@@ -28,11 +28,11 @@ use List::Util::WeightedChoice qw( choose_weighted );
  $g->row_reduce();
  $g->col_reduce();
  my $player = 1;
- my $p = $g->saddlepoint();
+ my $s = $g->saddlepoint();
  my $o = $g->oddments();
  my $e = $g->expected_payoff();
  my $c = $g->counter_strategy($player);
- my $u = $g->play();
+ my $p = $g->play();
 
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.1, 2 => 0.2, 3 => 0.7 },
