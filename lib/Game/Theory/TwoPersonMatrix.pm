@@ -5,7 +5,7 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
-our $VERSION = '0.2104';
+our $VERSION = '0.2105';
 
 use Carp;
 use Algorithm::Combinatorics qw( permutations );
@@ -125,9 +125,11 @@ strategic variations of the prisoner's dilemma.
 Create a new C<Game::Theory::TwoPersonMatrix> object.
 
 Player strategies are given by a hash reference of numbered keys - one for each
-strategy.  Payoffs are given by array references of lists of outcomes.  For
-zero-sum games this is a single payoff list.  For non-zero-sum games this is
-given as two lists - one for each player.
+strategy.  These are assumed to add to 1.  Otherwise YMMV.
+
+Payoffs are given by array references of lists of outcomes.  For zero-sum games
+this is a single payoff list.  For non-zero-sum games this is given as two lists
+- one for each player.
 
 =cut
 
