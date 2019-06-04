@@ -705,4 +705,6 @@ L<http://www.amazon.com/Gentle-Introduction-Theory-Mathematical-World/dp/0821813
 
 L<http://books.google.com/books?id=8doVBAAAQBAJ>
 
+L<https://en.wikipedia.org/wiki/Prisoner%27s_dilemma>
+
 =cut
