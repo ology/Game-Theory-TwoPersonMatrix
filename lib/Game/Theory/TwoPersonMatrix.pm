@@ -701,7 +701,7 @@ __END__
 
 The F<eg/> and F<t/> scripts in this distribution.
 
-"A Gentle Introduction to Game Theory"
+"A Gentle Introduction to Game Theory" from which this API is derived:
 
 L<http://www.amazon.com/Gentle-Introduction-Theory-Mathematical-World/dp/0821813390>
 
