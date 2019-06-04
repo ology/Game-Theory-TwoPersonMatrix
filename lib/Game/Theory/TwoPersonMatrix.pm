@@ -5,7 +5,7 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
-our $VERSION = '0.2101';
+our $VERSION = '0.2102';
 
 use Carp;
 use Algorithm::Combinatorics qw( permutations );
@@ -73,6 +73,28 @@ SYNOPSIS.
 
 A prisoner's dilemma tournament of different strategies, ala Axelrod, can be
 found the the F<eg/> directory of this distribution.
+
+A prisoner's dilemma, where Blue is the row player, Red is the column player,
+and T > R > P > S is:
+
+    \ Red  |           |
+      \    | Cooperate | Defect
+ Blue   \  |           |
+ --------------------------------
+           | \   R     | \   T
+ Cooperate |   \       |   \
+           | R   \     | S   \
+ --------------------------------
+           | \   S     | \   P
+ Defect    |   \       |   \
+           | T   \     | P   \
+
+And in this implementation that would be:
+
+ $g = Game::Theory::TwoPersonMatrix->new(
+    payoff1 => [ [ -1, -3 ], [ 0, -2 ] ],   # Blue: [ R, S ], [ T, P ]
+    payoff2 => [ [ -1,  0 ], [-3, -2 ] ],   # Red:  [ R, T ], [ S, P ]
+ );
 
 =cut
 
