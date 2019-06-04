@@ -2,7 +2,8 @@ Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
     - Enhanced the eg/tournament code.
-    - Added cases to the prisoner's dilemma tests.
+    - Added more prisoner's dilemma tests.
+    - Improved documentation!
 
 0.2101 2019-06-01 16:43:22
     - Improved documentation slightly.
