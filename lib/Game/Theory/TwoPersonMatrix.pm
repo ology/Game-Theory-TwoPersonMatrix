@@ -52,7 +52,7 @@ use List::Util::WeightedChoice qw( choose_weighted );
  my $n = $g->nash();
  $e = $g->expected_payoff();
  $c = $g->counter_strategy($player);
- $u = $g->play();
+ $p = $g->play();
 
 =head1 DESCRIPTION
 
