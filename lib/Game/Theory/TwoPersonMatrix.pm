@@ -657,9 +657,11 @@ sub nash
  $u = $g->play();
  $u = $g->play(%strategies);
 
-Return a single outcome for a zero-sum game or a pair for a non-zero-sum game.
+Return a single outcome for a zero-sum game, or a pair for a non-zero-sum game
+as a hashref keyed by each strategy chosen and with values of the payoff(s)
+earned.
 
-An optional list of player strategies can be provided.  This is a hashref of the
+An optional list of player strategies can be provided.  This is a hash of the
 same type of strategies that are given to the constructor.
 
 =cut
