@@ -5,7 +5,7 @@ package Game::Theory::TwoPersonMatrix;
 use strict;
 use warnings;
 
-our $VERSION = '0.2103';
+our $VERSION = '0.2104';
 
 use Carp;
 use Algorithm::Combinatorics qw( permutations );
