@@ -173,12 +173,13 @@ is_deeply $g->mm_tally, {
     2 => { strategy => [0,1], value => 3 }
 }, 'mm_tally';
 
-# Prisoners' dilemma
+# Prisoner's dilemma
 $g = Game::Theory::TwoPersonMatrix->new(
     payoff1 => [ [-5,-15],[0,-10] ],
     payoff2 => [ [-5,0],[-15,-10] ],
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2 non-zero-sum';
+is_deeply $g->nash, { "1,1" => [-10,-10] }, 'nash';
 is_deeply $g->pareto_optimal, { "0,0" => [-5,-5] }, 'pareto_optimal';
 
 $g = Game::Theory::TwoPersonMatrix->new(
@@ -209,13 +210,14 @@ $g = Game::Theory::TwoPersonMatrix->new(
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2 non-zero-sum';
 is_deeply $g->nash, { "0,1" => [0,-1], "1,0" => [0,-1], "1,1" => [0,-1] }, 'nash';
 
-# Prisoners' dilemma
+# Prisoner's dilemma
 $g = Game::Theory::TwoPersonMatrix->new(
     payoff1 => [ [3,0],[5,1] ],
     payoff2 => [ [3,5],[0,1] ],
 );
 isa_ok $g, 'Game::Theory::TwoPersonMatrix', '2x2 non-zero-sum';
 is_deeply $g->nash, { "1,1" => [1,1] }, 'nash';
+is_deeply $g->pareto_optimal, { "0,0" => [3,3] }, 'pareto_optimal';
 
 # Battle of the sexes
 $g = Game::Theory::TwoPersonMatrix->new(
