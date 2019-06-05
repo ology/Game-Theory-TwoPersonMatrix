@@ -26,7 +26,7 @@ my $players = {
     tftt    => [ \&cooperate, \&tit_for_two_tats ], # Cooperate or defect if the opponent defected against twice in a row
     gtft    => [ \&cooperate, \&generous_tit_for_tat ], # Tit-for-tat except 10% cooperate when defected against
     grudger => [ \&cooperate, \&grudger ], # Cooperate until defected against; then defect forever
-    fbf     => [ \&cooperate, \&firm_but_fair ], # Cooperate, then cooperate until defected against. Cooperate if defected last and defected against
+    fbf     => [ \&cooperate, \&firm_but_fair ], # Cooperate except after receiving a sucker payoff
 };
 
 my $population = [
@@ -225,11 +225,11 @@ sub firm_but_fair {
 
     return {
         1 => {
-            1 => $strat1 == DEFECT && $strat2 == DEFECT ? 1 : 0,
+            1 => !( $strat1 == COOP && $strat2 == DEFECT ) ? 1 : 0,
             2 => $strat1 == COOP && $strat2 == DEFECT ? 1 : 0,
         },
         2 => {
-            1 => $strat1 == DEFECT && $strat2 == DEFECT ? 1 : 0,
+            1 => !( $strat1 == DEFECT && $strat2 == COOP ) ? 1 : 0,
             2 => $strat1 == DEFECT && $strat2 == COOP ? 1 : 0,
         },
     }
