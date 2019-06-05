@@ -677,23 +677,26 @@ sub play
     # Allow for alternate strategies
     $self->{$_} = $strategies{$_} for keys %strategies;
 
-    my $player  = 1;
-    my $keys    = [ sort keys %{ $self->{$player} } ];
-    my $weights = [ map { $self->{$player}{$_} } @$keys ];
-    $weights = [ 1, 1 ] if 0 == sum0 @$weights;
-    my $rplay   = choose_weighted( $keys, $weights );
-
-    $player   = 2;
-    $keys     = [ sort keys %{ $self->{$player} } ];
-    $weights  = [ map { $self->{$player}{$_} } @$keys ];
-    $weights  = [ 1, 1 ] if 0 == sum0 @$weights;
-    my $cplay = choose_weighted( $keys, $weights );
+    my $rplay = $self->_player_move(1);
+    my $cplay = $self->_player_move(2);
 
     $play->{ "$rplay,$cplay" } = exists $self->{payoff} && $self->{payoff}
         ? $self->{payoff}[$rplay - 1][$cplay - 1]
         : [ $self->{payoff1}[$rplay - 1][$cplay - 1], $self->{payoff2}[$rplay - 1][$cplay - 1] ];
 
     return $play;
+}
+
+sub _player_move {
+    my ( $self, $player ) = @_;
+
+    my $keys    = [ sort keys %{ $self->{$player} } ];
+    my $weights = [ map { $self->{$player}{$_} } @$keys ];
+
+    # Handle the [0, 0, ...] edge case
+    $weights = [ (1) x @$weights ] if 0 == sum0 @$weights;
+
+    return choose_weighted( $keys, $weights );
 }
 
 1;
