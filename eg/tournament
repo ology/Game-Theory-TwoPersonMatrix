@@ -25,7 +25,7 @@ my $players = {
     rtft    => [ \&defect, \&rev_tit_for_tat ],
     tftt    => [ \&cooperate, \&tit_for_two_tats ],
     gtft    => [ \&cooperate, \&generous_tit_for_tat ],
-    grim => [ \&cooperate, \&grim ],
+    grim    => [ \&cooperate, \&grim ],
     fbf     => [ \&cooperate, \&firm_but_fair ],
 };
 
