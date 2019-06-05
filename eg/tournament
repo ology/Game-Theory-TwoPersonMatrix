@@ -17,16 +17,16 @@ use constant DEFECT => 2;
 my $max = shift || 200;
 
 my $players = {
-    jesus   => [ \&cooperate, \&cooperate ], # Always cooperate
-    lucifer => [ \&defect, \&defect ], # Always defect
+    jesus   => [ \&cooperate, \&cooperate ],
+    lucifer => [ \&defect, \&defect ],
     random  => [ \&random, \&random ],
-    tft     => [ \&cooperate, \&tit_for_tat ], # Cooperate, then do whatever the opponent did the last move
-    rtft    => [ \&defect, \&rev_tit_for_tat ], # Defect, then do the opposite of whatever the opponent did the last move
-    atft    => [ \&defect, \&tit_for_tat ], # Defect, then do whatever the opponent did the last move
-    tftt    => [ \&cooperate, \&tit_for_two_tats ], # Cooperate or defect if the opponent defected against twice in a row
-    gtft    => [ \&cooperate, \&generous_tit_for_tat ], # Tit-for-tat except 10% cooperate when defected against
-    grudger => [ \&cooperate, \&grudger ], # Cooperate until defected against; then defect forever
-    fbf     => [ \&cooperate, \&firm_but_fair ], # Cooperate except after receiving a sucker payoff
+    tft     => [ \&cooperate, \&tit_for_tat ],
+    rtft    => [ \&defect, \&rev_tit_for_tat ],
+    atft    => [ \&defect, \&tit_for_tat ],# Defect, then do whatever the opponent did the last move
+    tftt    => [ \&cooperate, \&tit_for_two_tats ],
+    gtft    => [ \&cooperate, \&generous_tit_for_tat ],
+    grudger => [ \&cooperate, \&grudger ],
+    fbf     => [ \&cooperate, \&firm_but_fair ],
 };
 
 my $population = [
@@ -115,6 +115,7 @@ sub random {
 }
 
 sub cooperate {
+    # Always cooperate
     return {
         1 => { 1 => 1, 2 => 0 },
         2 => { 1 => 1, 2 => 0 },
@@ -122,6 +123,7 @@ sub cooperate {
 }
 
 sub defect {
+    # Always defect
     return {
         1 => { 1 => 0, 2 => 1 },
         2 => { 1 => 0, 2 => 1 },
@@ -133,6 +135,8 @@ sub grudger { # https://en.wikipedia.org/wiki/Grim_trigger
 
     #    Player1, Player2
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
+
+    # Cooperate until defected against, then defect forever
     return {
         1 => {                                                      # Player1
             1 => $strat1 == COOP && $strat2 == COOP ? 1 : 0,        # Cooperate
@@ -150,6 +154,7 @@ sub tit_for_tat { # https://en.wikipedia.org/wiki/Tit_for_tat
 
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
 
+    # Cooperate, then do whatever the opponent did the last move
     return {
         1 => {
             1 => $strat2 == COOP ? 1 : 0,
@@ -167,6 +172,7 @@ sub generous_tit_for_tat {
 
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
 
+    # Tit-for-tat except 10% cooperate when defected against
     return {
         1 => {
             1 => $strat2 == COOP ? 1 : 0,
@@ -185,6 +191,7 @@ sub rev_tit_for_tat {
 
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
 
+    # Defect, then do the opposite of whatever the opponent did the last move
     return {
         1 => {
             1 => $strat2 == DEFECT ? 1 : 0,
@@ -223,7 +230,7 @@ sub firm_but_fair {
 
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
 
-    # Defect if received the sucker's payoff last move
+    # Cooperate except after receiving a sucker's payoff
     return {
         1 => {
             1 => !( $strat1 == COOP && $strat2 == DEFECT ) ? 1 : 0,
