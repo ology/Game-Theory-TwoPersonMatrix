@@ -209,18 +209,18 @@ sub tit_for_two_tats { # https://en.wikipedia.org/wiki/Tit_for_tat#Tit_for_two_t
 
     return cooperate() if @$moves == 1;
 
-    my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
-    my ( $strat3, $strat4 ) = split /,/, $moves->[-2];
+    my ( $strat11, $strat12 ) = split /,/, $moves->[-1];
+    my ( $strat21, $strat22 ) = split /,/, $moves->[-2];
 
     # Defect if the opponent has defected twice in a row
     return {
         1 => {
-            1 => !( $strat2 == DEFECT && $strat4 == DEFECT ) ? 1 : 0,
-            2 => $strat2 == DEFECT && $strat4 == DEFECT ? 1 : 0,
+            1 => !( $strat12 == DEFECT && $strat22 == DEFECT ) ? 1 : 0,
+            2 => $strat12 == DEFECT && $strat22 == DEFECT ? 1 : 0,
         },
         2 => {
-            1 => !( $strat1 == DEFECT && $strat3 == DEFECT ) ? 1 : 0,
-            2 => $strat1 == DEFECT && $strat3 == DEFECT ? 1 : 0,
+            1 => !( $strat11 == DEFECT && $strat21 == DEFECT ) ? 1 : 0,
+            2 => $strat11 == DEFECT && $strat21 == DEFECT ? 1 : 0,
         },
     }
 }
