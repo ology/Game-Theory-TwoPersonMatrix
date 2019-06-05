@@ -64,6 +64,7 @@ while ( my $v = $iter->next ) {
 
     my @moves;
 
+    # Set initial strategies
     my %strategy = (
         1 => $players->{ $v->[0] }[0]->()->{1},
         2 => $players->{ $v->[1] }[0]->()->{2},
