@@ -25,7 +25,7 @@ my $players = {
     rtft    => [ \&defect, \&rev_tit_for_tat ],
     tftt    => [ \&cooperate, \&tit_for_two_tats ],
     gtft    => [ \&cooperate, \&generous_tit_for_tat ],
-    grudger => [ \&cooperate, \&grudger ],
+    grim => [ \&cooperate, \&grim ],
     fbf     => [ \&cooperate, \&firm_but_fair ],
 };
 
@@ -38,7 +38,7 @@ my $population = [
     ('atft')    x 2,
     ('tftt')    x 2,
     ('gtft')    x 2,
-    ('grudger') x 2,
+    ('grim')    x 2,
     ('fbf')     x 2,
 ];
 
@@ -130,7 +130,7 @@ sub defect {
     };
 }
 
-sub grudger { # https://en.wikipedia.org/wiki/Grim_trigger
+sub grim { # https://en.wikipedia.org/wiki/Grim_trigger
     my $moves = shift;
 
     #    Player1, Player2
