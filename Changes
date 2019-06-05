@@ -2,6 +2,7 @@ Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
     - Improved documentation.
+    - Simplify ->play code.
 
 0.2105 2019-06-05 10:18:01
     - Improved documentation.
