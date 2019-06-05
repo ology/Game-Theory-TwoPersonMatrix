@@ -208,11 +208,11 @@ sub tit_for_two_tats { # https://en.wikipedia.org/wiki/Tit_for_tat#Tit_for_two_t
     # Defect if the opponent has defected twice in a row
     return {
         1 => {
-            1 => $strat2 == COOP || $strat4 == COOP ? 1 : 0,
+            1 => !( $strat2 == DEFECT && $strat4 == DEFECT ) ? 1 : 0,
             2 => $strat2 == DEFECT && $strat4 == DEFECT ? 1 : 0,
         },
         2 => {
-            1 => $strat1 == COOP || $strat3 == COOP ? 1 : 0,
+            1 => !( $strat1 == DEFECT && $strat3 == DEFECT ) ? 1 : 0,
             2 => $strat1 == DEFECT && $strat3 == DEFECT ? 1 : 0,
         },
     }
@@ -223,6 +223,7 @@ sub firm_but_fair {
 
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
 
+    # Defect if received the sucker's payoff last move
     return {
         1 => {
             1 => !( $strat1 == COOP && $strat2 == DEFECT ) ? 1 : 0,
