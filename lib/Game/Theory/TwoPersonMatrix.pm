@@ -279,7 +279,7 @@ sub counter_strategy
 
 =head2 saddlepoint()
 
- $p = $g->saddlepoint;
+ $s = $g->saddlepoint;
 
 Return the saddlepoint of a zero-sum game, or C<undef> if there is none.
 
@@ -656,8 +656,8 @@ sub nash
 
 =head2 play()
 
- $u = $g->play();
- $u = $g->play(%strategies);
+ $p = $g->play();
+ $p = $g->play(%strategies);
 
 Return a single outcome for a zero-sum game, or a pair for a non-zero-sum game
 as a hashref keyed by each strategy chosen and with values of the payoff(s)
