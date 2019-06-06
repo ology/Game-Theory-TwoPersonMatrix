@@ -172,15 +172,18 @@ sub generous_tit_for_tat {
 
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
 
+    my $defect1 = $strat2 == DEFECT && choose_weighted( [ 1, 0 ], [ 9, 1 ] );
+    my $defect2 = $strat1 == DEFECT && choose_weighted( [ 1, 0 ], [ 9, 1 ] );
+
     # Tit-for-tat except 10% cooperate when defected against
     return {
         1 => {
-            1 => $strat2 == COOP ? 1 : 0,
-            2 => $strat2 == DEFECT ? choose_weighted( [ 1, 0 ], [ 9, 1 ] ) : 0,
+            1 => !$defect1 ? 1 : 0,
+            2 => $defect1 ? 1 : 0,
         },
         2 => {
-            1 => $strat1 == COOP ? 1 : 0,
-            2 => $strat1 == DEFECT ? choose_weighted( [ 1, 0 ], [ 9, 1 ] ) : 0,
+            1 => !$defect2 ? 1 : 0,
+            2 => $defect2 ? 1 : 0,
         },
     }
 }
