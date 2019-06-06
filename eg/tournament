@@ -154,7 +154,7 @@ sub tit_for_tat { # https://en.wikipedia.org/wiki/Tit_for_tat
 
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
 
-    # Cooperate, then do whatever the opponent did the last move
+    # Do whatever the opponent did the last move
     return {
         1 => {
             1 => $strat2 == COOP ? 1 : 0,
