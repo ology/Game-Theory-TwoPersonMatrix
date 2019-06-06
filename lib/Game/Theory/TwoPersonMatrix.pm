@@ -152,7 +152,8 @@ sub new {
 
  $x = $g->expected_payoff();
 
-Return the expected payoff value of a game.
+Return the expected payoff of a game.  This is the sum of the probabilities of
+each payoff.
 
 =cut
 
@@ -161,6 +162,7 @@ sub expected_payoff
     my ($self) = @_;
 
     my $expected_payoff;
+
     # For each strategy of player 1...
     for my $i ( sort keys %{ $self->{1} } )
     {
@@ -203,6 +205,7 @@ sub s_expected_payoff
     my ($self) = @_;
 
     my $expected_payoff;
+
     # For each strategy of player 1...
     for my $i ( sort keys %{ $self->{1} } )
     {
