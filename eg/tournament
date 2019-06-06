@@ -80,11 +80,13 @@ while ( my $pair = $iter->next ) {
         # The strategies are encoded in the key
         push @moves, ( keys %$play )[0];
 
-        # Update the score for each player
         my ($v) = values %$play;
-        $scores{$player} += $v->[0];
+
+        # Update the score for each player
+        $scores{$player}   += $v->[0];
         $scores{$opponent} += $v->[1];
 
+        # Tally the number of times won
         if ( $v->[0] > $v->[1] ) {
             $wins{$player}++;
         }
