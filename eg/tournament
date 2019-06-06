@@ -27,6 +27,7 @@ my $players = {
     gtft    => [ \&cooperate, \&generous_tit_for_tat ],
     grim    => [ \&cooperate, \&grim ],
     fbf     => [ \&cooperate, \&firm_but_fair ],
+    pavlov  => [ \&cooperate, \&pavlov ],
 };
 
 my $population = [
@@ -40,6 +41,7 @@ my $population = [
     ('gtft')    x 2,
     ('grim')    x 2,
     ('fbf')     x 2,
+    ('pavlov')  x 2,
 ];
 
 my %scores;
@@ -254,6 +256,24 @@ sub firm_but_fair {
         2 => {
             1 => !( $strat1 == DEFECT && $strat2 == COOP ) ? 1 : 0,
             2 => $strat1 == DEFECT && $strat2 == COOP ? 1 : 0,
+        },
+    }
+}
+
+sub pavlov {
+    my $moves = shift;
+
+    my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
+
+    # If a reward or temptation payoff is received last round then repeat choice, otherwise opposite
+    return {
+        1 => {
+            1 => ( $strat1 == COOP && $strat2 == COOP ) || ( $strat1 == DEFECT && $strat2 == DEFECT ) ? 1 : 0,
+            2 => ( $strat1 == DEFECT && $strat2 == COOP ) || ( $strat1 == COOP && $strat2 == DEFECT ) ? 1 : 0,
+        },
+        2 => {
+            1 => ( $strat1 == COOP && $strat2 == COOP ) || ( $strat1 == DEFECT && $strat2 == DEFECT ) ? 1 : 0,
+            2 => ( $strat1 == COOP && $strat2 == DEFECT ) || ( $strat1 == DEFECT && $strat2 == COOP ) ? 1 : 0,
         },
     }
 }
