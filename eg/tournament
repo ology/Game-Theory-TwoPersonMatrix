@@ -62,12 +62,15 @@ while ( my $pair = $iter->next ) {
     $i++;
 #    print "$i: @$pair\n";
 
+    my $player   = $pair->[0];
+    my $opponent = $pair->[1];
+
     my @moves;
 
     # Set initial strategies
     my %strategy = (
-        1 => $players->{ $pair->[0] }[0]->()->{1},
-        2 => $players->{ $pair->[1] }[0]->()->{2},
+        1 => $players->{$player}[0]->()->{1},
+        2 => $players->{$opponent}[0]->()->{2},
     );
 
     for my $n ( 1 .. $max ) {
@@ -79,20 +82,20 @@ while ( my $pair = $iter->next ) {
 
         # Update the score for each player
         my ($v) = values %$play;
-        $scores{ $pair->[0] } += $v->[0];
-        $scores{ $pair->[1] } += $v->[1];
+        $scores{$player} += $v->[0];
+        $scores{$opponent} += $v->[1];
 
         if ( $v->[0] > $v->[1] ) {
-            $wins{ $pair->[0] }++;
+            $wins{$player}++;
         }
         elsif ( $v->[1] > $v->[0] ) {
-            $wins{ $pair->[1] }++;
+            $wins{$opponent}++;
         }
 
         # Set next strategies
         %strategy = (
-            1 => $players->{ $pair->[0] }[1]->(\@moves)->{1},
-            2 => $players->{ $pair->[1] }[1]->(\@moves)->{2},
+            1 => $players->{$player}[1]->(\@moves)->{1},
+            2 => $players->{$opponent}[1]->(\@moves)->{2},
         );
     }
 }
