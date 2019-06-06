@@ -88,6 +88,7 @@ and T > R > P > S is:
 And in this implementation that would be:
 
  $g = Game::Theory::TwoPersonMatrix->new(
+    %strategies,
     payoff1 => [ [ -1, -3 ], [  0, -2 ] ],  # Blue: [ R1, S1 ], [ T1, P1 ]
     payoff2 => [ [ -1,  0 ], [ -3, -2 ] ],  # Red:  [ R2, T2 ], [ S2, P2 ]
  );
@@ -95,12 +96,12 @@ And in this implementation that would be:
 Where the two player strategies are to either Cooperate (1) or Defect (2).  This
 is given by a hash for each of the two players, where the values are Boolean:
 
- %strategy = (
+ %strategies = (
     1 => { 1 => $cooporate1, 2 => $defect1 }, # Blue
     2 => { 1 => $cooporate2, 2 => $defect2 }, # Red
  );
 
-See the F<eg/play> program in this distribution for an example that exercises
+See the F<eg/> programs in this distribution for examples that exercise
 strategic variations of the prisoner's dilemma.
 
 =cut
