@@ -58,6 +58,7 @@ my $iter = combinations( $population, 2 );
 
 my $i = 0;
 
+# Play each player against the others
 while ( my $pair = $iter->next ) {
     $i++;
 #    print "$i: @$pair\n";
