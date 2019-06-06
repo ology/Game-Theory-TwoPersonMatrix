@@ -81,6 +81,7 @@ while ( my $pair = $iter->next ) {
         # The strategies are encoded in the key
         push @moves, ( keys %$play )[0];
 
+        # The payoffs are in the values
         my ($v) = values %$play;
 
         # Update the score for each player
