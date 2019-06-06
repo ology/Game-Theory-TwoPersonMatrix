@@ -1,6 +1,9 @@
 Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
+    - Improved documentation. Imagine that!
+
+0.2201 2019-06-05 17:43:22
     - Improved the eg/tournament code.
     - Improved documentation a bit.
 
