@@ -602,9 +602,11 @@ sub pareto_optimal
                 for my $c ( 0 .. $csize )
                 {
                     next if ( $r == $row && $c == $col ) || $seen{"$r,$c"}++;
+
                     my $p = $self->{payoff1}[$row][$col];
                     my $q = $self->{payoff2}[$row][$col];
 #warn "\trc:$r,$c = ($self->{payoff1}[$r][$c],$self->{payoff2}[$r][$c])\n";
+
                     if ( $p >= $self->{payoff1}[$r][$c] && $q >= $self->{payoff2}[$r][$c] )
                     {
 #warn "\t\t$row,$col > $r,$c at ($p,$q)\n";
@@ -654,8 +656,10 @@ sub nash
                 push @col, $self->{payoff1}[$r][$col];
             }
             my $cmax = max @col;
+
             my $p = $self->{payoff1}[$row][$col];
             my $q = $self->{payoff2}[$row][$col];
+
             if ( $p == $cmax && $q == $rmax )
             {
 #warn "\t$p == $cmax && $q == $rmax\n";
