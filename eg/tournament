@@ -74,7 +74,7 @@ while ( my $pair = $iter->next ) {
         2 => $players->{$opponent}[0]->()->{2},
     );
 
-    for my $n ( 1 .. $max ) {
+    for ( 1 .. $max ) {
         # Each player makes a move
         my ($play) = $g->play(%strategy);
 
