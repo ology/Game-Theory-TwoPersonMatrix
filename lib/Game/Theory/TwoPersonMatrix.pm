@@ -25,8 +25,8 @@ use List::Util::WeightedChoice qw( choose_weighted );
                 [ 3,-2, 2],
                 [ 2,-3, 1] ]
  );
- $g->row_reduce();
  $g->col_reduce();
+ $g->row_reduce();
  my $player = 1;
  my $x = $g->saddlepoint();
  $x = $g->oddments();
