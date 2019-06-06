@@ -503,13 +503,17 @@ sub mm_tally
         # Find minimum of column maximums for the opponent
         my @m = ();
         my %s = ();
+
         my $transposed = transpose( $self->{payoff2} );
+
         for my $row ( 0 .. @$transposed - 1 )
         {
             $s{$row} = min @{ $transposed->[$row] };
             push @m, $s{$row};
         }
+
         $mm_tally->{2}{value} = max @m;
+
         for my $row ( sort keys %s )
         {
             push @{ $mm_tally->{2}{strategy} }, ( $s{$row} == $mm_tally->{2}{value} ? 1 : 0 );
@@ -523,13 +527,17 @@ sub mm_tally
         # Find minimum of column maximums
         my @m = ();
         my %s = ();
+
         my $transposed = transpose( $self->{payoff} );
+
         for my $row ( 0 .. @$transposed - 1 )
         {
             $s{$row} = max @{ $transposed->[$row] };
             push @m, $s{$row};
         }
+
         $mm_tally->{2}{value} = min @m;
+
         for my $row ( sort keys %s )
         {
             push @{ $mm_tally->{2}{strategy} }, ( $s{$row} == $mm_tally->{2}{value} ? 1 : 0 );
