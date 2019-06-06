@@ -108,7 +108,7 @@ strategic variations of the prisoner's dilemma.
 
 =head1 METHODS
 
-=head2 new()
+=head2 new
 
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.5, 2 => 0.5 },
@@ -148,7 +148,7 @@ sub new {
     return $self;
 }
 
-=head2 expected_payoff()
+=head2 expected_payoff
 
  $x = $g->expected_payoff();
 
@@ -182,7 +182,7 @@ sub expected_payoff
     return $expected_payoff;
 }
 
-=head2 s_expected_payoff()
+=head2 s_expected_payoff
 
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => '(1 - p)', 2 => 'p' },
@@ -240,7 +240,7 @@ sub s_expected_payoff
     return $expected_payoff;
 }
 
-=head2 counter_strategy()
+=head2 counter_strategy
 
  $x = $g->counter_strategy($player);
 
@@ -278,7 +278,7 @@ sub counter_strategy
     return $counter_strategy;
 }
 
-=head2 saddlepoint()
+=head2 saddlepoint
 
  $x = $g->saddlepoint;
 
@@ -332,7 +332,7 @@ sub saddlepoint
     return $saddlepoint;
 }
 
-=head2 oddments()
+=head2 oddments
 
  $x = $g->oddments();
 
@@ -371,7 +371,7 @@ sub oddments
     return [ $player, $opponent ];
 }
 
-=head2 row_reduce()
+=head2 row_reduce
 
  $g->row_reduce();
 
@@ -414,7 +414,7 @@ sub row_reduce
     return $self->{payoff};
 }
 
-=head2 col_reduce()
+=head2 col_reduce
 
  $g->col_reduce();
 
@@ -476,7 +476,7 @@ sub _reduce_game
     }
 }
 
-=head2 mm_tally()
+=head2 mm_tally
 
  $x = $g->mm_tally();
 
@@ -559,7 +559,7 @@ sub _tally_max
     return $mm_tally;
 }
 
-=head2 pareto_optimal()
+=head2 pareto_optimal
 
  $x = $g->pareto_optimal();
 
@@ -607,7 +607,7 @@ sub pareto_optimal
     return $pareto_optimal;
 }
 
-=head2 nash()
+=head2 nash
 
  $x = $g->nash();
 
@@ -655,7 +655,7 @@ sub nash
     return $nash;
 }
 
-=head2 play()
+=head2 play
 
  $x = $g->play();
  $x = $g->play(%strategies);
