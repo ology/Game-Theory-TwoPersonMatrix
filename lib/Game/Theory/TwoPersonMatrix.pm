@@ -28,11 +28,11 @@ use List::Util::WeightedChoice qw( choose_weighted );
  $g->row_reduce();
  $g->col_reduce();
  my $player = 1;
- my $s = $g->saddlepoint();
- my $o = $g->oddments();
- my $e = $g->expected_payoff();
- my $c = $g->counter_strategy($player);
- my $p = $g->play();
+ my $x = $g->saddlepoint();
+ $x = $g->oddments();
+ $x = $g->expected_payoff();
+ $x = $g->counter_strategy($player);
+ $x = $g->play();
 
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.1, 2 => 0.2, 3 => 0.7 },
@@ -47,12 +47,12 @@ use List::Util::WeightedChoice qw( choose_weighted );
                  [3,4,4,1],
                  [5,6,8,2] ],
  );
- my $t = $g->mm_tally();
- my $m = $g->pareto_optimal();
- my $n = $g->nash();
- $e = $g->expected_payoff();
- $c = $g->counter_strategy($player);
- $p = $g->play();
+ $x = $g->mm_tally();
+ $x = $g->pareto_optimal();
+ $x = $g->nash();
+ $x = $g->expected_payoff();
+ $x = $g->counter_strategy($player);
+ $x = $g->play();
 
 =head1 DESCRIPTION
 
@@ -149,7 +149,7 @@ sub new {
 
 =head2 expected_payoff()
 
- $e = $g->expected_payoff();
+ $x = $g->expected_payoff();
 
 Return the expected payoff value of a game.
 
@@ -188,7 +188,7 @@ sub expected_payoff
     2 => { 1 => 1, 2 => 0 },
     payoff => [ ['a','b'], ['c','d'] ]
  );
- $s = $g->s_expected_payoff();
+ $x = $g->s_expected_payoff();
 
 Return the symbolic expected payoff expression for a non-numeric game.
 
@@ -241,7 +241,7 @@ sub s_expected_payoff
 
 =head2 counter_strategy()
 
- $c = $g->counter_strategy($player);
+ $x = $g->counter_strategy($player);
 
 Return the expected payoff, for a given player, of either a zero-sum or
 non-zero-sum game, given pure opponent strategies.
@@ -279,7 +279,7 @@ sub counter_strategy
 
 =head2 saddlepoint()
 
- $s = $g->saddlepoint;
+ $x = $g->saddlepoint;
 
 Return the saddlepoint of a zero-sum game, or C<undef> if there is none.
 
@@ -333,7 +333,7 @@ sub saddlepoint
 
 =head2 oddments()
 
- $o = $g->oddments();
+ $x = $g->oddments();
 
 Return each player's "oddments" for a 2x2 zero-sum game with no saddlepoint.
 
@@ -477,7 +477,7 @@ sub _reduce_game
 
 =head2 mm_tally()
 
- $t = $g->mm_tally();
+ $x = $g->mm_tally();
 
 For zero-sum games, return the maximum of row minimums and the minimum of column
 maximums.  For non-zero-sum games, return the maximum of row and column minimums.
@@ -560,7 +560,7 @@ sub _tally_max
 
 =head2 pareto_optimal()
 
- $m = $g->pareto_optimal();
+ $x = $g->pareto_optimal();
 
 Return the Pareto optimal outcomes for a non-zero-sum game.
 
@@ -608,7 +608,7 @@ sub pareto_optimal
 
 =head2 nash()
 
- $n = $g->nash();
+ $x = $g->nash();
 
 Identify the Nash equilibria in a non-zero-sum game.
 
@@ -656,8 +656,8 @@ sub nash
 
 =head2 play()
 
- $p = $g->play();
- $p = $g->play(%strategies);
+ $x = $g->play();
+ $x = $g->play(%strategies);
 
 Return a single outcome for a zero-sum game, or a pair for a non-zero-sum game
 as a hashref keyed by each strategy chosen and with values of the payoff(s)
