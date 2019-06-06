@@ -48,7 +48,7 @@ my %scores;
 my %wins;
 @wins{ keys %$players } = (0) x keys %$players;
 
-# A Prisoner's Dilemma
+# A prisoner's dilemma
 my $g = Game::Theory::TwoPersonMatrix->new(
     payoff1 => [ [3, 0], [5, 1] ],
     payoff2 => [ [3, 5], [0, 1] ],
