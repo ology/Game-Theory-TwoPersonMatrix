@@ -78,14 +78,14 @@ while ( my $pair = $iter->next ) {
         push @moves, ( keys %$play )[0];
 
         # Update the score for each player
-        my ($p) = values %$play;
-        $scores{ $pair->[0] } += $p->[0];
-        $scores{ $pair->[1] } += $p->[1];
+        my ($v) = values %$play;
+        $scores{ $pair->[0] } += $v->[0];
+        $scores{ $pair->[1] } += $v->[1];
 
-        if ( $p->[0] > $p->[1] ) {
+        if ( $v->[0] > $v->[1] ) {
             $wins{ $pair->[0] }++;
         }
-        elsif ( $p->[1] > $p->[0] ) {
+        elsif ( $v->[1] > $v->[0] ) {
             $wins{ $pair->[1] }++;
         }
 
