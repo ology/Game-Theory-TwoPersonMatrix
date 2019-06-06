@@ -248,7 +248,7 @@ sub s_expected_payoff
  $x = $g->counter_strategy($player);
 
 Return the expected payoff, for a given player, of either a zero-sum or
-non-zero-sum game, given pure opponent strategies.
+non-zero-sum game, given pure strategies.
 
 =cut
 
@@ -265,12 +265,13 @@ sub counter_strategy
     my @pure = ( 1, (0) x ( @keys - 1 ) );
 
     my $i = permutations( \@pure );
-    while ( my $x = $i->next )
+
+    while ( my $strategies = $i->next )
     {
-        next if $seen{"@$x"}++;
+        next if $seen{"@$strategies"}++;
 
         my $g = Game::Theory::TwoPersonMatrix->new(
-            $player   => { zip @keys, @$x },
+            $player   => { zip @keys, @$strategies },
             $opponent => $self->{$opponent},
             payoff    => $self->{payoff} || $self->{"payoff$player"},
         );
