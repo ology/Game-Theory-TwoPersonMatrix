@@ -58,16 +58,16 @@ my $iter = combinations( $population, 2 );
 
 my $i = 0;
 
-while ( my $v = $iter->next ) {
+while ( my $pair = $iter->next ) {
     $i++;
-#    print "$i: @$v\n";
+#    print "$i: @$pair\n";
 
     my @moves;
 
     # Set initial strategies
     my %strategy = (
-        1 => $players->{ $v->[0] }[0]->()->{1},
-        2 => $players->{ $v->[1] }[0]->()->{2},
+        1 => $players->{ $pair->[0] }[0]->()->{1},
+        2 => $players->{ $pair->[1] }[0]->()->{2},
     );
 
     for my $n ( 1 .. $max ) {
@@ -79,20 +79,20 @@ while ( my $v = $iter->next ) {
 
         # Update the score for each player
         my ($p) = values %$play;
-        $scores{ $v->[0] } += $p->[0];
-        $scores{ $v->[1] } += $p->[1];
+        $scores{ $pair->[0] } += $p->[0];
+        $scores{ $pair->[1] } += $p->[1];
 
         if ( $p->[0] > $p->[1] ) {
-            $wins{ $v->[0] }++;
+            $wins{ $pair->[0] }++;
         }
         elsif ( $p->[1] > $p->[0] ) {
-            $wins{ $v->[1] }++;
+            $wins{ $pair->[1] }++;
         }
 
         # Set next strategies
         %strategy = (
-            1 => $players->{ $v->[0] }[1]->(\@moves)->{1},
-            2 => $players->{ $v->[1] }[1]->(\@moves)->{2},
+            1 => $players->{ $pair->[0] }[1]->(\@moves)->{1},
+            2 => $players->{ $pair->[1] }[1]->(\@moves)->{2},
         );
     }
 }
