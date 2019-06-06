@@ -194,7 +194,7 @@ sub rev_tit_for_tat {
 
     my ( $strat1, $strat2 ) = split /,/, $moves->[-1];
 
-    # Defect, then do the opposite of whatever the opponent did the last move
+    # Do the opposite of whatever the opponent did the last move
     return {
         1 => {
             1 => $strat2 == DEFECT ? 1 : 0,
