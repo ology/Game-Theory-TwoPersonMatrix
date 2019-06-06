@@ -201,7 +201,6 @@ sub generous_tit_for_tat {
     }
 }
 
-
 sub rev_tit_for_tat {
     my $moves = shift;
 
