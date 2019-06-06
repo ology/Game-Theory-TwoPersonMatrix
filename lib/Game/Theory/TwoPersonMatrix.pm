@@ -77,13 +77,13 @@ and T > R > P > S is:
       \    | Cooperate | Defect
  Blue   \  |           |
  --------------------------------
-           | \   R2    | \   T2
- Cooperate |   \       |   \
-           | R1  \     | S1  \
+           |  \   R2   |  \   T2
+ Cooperate |    \      |    \
+           | R1   \    | S1   \
  --------------------------------
-           | \   S2    | \   P2
- Defect    |   \       |   \
-           | T1  \     | P1  \
+           |  \   S2   |  \   P2
+ Defect    |    \      |    \
+           | T1   \    | P1   \
 
 And in this implementation that would be:
 
