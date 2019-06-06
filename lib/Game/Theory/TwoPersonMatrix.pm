@@ -247,7 +247,7 @@ sub s_expected_payoff
 
  $x = $g->counter_strategy($player);
 
-Return the expected payoff, for a given player, of either a zero-sum or
+Return the expected payoff for a given player, of either a zero-sum or
 non-zero-sum game, given pure strategies.
 
 =cut
