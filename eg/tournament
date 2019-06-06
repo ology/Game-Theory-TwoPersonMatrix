@@ -28,6 +28,7 @@ my $players = {
     grim    => [ \&cooperate, \&grim ],
     fbf     => [ \&cooperate, \&firm_but_fair ],
     pavlov  => [ \&cooperate, \&pavlov ],
+    sm      => [ \&cooperate, \&soft_majority ],
 };
 
 my $population = [
@@ -42,6 +43,7 @@ my $population = [
     ('grim')    x 2,
     ('fbf')     x 2,
     ('pavlov')  x 2,
+    ('sm')      x 2,
 ];
 
 my %scores;
@@ -274,6 +276,36 @@ sub pavlov {
         2 => {
             1 => ( $strat1 == COOP && $strat2 == COOP ) || ( $strat1 == DEFECT && $strat2 == DEFECT ) ? 1 : 0,
             2 => ( $strat1 == COOP && $strat2 == DEFECT ) || ( $strat1 == DEFECT && $strat2 == COOP ) ? 1 : 0,
+        },
+    }
+}
+
+sub soft_majority {
+    my $moves = shift;
+
+    my %strat;
+
+    for my $move ( @$moves ) {
+        my ( $one, $two ) = split /,/, $move;
+
+        $strat{1}{coop}   += $one == COOP ? 1 : 0;
+        $strat{1}{defect} += $one == DEFECT ? 1 : 0;
+        $strat{2}{coop}   += $two == COOP ? 1 : 0;
+        $strat{2}{defect} += $two == DEFECT ? 1 : 0;
+    }
+
+    my $defect1 = $strat{2}{coop} < $strat{2}{defect};
+    my $defect2 = $strat{1}{coop} < $strat{1}{defect};
+
+    # Defect if the number of opponent defections is greater than their cooperations
+    return {
+        1 => {
+            1 => !$defect1 ? 1 : 0,
+            2 => $defect1 ? 1 : 0,
+        },
+        2 => {
+            1 => !$defect2 ? 1 : 0,
+            2 => $defect2 ? 1 : 0,
         },
     }
 }
