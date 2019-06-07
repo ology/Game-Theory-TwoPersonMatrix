@@ -155,8 +155,8 @@ sub new {
 
  $x = $g->expected_payoff();
 
-Return the expected payoff of a game.  This is the sum of the probabilities of
-each payoff.
+Return the expected payoff of a game.  This is the sum of the strategic
+probabilities of each payoff.
 
 =cut
 
