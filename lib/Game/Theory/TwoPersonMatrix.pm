@@ -132,6 +132,9 @@ Payoffs are given by array references of lists of outcomes.  For zero-sum games
 this is a single payoff list.  For non-zero-sum games this is given as two lists
 - one for each player.
 
+The number of row and column payoff values must equal the number of the player
+and opponent strategies, respectively.
+
 =cut
 
 sub new {
