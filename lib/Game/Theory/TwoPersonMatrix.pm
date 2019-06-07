@@ -56,7 +56,7 @@ use List::Util::WeightedChoice qw( choose_weighted );
 
 =head1 DESCRIPTION
 
-A C<Game::Theory::TwoPersonMatrix> analyzes a two person matrix game of player
+C<Game::Theory::TwoPersonMatrix> analyzes a two person matrix game of player
 names, strategies and utilities ("payoffs").
 
 Players 1 and 2 are the "row" and "column" players, respectively.  This is due
