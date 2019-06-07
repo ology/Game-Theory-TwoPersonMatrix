@@ -195,6 +195,7 @@ sub expected_payoff
     payoff => [ ['a','b'], ['c','d'] ]
  );
  $x = $g->s_expected_payoff();
+ # (1 - p) * 1 * a + (1 - p) * 0 * b + p * 1 * c + p * 0 * d
 
 Return the symbolic expected payoff expression for a non-numeric game.
 
