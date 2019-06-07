@@ -629,7 +629,7 @@ sub pareto_optimal
 
  $x = $g->nash();
 
-Identify the Nash equilibria in a non-zero-sum game.
+Identify the Nash equilibria.
 
 Given payoff pair C<(a,b)>, B<a> is maximum for its column and B<b> is maximum
 for its row.
