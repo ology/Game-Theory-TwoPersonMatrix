@@ -93,8 +93,8 @@ And in this implementation that would be:
     payoff2 => [ [ -1,  0 ], [ -3, -2 ] ],  # Red:  [ R2, T2 ], [ S2, P2 ]
  );
 
-Where the two player strategies are to either Cooperate (1) or Defect (2).  This
-is given by a hash for each of the two players, where the values are Boolean:
+The two player strategies are to either cooperate (1) or defect (2).  This is
+given by a hash for each of the two players, where the values are Boolean:
 
  %strategies = (
     1 => { 1 => $cooporate1, 2 => $defect1 }, # Blue
