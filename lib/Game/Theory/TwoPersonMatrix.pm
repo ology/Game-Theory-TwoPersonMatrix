@@ -126,7 +126,7 @@ strategic variations of the prisoner's dilemma.
 Create a new C<Game::Theory::TwoPersonMatrix> object.
 
 Player strategies are given by a hash reference of numbered keys - one for each
-strategy.  These are each assumed to add to 1.  Otherwise YMMV.
+strategy.  The values of these are assumed to add to 1.  Otherwise YMMV.
 
 Payoffs are given by array references of lists of outcomes.  For zero-sum games
 this is a single payoff list.  For non-zero-sum games this is given as two lists
