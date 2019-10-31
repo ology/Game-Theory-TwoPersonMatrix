@@ -2,6 +2,7 @@ Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
     - Improved documentation.
+    - Added List::Util version prerequisite.
 
 0.2203 2019-06-06 23:23:04
     - Improved documentation.
