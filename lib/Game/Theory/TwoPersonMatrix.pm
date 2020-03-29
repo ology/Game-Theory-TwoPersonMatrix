@@ -28,10 +28,10 @@ use List::Util::WeightedChoice qw( choose_weighted );
  );
  $g->col_reduce;
  $g->row_reduce;
- my $player = 1;
  my $x = $g->saddlepoint;
  $x = $g->oddments;
  $x = $g->expected_payoff;
+ my $player = 1;
  $x = $g->counter_strategy($player);
  $x = $g->play;
 
