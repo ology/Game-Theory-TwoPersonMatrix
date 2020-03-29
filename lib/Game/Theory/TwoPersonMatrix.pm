@@ -18,6 +18,7 @@ use List::Util::WeightedChoice qw( choose_weighted );
 
  use Game::Theory::TwoPersonMatrix;
 
+ # zero-sum game
  my $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.2, 2 => 0.3, 3 => 0.5 },
     2 => { 1 => 0.1, 2 => 0.7, 3 => 0.2 },
@@ -25,15 +26,16 @@ use List::Util::WeightedChoice qw( choose_weighted );
                 [ 3,-2, 2],
                 [ 2,-3, 1] ]
  );
- $g->col_reduce();
- $g->row_reduce();
+ $g->col_reduce;
+ $g->row_reduce;
  my $player = 1;
- my $x = $g->saddlepoint();
- $x = $g->oddments();
- $x = $g->expected_payoff();
+ my $x = $g->saddlepoint;
+ $x = $g->oddments;
+ $x = $g->expected_payoff;
  $x = $g->counter_strategy($player);
- $x = $g->play();
+ $x = $g->play;
 
+ # non-zero-sum game
  $g = Game::Theory::TwoPersonMatrix->new(
     1 => { 1 => 0.1, 2 => 0.2, 3 => 0.7 },
     2 => { 1 => 0.1, 2 => 0.2, 3 => 0.3, 4 => 0.4 },
@@ -47,12 +49,12 @@ use List::Util::WeightedChoice qw( choose_weighted );
                  [3,4,4,1],
                  [5,6,8,2] ],
  );
- $x = $g->mm_tally();
- $x = $g->pareto_optimal();
- $x = $g->nash();
- $x = $g->expected_payoff();
+ $x = $g->mm_tally;
+ $x = $g->pareto_optimal;
+ $x = $g->nash;
+ $x = $g->expected_payoff;
  $x = $g->counter_strategy($player);
- $x = $g->play();
+ $x = $g->play;
 
 =head1 DESCRIPTION
 
@@ -68,8 +70,8 @@ This is due to the tabular format of a matrix game:
  Player |   0.5    1   -1  < Payoff
     1   |   0.5   -1    1  <
 
-A non-zero sum game is represented by two payoff profiles, as in the
-SYNOPSIS.
+A non-zero-sum game is represented by two payoff profiles, as in the
+SYNOPSIS and the prisoner's dilemma.
 
 A prisoner's dilemma, where Blue is the row player, Red is the column
 player, and T > R > P > S is:
@@ -90,21 +92,21 @@ And in this implementation that would be:
 
  $g = Game::Theory::TwoPersonMatrix->new(
     %strategies,
-    payoff1 => [ [ -1, -3 ], [  0, -2 ] ],  # Blue: [ R1, S1 ], [ T1, P1 ]
-    payoff2 => [ [ -1,  0 ], [ -3, -2 ] ],  # Red:  [ R2, T2 ], [ S2, P2 ]
+    payoff1 => [[ -1, -3 ], [  0, -2 ]], # Blue: [[ R1, S1 ], [ T1, P1 ]]
+    payoff2 => [[ -1,  0 ], [ -3, -2 ]], # Red:  [[ R2, T2 ], [ S2, P2 ]]
  );
 
 The two player strategies are to either cooperate (1) or defect (2).
 This is given by a hash for each of the two players, where the values
-are Boolean:
+are Boolean 1 or 0:
 
  %strategies = (
     1 => { 1 => $cooporate1, 2 => $defect1 }, # Blue
     2 => { 1 => $cooporate2, 2 => $defect2 }, # Red
  );
 
-See the F<eg/> programs in this distribution for examples that
-exercise strategic variations of the prisoner's dilemma.
+See the F<eg/tournament> program in this distribution for examples
+that exercise strategic variations of the prisoner's dilemma.
 
 =cut
 
@@ -157,7 +159,7 @@ sub new {
 
 =head2 expected_payoff
 
- $x = $g->expected_payoff();
+ $x = $g->expected_payoff;
 
 Return the expected payoff of a game.  This is the sum of the
 strategic probabilities of each payoff.
@@ -198,7 +200,7 @@ sub expected_payoff
     2 => { 1 => 1, 2 => 0 },
     payoff => [ ['a','b'], ['c','d'] ]
  );
- $x = $g->s_expected_payoff();
+ $x = $g->s_expected_payoff;
  # (1 - p) * 1 * a + (1 - p) * 0 * b + p * 1 * c + p * 0 * d
 
 Return the symbolic expected payoff expression for a non-numeric game.
@@ -284,7 +286,7 @@ sub counter_strategy
             payoff    => $self->{payoff} || $self->{"payoff$player"},
         );
 
-        push @$counter_strategy, $g->expected_payoff();
+        push @$counter_strategy, $g->expected_payoff;
     }
 
     return $counter_strategy;
@@ -348,7 +350,7 @@ sub saddlepoint
 
 =head2 oddments
 
- $x = $g->oddments();
+ $x = $g->oddments;
 
 Return each player's "oddments" for a 2x2 zero-sum game with no
 saddlepoint.
@@ -388,7 +390,7 @@ sub oddments
 
 =head2 row_reduce
 
- $g->row_reduce();
+ $g->row_reduce;
 
 Reduce a zero-sum game by identifying and eliminating strictly
 dominated rows and their associated player strategies.
@@ -431,7 +433,7 @@ sub row_reduce
 
 =head2 col_reduce
 
- $g->col_reduce();
+ $g->col_reduce;
 
 Reduce a zero-sum game by identifying and eliminating strictly
 dominated columns and their associated opponent strategies.
@@ -493,7 +495,7 @@ sub _reduce_game
 
 =head2 mm_tally
 
- $x = $g->mm_tally();
+ $x = $g->mm_tally;
 
 For zero-sum games, return the maximum of row minimums and the minimum
 of column maximums.  For non-zero-sum games, return the maximum of row
@@ -585,7 +587,7 @@ sub _tally_max
 
 =head2 pareto_optimal
 
- $x = $g->pareto_optimal();
+ $x = $g->pareto_optimal;
 
 Return the Pareto optimal outcomes for a non-zero-sum game.
 
@@ -635,7 +637,7 @@ sub pareto_optimal
 
 =head2 nash
 
- $x = $g->nash();
+ $x = $g->nash;
 
 Identify the Nash equilibria.
 
@@ -685,7 +687,7 @@ sub nash
 
 =head2 play
 
- $x = $g->play();
+ $x = $g->play;
  $x = $g->play(%strategies);
 
 Return a single outcome for a zero-sum game, or a pair for a
