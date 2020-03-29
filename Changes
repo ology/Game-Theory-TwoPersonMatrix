@@ -2,7 +2,7 @@ Revision history for Game-Theory-TwoPersonMatrix
 
 {{$NEXT}}
     - Use List::SomeUtils, not MoreUtils.
-    - Clean-up documentation formatting.
+    - Improve documentation.
 
 0.2204 2019-10-30 23:45:27
     - Improved documentation.
