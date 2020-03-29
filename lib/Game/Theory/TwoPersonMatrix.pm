@@ -10,7 +10,7 @@ our $VERSION = '0.2204';
 use Carp;
 use Algorithm::Combinatorics qw( permutations );
 use Array::Transpose;
-use List::MoreUtils qw( all zip );
+use List::SomeUtils qw( all zip );
 use List::Util qw( max min sum0 );
 use List::Util::WeightedChoice qw( choose_weighted );
 
