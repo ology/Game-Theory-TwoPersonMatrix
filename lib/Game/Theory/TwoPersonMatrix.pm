@@ -116,6 +116,7 @@ strategic variations of the prisoner's dilemma.
     payoff => [ [1,0],
                 [0,1] ]
  );
+
  $g = Game::Theory::TwoPersonMatrix->new(
     payoff1 => [ [2,3],
                  [2,1] ],
