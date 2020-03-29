@@ -56,11 +56,11 @@ use List::Util::WeightedChoice qw( choose_weighted );
 
 =head1 DESCRIPTION
 
-C<Game::Theory::TwoPersonMatrix> analyzes a two person matrix game of player
-names, strategies and utilities ("payoffs").
+C<Game::Theory::TwoPersonMatrix> analyzes a two person matrix game of
+player names, strategies and utilities ("payoffs").
 
-Players 1 and 2 are the "row" and "column" players, respectively.  This is due
-to the tabular format of a matrix game:
+Players 1 and 2 are the "row" and "column" players, respectively.
+This is due to the tabular format of a matrix game:
 
                   Player 2
                   --------
@@ -68,10 +68,11 @@ to the tabular format of a matrix game:
  Player |   0.5    1   -1  < Payoff
     1   |   0.5   -1    1  <
 
-A non-zero sum game is represented by two payoff profiles, as in the SYNOPSIS.
+A non-zero sum game is represented by two payoff profiles, as in the
+SYNOPSIS.
 
-A prisoner's dilemma, where Blue is the row player, Red is the column player,
-and T > R > P > S is:
+A prisoner's dilemma, where Blue is the row player, Red is the column
+player, and T > R > P > S is:
 
     \  Red |           |
       \    | Cooperate | Defect
@@ -93,16 +94,17 @@ And in this implementation that would be:
     payoff2 => [ [ -1,  0 ], [ -3, -2 ] ],  # Red:  [ R2, T2 ], [ S2, P2 ]
  );
 
-The two player strategies are to either cooperate (1) or defect (2).  This is
-given by a hash for each of the two players, where the values are Boolean:
+The two player strategies are to either cooperate (1) or defect (2).
+This is given by a hash for each of the two players, where the values
+are Boolean:
 
  %strategies = (
     1 => { 1 => $cooporate1, 2 => $defect1 }, # Blue
     2 => { 1 => $cooporate2, 2 => $defect2 }, # Red
  );
 
-See the F<eg/> programs in this distribution for examples that exercise
-strategic variations of the prisoner's dilemma.
+See the F<eg/> programs in this distribution for examples that
+exercise strategic variations of the prisoner's dilemma.
 
 =cut
 
@@ -126,15 +128,16 @@ strategic variations of the prisoner's dilemma.
 
 Create a new C<Game::Theory::TwoPersonMatrix> object.
 
-Player strategies are given by a hash reference of numbered keys - one for each
-strategy.  The values of these are assumed to add to 1.  Otherwise YMMV.
+Player strategies are given by a hash reference of numbered keys - one
+for each strategy.  The values of these are assumed to add to 1.
+Otherwise YMMV.
 
-Payoffs are given by array references of lists of outcomes.  For zero-sum games
-this is a single payoff list.  For non-zero-sum games this is given as two lists
-- one for each player.
+Payoffs are given by array references of lists of outcomes.  For
+zero-sum games this is a single payoff list.  For non-zero-sum games
+this is given as two lists - one for each player.
 
-The number of row and column payoff values must equal the number of the player
-and opponent strategies, respectively.
+The number of row and column payoff values must equal the number of
+the player and opponent strategies, respectively.
 
 =cut
 
@@ -156,8 +159,8 @@ sub new {
 
  $x = $g->expected_payoff();
 
-Return the expected payoff of a game.  This is the sum of the strategic
-probabilities of each payoff.
+Return the expected payoff of a game.  This is the sum of the
+strategic probabilities of each payoff.
 
 =cut
 
@@ -200,8 +203,8 @@ sub expected_payoff
 
 Return the symbolic expected payoff expression for a non-numeric game.
 
-Using real payoff values, we solve the resulting expression for B<p> in the
-F<eg/> examples.
+Using real payoff values, we solve the resulting expression for B<p>
+in the F<eg/> examples.
 
 =cut
 
@@ -291,9 +294,11 @@ sub counter_strategy
 
  $x = $g->saddlepoint;
 
-Return the saddlepoint of a zero-sum game, or C<undef> if there is none.
+Return the saddlepoint of a zero-sum game, or C<undef> if there is
+none.
 
-A saddlepoint is simultaneously minimum for its row and maximum for its column.
+A saddlepoint is simultaneously minimum for its row and maximum for
+its column.
 
 =cut
 
@@ -345,7 +350,8 @@ sub saddlepoint
 
  $x = $g->oddments();
 
-Return each player's "oddments" for a 2x2 zero-sum game with no saddlepoint.
+Return each player's "oddments" for a 2x2 zero-sum game with no
+saddlepoint.
 
 =cut
 
@@ -384,8 +390,8 @@ sub oddments
 
  $g->row_reduce();
 
-Reduce a zero-sum game by identifying and eliminating strictly dominated rows
-and their associated player strategies.
+Reduce a zero-sum game by identifying and eliminating strictly
+dominated rows and their associated player strategies.
 
 =cut
 
@@ -427,8 +433,8 @@ sub row_reduce
 
  $g->col_reduce();
 
-Reduce a zero-sum game by identifying and eliminating strictly dominated columns
-and their associated opponent strategies.
+Reduce a zero-sum game by identifying and eliminating strictly
+dominated columns and their associated opponent strategies.
 
 =cut
 
@@ -489,8 +495,9 @@ sub _reduce_game
 
  $x = $g->mm_tally();
 
-For zero-sum games, return the maximum of row minimums and the minimum of column
-maximums.  For non-zero-sum games, return the maximum of row and column minimums.
+For zero-sum games, return the maximum of row minimums and the minimum
+of column maximums.  For non-zero-sum games, return the maximum of row
+and column minimums.
 
 =cut
 
@@ -632,8 +639,8 @@ sub pareto_optimal
 
 Identify the Nash equilibria.
 
-Given payoff pair C<(a,b)>, B<a> is maximum for its column and B<b> is maximum
-for its row.
+Given payoff pair C<(a,b)>, B<a> is maximum for its column and B<b> is
+maximum for its row.
 
 =cut
 
@@ -681,12 +688,12 @@ sub nash
  $x = $g->play();
  $x = $g->play(%strategies);
 
-Return a single outcome for a zero-sum game, or a pair for a non-zero-sum game
-as a hashref keyed by each strategy chosen and with values of the payoff(s)
-earned.
+Return a single outcome for a zero-sum game, or a pair for a
+non-zero-sum game as a hashref keyed by each strategy chosen and with
+values of the payoff(s) earned.
 
-An optional list of player strategies can be provided.  This is a hash of the
-same type of strategies that are given to the constructor.
+An optional list of player strategies can be provided.  This is a hash
+of the same type of strategies that are given to the constructor.
 
 =cut
 
